@@ -1,14 +1,9 @@
-import Head from 'next/head'
-import Test from '../components/test'
-
+import Head from "next/head";
 
 export default function Home() {
-  return (
-    <div>
-      <p className = "text-red-500">
-        Hello Next 
-        <Test/>
-      </p>
-    </div>
-  )
+	return (
+		<div>
+			<p className="text-red-500">Hello</p>
+		</div>
+	);
 }
