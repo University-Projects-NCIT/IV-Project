@@ -10,7 +10,9 @@ class ProfileImage(models.Model):
     image = models.ImageField(
         verbose_name  = ("Product profile image "),
         help_text = ("Product profile images ,logo, icons  "),
-        upload_to="images/") 
+        upload_to="images/",
+        default = "images/default.png"
+        ) 
 
     created_at = models.DateTimeField(verbose_name=("Created at"), auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name=("Updated at"), auto_now_add=True)
@@ -26,8 +28,9 @@ class User(models.Model):
     profile_image = models.ForeignKey(
         ProfileImage,
         verbose_name= ("User Profile Image "),
-        on_delete= models.CASCADE,
-        
+        null = True,
+        on_delete = models.SET_NULL,
+        default = 'images/default.png'
         )
     email = models.EmailField(verbose_name = ("UserEmail"), max_length=254, unique = True)
     password = models.CharField(verbose_name = ("User password "), max_length=50, unique = True)
@@ -39,6 +42,15 @@ class Product(models.Model):
     etc. suppose to be product that is 
     posted by users.
     """
+
+    ACTIVE = "at"
+    UPCOMMING = "up"
+    # make two choice for porduct status 
+    PRODUCT_STATUS_CHOICES = [
+        (ACTIVE, "active"),
+        (UPCOMMING, "upcoming")
+        ]
+
     productID = models.CharField(
         verbose_name = ("prodcut id "),
         help_text = ("Required and Unique"),
@@ -46,6 +58,12 @@ class Product(models.Model):
         max_length=50,
         primary_key = True,
     )
+    product_status = models.CharField(
+        verbose_name = ("Product Status "),
+        help_text =("Select product status "),
+        choices = PRODUCT_STATUS_CHOICES,
+        max_length=50
+        )
     title = models.CharField(
         verbose_name = ("Product Name "),
         help_text = ("Required "),
@@ -74,7 +92,9 @@ class Product(models.Model):
     profile_image = models.ForeignKey(
         ProfileImage,
         verbose_name= ("Product icon or logo"),
-        on_delete= models.CASCADE
+        null = True,
+        on_delete = models.SET_NULL,
+        default = 'images/default.png'
         )
     created_at = models.DateTimeField(("Created at"), auto_now_add=True,editable = False)
     created_by = models.ForeignKey( 

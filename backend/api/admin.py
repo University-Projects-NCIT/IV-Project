@@ -12,6 +12,7 @@ from .models import (
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ["productID",
+    "product_status",
     "title",
     "tagline",
     "description",
