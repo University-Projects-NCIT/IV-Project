@@ -9,7 +9,7 @@ const ProductList = (props) =>{
     const [data, setData] = useState(initialValue)
     return (
         <>
-            <div className="container w-screen font-sans bg-primary text-gray-100"> 
+            <div className=" w-full font-sans bg-primary text-gray-100 "> 
                 <div className="flex ">
                     <div className="w-16 h-16">
                         <img src = "../images/snapchat.png"/>
@@ -55,12 +55,13 @@ const ProductList = (props) =>{
 
 const ProductListCard = () =>{
     return (
-        <div className="m-4 bg-red-500 rounded-lg flex flex-col justify-center items-center bg-gray-50">
+        <div className="bg-red-500 rounded-lg  container md:m-auto md:mt-7 overflow-hidden m-auto">
                 
                   <ProductList/>
                   <ProductList/>
                   <ProductList/>
-                  <ProductList/>
+            <ProductList />
+            
         </div>
     )
 }
