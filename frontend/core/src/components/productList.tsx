@@ -9,7 +9,7 @@ const ProductList = (props) =>{
     const [data, setData] = useState(initialValue)
     return (
         <>
-            <div className="container w-screen font-sans bg-primary text-gray-100"> 
+            <div className="w-screen font-sans bg-primary text-gray-100"> 
                 <div className="flex ">
                     <div className="w-16 h-16">
                         <img src = "../images/snapchat.png"/>
@@ -27,11 +27,7 @@ const ProductList = (props) =>{
                 <div className="line"></div>
             </div>
 
-
             <style jsx>{`
-            .container{
-                
-            }
 
             .line{
                 width: 100%;
