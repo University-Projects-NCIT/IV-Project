@@ -36,11 +36,8 @@ class ProductCommentAdmin(admin.ModelAdmin):
     
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ["userID","profile_image","email","password","token"]
+    list_display = ["userID","profile_image","email","username","is_staff","created_at","auth_providers"]
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ["id","name","product"]
-    
-
-
