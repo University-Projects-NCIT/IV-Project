@@ -24,13 +24,6 @@ from .models import(
 )
 
 ### Custom filter 
-#TODO 
-class ProductSearchFilter(filters.SearchFilter):
-    def get_search_fields(self, view ,request ):
-        if request.request.query_params.get('title_only'):
-            return ['title']
-        return super(ProductSearchFilter, self).get_search_fields(view, request)
-
 
 # Product api
 class ProductViewSet(viewsets.ModelViewSet):
@@ -40,7 +33,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     ## Table column created_at and upvote
     ordering_fields = ['created_at','upvote']
     ## databse table should have fields column titile and tagline
-    search_fields = ['title', 'tagline','username']
+    search_fields = ['$title', '$tagline']
     ## Paginations to get product list 
     pagination_class = ProductLimitOffsetPagination
 
