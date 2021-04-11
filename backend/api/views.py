@@ -40,7 +40,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     ## Table column created_at and upvote
     ordering_fields = ['created_at','upvote']
     ## databse table should have fields column titile and tagline
-    search_fields = ['title', 'tagline','username']
+    search_fields = ['$title', '$tagline']
     ## Paginations to get product list 
     pagination_class = ProductLimitOffsetPagination
 

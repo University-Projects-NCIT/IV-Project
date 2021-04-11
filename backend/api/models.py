@@ -25,6 +25,7 @@ class User(models.Model):
         max_length=100,
         primary_key = True,
     )
+    
     profile_image = models.ForeignKey(
         ProfileImage,
         verbose_name= ("User Profile Image "),
@@ -32,8 +33,16 @@ class User(models.Model):
         on_delete = models.SET_NULL,
         default = 'images/default.png'
         )
+
+    username = models.CharField(
+        verbose_name = ("User Name "),
+        unique= True, 
+        blank= False,
+        null = False ,
+        max_length= 50
+        )
+
     email = models.EmailField(verbose_name = ("UserEmail"), max_length=254, unique = True)
-    username = models.CharField(verbose_name = ("User Name "), unique= True, blank= False, null = False ,max_length= 50)
     is_staff = models.BooleanField(verbose_name=("Staff "), default= False)
     created_at = models.DateTimeField(verbose_name = ("Created At"),  auto_now_add=True)
     auth_providers = models.CharField(verbose_name =("Auth providers "), max_length=100, default = "email")
