@@ -24,13 +24,6 @@ from .models import(
 )
 
 ### Custom filter 
-#TODO 
-class ProductSearchFilter(filters.SearchFilter):
-    def get_search_fields(self, view ,request ):
-        if request.request.query_params.get('title_only'):
-            return ['title']
-        return super(ProductSearchFilter, self).get_search_fields(view, request)
-
 
 # Product api
 class ProductViewSet(viewsets.ModelViewSet):
