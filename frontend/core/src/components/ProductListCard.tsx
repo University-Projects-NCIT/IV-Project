@@ -8,7 +8,7 @@ const ProductListCard: React.FC = () =>{
      */
 
     return (
-        <div className="bg-red-500 rounded-lg  container md:m-auto md:mt-7 overflow-hidden m-auto">     
+        <div className="bg-red-500 rounded-lg ml-16 m-2  overflow-hidden ">     
             <ProductListItem/>
             <ProductListItem/>
             <ProductListItem/>

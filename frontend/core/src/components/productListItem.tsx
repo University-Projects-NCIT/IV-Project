@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React ,{ useState } from 'react';
 
 interface ProductInterface{
     title : string
@@ -10,19 +10,20 @@ const ProductListItem: React.FC = (props) =>{
     /**
      * @returns the each single product list 
      */
-    
+
     const initialValue = {
         title: "Instagram App",
         tagline: "The way to share your photo to the world .",
         category: ["IOS","Android","Wesite"]
     }
+
     const [data, setData] = useState<ProductInterface>(initialValue)
     return (
         <>
             <div className="w-screen bg-primary text-gray-100"> 
                 <div className="flex ">
-                    <div className="w-16 h-16">
-                        <img src = "../public/images/snapchat.png"/>
+                    <div className="w-16 h-16 mt-2 ml-4 mr-4">
+                        <img src = "./images/snapchat.png" alt="product image logo"/>
                     </div>
                     <div>
                         <h4 className="mt-1">{data.title}</h4>
