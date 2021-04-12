@@ -45,7 +45,7 @@ class Product(models.Model):
 
     ACTIVE = "at"
     UPCOMMING = "up"
-    # make two choice for porduct status 
+    # make two choice for product status 
     PRODUCT_STATUS_CHOICES = [
         (ACTIVE, "active"),
         (UPCOMMING, "upcoming")
