@@ -61,7 +61,8 @@
 
 @font-face {
 	font-family: "Metropolis";
-	src: url("../assets/fonts/metropolis/Metropolis-Black.ttf") format("truetype");
+	src: url("../assets/fonts/metropolis/Metropolis-Black.ttf")
+		format("truetype");
 	font-weight: 900;
 	font-style: normal;
 }

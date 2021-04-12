@@ -42,7 +42,7 @@ class ProductCommentSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields =["userID","profile_image","email","password","token"]
+        fields =["userID","profile_image","email","username", "is_staff","created_at","auth_providers"]
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:

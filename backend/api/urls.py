@@ -15,10 +15,12 @@ router = DefaultRouter()
 
 # route for all the product list 
 router.register(f'products', ProductViewSet, 'Product')
+# route for product feature images 
+router.register(f'product_images', ProductImageViewSet, 'Product Images')
 # route for all the comment od products
 router.register(f'comments', ProductCommentViewSet, 'Comment')
 # api route for profile images table
-router.register(f'profile-images', ProfileImageViewSet, 'Profile Image')
+router.register(f'profile_images', ProfileImageViewSet, 'Profile Image')
 # api route for user table 
 router.register(f'users', ProductImageViewSet, 'User')
 # api route for Category of product table 

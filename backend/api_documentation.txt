@@ -1,0 +1,58 @@
+
+query all products : 
+    /products 
+    -> get all the products 
+
+    /products/?limit=3&offset=10 
+    -> paginated list 
+    -> limit is page size and offset is where to start 
+
+    /products/?m_order = 'upvote' or 
+    -> Orders according to upvote as highest upvote comes first
+
+    /products/?m_order = 'created_at'
+    -> Orders according to created_at time as newest come first
+
+query product images :
+    /product_images/
+    -> get all the images from product images table
+
+    /product_images/?productID="12344"
+    -> get the specific images associated with that product only 
+
+    /product_images/?ordering=-created_at
+    -> Order according to the newest aadded images
+
+query comments of product :
+    /comments/
+    -> get all the comments 
+
+    /comments/?productID="1234"/
+    -> get the all product's comments
+
+    -> Ordering is by default set as newsest records comes in first
+
+query profile image :
+    /profile_images/
+    -> all the images (not secure avoid to use)
+
+    /product_images/3 
+    -> where 3 is id of image 
+
+query all the user :
+    /users 
+    -> (unsecure) 
+    -> gives all the info of user from user table 
+
+    /user/id
+    -> where id is user id 
+
+query the categories :
+    /categories
+    -> get all the data from category table 
+
+    /categories/productID ="dfsds343"
+    -> should specify the productid here
+    
+
+
