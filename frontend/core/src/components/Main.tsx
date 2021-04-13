@@ -5,8 +5,7 @@ const Main: React.FC = () =>{
 return(
    <>
     <div className="flex flex-col w-screen h-screen bg-white-500">
-        <div className="header w-screen h-1/4 bg-blue-500 static "></div>
-
+        <div className="header w-full h-1/4 bg-blue-500 static "></div>   
         <MainContent/>
     </div>
 

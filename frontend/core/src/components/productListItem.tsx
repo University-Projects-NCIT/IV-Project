@@ -20,7 +20,7 @@ const ProductListItem: React.FC = (props) =>{
     const [data, setData] = useState<ProductInterface>(initialValue)
     return (
         <>
-            <div className="w-screen bg-primary text-gray-100"> 
+            <div className="w-full bg-item_list_bg text-gray-100"> 
                 <div className="flex ">
                     <div className="w-16 h-16 mt-2 ml-4 mr-4">
                         <img src = "./images/snapchat.png" alt="product image logo"/>
