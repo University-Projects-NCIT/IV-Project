@@ -14,9 +14,13 @@ const Search: React.FC = () => {
           color : #ffffff;
           padding: .2rem;
           padding-left: 1rem;
+          -webkit-transition: box-shadow 0.3s;
+          transition: box-shadow 0.3s;
         }
         .input:focus{
             outline-offset: 0px;
+            outline: none;
+            box-shadow: 1px 0.3px 9px .1px #111E6C;
         }
       `}  
     </style>
