@@ -59,12 +59,12 @@ const MainContent: React.FC = () => {
                             <button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70">Newest</button>
                         </div>
                         <ProductListCard/>
-                        {/* <ProductListCard/>
-                        <ProductListCard/> */}
+                        <ProductListCard/>
+                        <ProductListCard/>
                     </div>
                     <div className="right-container h-auto pt-3 mr-4 lg:mr-40">
                         <UpcommingProductCard />
-                        {/* <NewsLatterCard/> */}
+                        <NewsLatterCard/>
                     </div>
                 </div>   
             </div>
