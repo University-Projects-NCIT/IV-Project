@@ -20,23 +20,23 @@ const MainContent: React.FC = () =>{
             <div className="h-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10">
                <div className="w-16 h-16 rounded-full m-auto relative -mt-8 mb-4">
                    <div className="profile-image-back w-16 h-16 rounded-full absolute"></div>
-                   <div className="absolute"><img src="./images/michaeljackson.jpg" className="w-16 h-16 rounded-full"/></div>
+                   <div className="absolute cursor-pointer"><img src="./images/michaeljackson.jpg" className="w-16 h-16 rounded-full"/></div>
                </div>
                <IconContext.Provider
                     value={{ color: '#ffffff', size: '1.5rem' }}>
                     <div>
                         <div className="flex flex-row w-32 m-auto justify-center">
-                            <div className="w-6 h-6 -mt-3 realtive">
+                            <div className="w-6 h-6 -mt-3 realtive cursor-pointer">
                                 <div className="option-btn w-6 h-6 rounded-full absolute"></div>
                                 <div className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary"><FiMoreHorizontal/></div>
                             </div>
-                            <div className="w-6 h-6 m-2 realtive">
+                            <div className="w-6 h-6 m-2 realtive cursor-pointer">
                                 <div className="option-btn w-6 h-6 rounded-full absolute"></div>
                                 <div className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary"><MdAdd/></div>
                             </div>
                             <IconContext.Provider
                             value={{color:'#F39912', size:'1.3rem' }}>
-                            <div className="w-6 h-6 -mt-3 realtive">
+                            <div className="w-6 h-6 -mt-3 realtive cursor-pointer">
                                 <div className="option-btn w-6 h-6 rounded-full absolute"></div>
                                 <div className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary"><IoMdNotifications className="m-auto"/></div>
                             </div>
