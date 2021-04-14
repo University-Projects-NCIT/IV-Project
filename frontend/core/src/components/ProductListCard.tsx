@@ -8,12 +8,21 @@ const ProductListCard: React.FC = () =>{
      */
 
     return (
-        <div className="bg-red-500 rounded-lg ml-16 m-2  overflow-hidden ">     
-            <ProductListItem/>
-            <ProductListItem/>
-            <ProductListItem/>
-            <ProductListItem/>
-        </div>
+        <>
+            <div className="flex flex-row pb-4 text-white justify-between">
+                <div className="text-lg">Today's Product</div>
+            </div>
+            <div className="rounded mb-4 overflow-hidden w-full h-auto">     
+                <ProductListItem/>
+                <ProductListItem/>
+                <ProductListItem/>
+                <ProductListItem/> 
+            </div>
+
+            <style jsx>{`
+
+            `}</style>
+        </>
     )
 }
 
