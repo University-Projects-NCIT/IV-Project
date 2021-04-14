@@ -5,6 +5,8 @@ import {MdAdd} from 'react-icons/md'
 import {IoMdNotifications} from 'react-icons/io'
 import { IconContext } from 'react-icons/lib'
 import Search from './Search'
+import UpcommingProductCard from './UpcommingProductCard'
+import NewsLatterCard from './NewsLatterCard'
 
 const MainContent: React.FC = () =>{
     /**
@@ -48,17 +50,20 @@ const MainContent: React.FC = () =>{
 
                 <div className="w-screen flex flex-row mt-8">
                     
-                    <div className="left-container h-auto flex flex-col pl-32 pr-4">
+                    <div className="left-container h-auto flex flex-col sm:pl-32 pr-4 pl-4">
                         <div className="flex flex-row text-white justify-end -mb-4">
-                            <button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 ">Popular</button>
+                            <button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70">Popular</button>
                             <div className="line"></div>
-                            <button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60">Newest</button>
+                            <button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70">Newest</button>
                         </div>
                         <ProductListCard/>
                         {/* <ProductListCard/>
                         <ProductListCard/> */}
                     </div>
-                    <div className="right-container h-auto bg-blue-700"></div>
+                    <div className="right-container h-auto pt-3 mr-4 lg:mr-40">
+                        <UpcommingProductCard />
+                        {/* <NewsLatterCard/> */}
+                    </div>
                 </div>   
             </div>
 
@@ -86,14 +91,15 @@ const MainContent: React.FC = () =>{
                     width: 3px;
                     height: 100%;
                     background: linear-gradient(#2F80ED,#EC1616);
+
+                }
                 }
 
                 .left-container{
-                    width: 1000%;
+                    width: 100%;
                 }
 
                 .right-container{
-                    width: 0%;
                     display: none;
                 }
 
