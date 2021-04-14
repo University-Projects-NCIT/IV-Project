@@ -9,10 +9,10 @@ const ProductListCard: React.FC = () =>{
 
     return (
         <>
-            <div className="flex flex-row pl-16 pb-4 text-white justify-between">
+            <div className="flex flex-row pb-4 text-white justify-between">
                 <div className="text-lg">Today's Product</div>
             </div>
-            <div className="rounded-lg pr-4 pb-4 pl-16 overflow-hidden w-full h-auto">     
+            <div className="rounded mb-4 overflow-hidden w-full h-auto">     
                 <ProductListItem/>
                 <ProductListItem/>
                 <ProductListItem/>

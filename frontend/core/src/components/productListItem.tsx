@@ -20,8 +20,8 @@ const ProductListItem: React.FC = (props) =>{
     const [data, setData] = useState<ProductInterface>(initialValue)
     return (
         <>
-            <div className="w-full bg-item_list_bg text-gray-100"> 
-                <div className="flex ">
+            <div className="w-full bg-item_list_bg text-gray-100 flex flex-col"> 
+                <div className="flex pt-4 pb-4">
                     <div className="w-16 h-16 mt-2 ml-4 mr-4">
                         <img src = "./images/snapchat.png" alt="product image logo"/>
                     </div>
@@ -33,7 +33,7 @@ const ProductListItem: React.FC = (props) =>{
                             return <p className ="category m-1 uppercase" key={item}>{item}</p>
                             })}
                         </div>
-                    </div>        
+                    </div>
                 </div>
                 <div className="line"></div>
             </div>
@@ -42,7 +42,7 @@ const ProductListItem: React.FC = (props) =>{
 
             .line{
                 width: 100%;
-                height: 2px;
+                height: .5px;
                 background : linear-gradient(to right,
                     #2F80ED,
                     #98459B,

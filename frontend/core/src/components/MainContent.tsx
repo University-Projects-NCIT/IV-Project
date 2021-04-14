@@ -48,8 +48,8 @@ const MainContent: React.FC = () =>{
 
                 <div className="w-screen flex flex-row mt-8">
                     
-                    <div className="left-container h-auto flex flex-col md:pl-16">
-                        <div className="flex flex-row text-white justify-end mr-4 -mb-4">
+                    <div className="left-container h-auto flex flex-col pl-32 pr-4">
+                        <div className="flex flex-row text-white justify-end -mb-4">
                             <button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 ">Popular</button>
                             <div className="line"></div>
                             <button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60">Newest</button>
