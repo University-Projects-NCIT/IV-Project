@@ -12,7 +12,7 @@ const ProductListCard: React.FC = () =>{
             <div className="flex flex-row pb-4 text-white justify-between">
                 <div className="text-lg">Today's Product</div>
             </div>
-            <div className="rounded mb-4 overflow-hidden w-full h-auto">     
+            <div className="rounded mb-10 overflow-hidden w-full h-auto">     
                 <ProductListItem/>
                 <ProductListItem/>
                 <ProductListItem/>

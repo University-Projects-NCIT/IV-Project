@@ -62,7 +62,7 @@ const MainContent: React.FC = () => {
                         <ProductListCard/>
                         <ProductListCard/>
                     </div>
-                    <div className="right-container h-auto pt-3 mr-4 lg:mr-40">
+                    <div className="right-container h-auto pt-1 mr-4 lg:mr-40">
                         <UpcommingProductCard />
                         <NewsLatterCard/>
                     </div>
