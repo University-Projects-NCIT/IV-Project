@@ -3,6 +3,7 @@ import { ProductInterface } from '../Interfaces'
 import {BsFillTriangleFill} from 'react-icons/bs'
 
 const ProductListItem: React.FC = (props) =>{
+    
     /**
      * @returns the each single product list 
      */
@@ -18,7 +19,7 @@ const ProductListItem: React.FC = (props) =>{
     const [data, setData] = useState<ProductInterface>(initialValue)
     return (
         <>
-            <div className="w-full bg-item_list_bg text-gray-100 flex flex-col"> 
+            <div className="w-full bg-item_list_bg text-gray-100 flex flex-col hover:opacity-70"> 
                 <div className="flex pt-4 pb-4">
                     <div className="w-16 h-16 mt-2 ml-4 mr-4">
                         <img src = "./images/snapchat.png" alt="product image logo"/>

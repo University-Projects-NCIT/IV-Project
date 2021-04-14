@@ -11,7 +11,7 @@ const UpcommingItemList: React.FC = () => {
 
   return (
     <>
-      <div className="w-full h-auto bg-color5 opacity-70 text-xs pl-4 pb-2">
+      <div className="w-full h-auto bg-color5 text-xs pl-4 pb-2">
         <div className="flex flex-row w-full justify-between">
           <div>
             <div className="pt-2 text-gray-50 text-sm">{initialValue.title}</div>
