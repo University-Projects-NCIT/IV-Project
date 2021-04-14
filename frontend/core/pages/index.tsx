@@ -1,7 +1,7 @@
 
 import Head from "next/head";
 import ProductListCard from '../src/components/ProductListCard';
-import Main from '../src/components/Main'
+import MainComponent from '../src/components/MainComponent'
 
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
 	
 	return (
 		<div>
-			<Main/>
+			<MainComponent/>
 		</div>
 	);
 }

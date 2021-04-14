@@ -8,12 +8,14 @@ import Search from './Search'
 import UpcommingProductCard from './UpcommingProductCard'
 import NewsLatterCard from './NewsLatterCard'
 
-const MainContent: React.FC = () =>{
-    /**
-     * MainContent is the second main component
-     * It holds all the other component rendering in Home 
-     * displays the product list and card etc. 
-     */
+
+const MainContent: React.FC = () => {
+	/**
+	 * MainContent is the second main component
+	 * It holds all the other component rendering in Home
+	 * displays the product list and card etc.
+	 */
+
 
     return(
         <>
@@ -93,7 +95,7 @@ const MainContent: React.FC = () =>{
                     background: linear-gradient(#2F80ED,#EC1616);
 
                 }
-                }
+                
 
                 .left-container{
                     width: 100%;
@@ -120,12 +122,12 @@ const MainContent: React.FC = () =>{
                 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
                 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg);}}
 
-            `}
-            </style>
-        </>
 
-        
-    )
+					
+				`}
+			</style>
+		</>
+	);
 }
 
-export default MainContent
+export default MainContent;
