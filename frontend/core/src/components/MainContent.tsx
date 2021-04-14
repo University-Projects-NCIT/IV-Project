@@ -1,4 +1,12 @@
 import React from 'react'
+import ProductListCard from './ProductListCard'
+import {FiMoreHorizontal} from 'react-icons/fi'
+import {MdAdd} from 'react-icons/md'
+import {IoMdNotifications} from 'react-icons/io'
+import { IconContext } from 'react-icons/lib'
+import Search from './Search'
+import UpcommingProductCard from './UpcommingProductCard'
+import NewsLatterCard from './NewsLatterCard'
 
 const MainContent: React.FC = () =>{
     /**
@@ -9,18 +17,108 @@ const MainContent: React.FC = () =>{
 
     return(
         <>
-            <div className="bg-red-500 h-full w-full -mt-4 rounded-t-xl z-10">
-                <div className="w-16 h-16 bg-pink-500 rounded-full m-auto -mt-8"></div>
-               <div className="flex flex-row justify-items-center justify-center mt-2"> 
-                    <div className="w-8 h-8 bg-pink-500 rounded-full -mt-4"></div>
-                    <div className="w-8 h-8 bg-pink-500 rounded-full m-2"></div>
-                    <div className="w-8 h-8 bg-pink-500 rounded-full -mt-4"></div>
-                </div>
+            <div className="h-auto w-screen rounded-t-lg -mt-4 bg-drak_blue_background">
+               <div className="w-16 h-16 rounded-full m-auto relative -mt-8 mb-4">
+                   <div className="profile-image-back w-16 h-16 rounded-full absolute"></div>
+                   <div className="absolute"><img src="./images/michaeljackson.jpg" className="w-16 h-16 rounded-full"/></div>
+               </div>
+               <IconContext.Provider
+                    value={{ color: '#ffffff', size: '1.5rem' }}>
+                    <div>
+                        <div className="flex flex-row w-32 m-auto justify-center">
+                            <div className="w-6 h-6 -mt-3 realtive">
+                                <div className="option-btn w-6 h-6 rounded-full absolute"></div>
+                                <div className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary"><FiMoreHorizontal/></div>
+                            </div>
+                            <div className="w-6 h-6 m-2 realtive">
+                                <div className="option-btn w-6 h-6 rounded-full absolute"></div>
+                                <div className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary"><MdAdd/></div>
+                            </div>
+                            <IconContext.Provider
+                            value={{color:'#F39912', size:'1.3rem' }}>
+                            <div className="w-6 h-6 -mt-3 realtive">
+                                <div className="option-btn w-6 h-6 rounded-full absolute"></div>
+                                <div className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary"><IoMdNotifications className="m-auto"/></div>
+                            </div>
+                            </IconContext.Provider>
+                        </div>
+                        <div className="ml-16 md:-mt-8 mr-16">
+                            <Search />
+                        </div>
+                    </div>
+                </IconContext.Provider>
+
+                <div className="w-screen flex flex-row mt-8">
+                    
+                    <div className="left-container h-auto flex flex-col sm:pl-32 pr-4 pl-4">
+                        <div className="flex flex-row text-white justify-end -mb-4">
+                            <button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70">Popular</button>
+                            <div className="line"></div>
+                            <button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70">Newest</button>
+                        </div>
+                        <ProductListCard/>
+                        {/* <ProductListCard/>
+                        <ProductListCard/> */}
+                    </div>
+                    <div className="right-container h-auto pt-3 mr-4 lg:mr-40">
+                        <UpcommingProductCard />
+                        {/* <NewsLatterCard/> */}
+                    </div>
+                </div>   
             </div>
 
         
             <style jsx >{`
+                .profile-image-back{
+                    background: conic-gradient(from 180deg at 50% 50%, #F1239F 0deg, #00FC19 46.06deg, #EC1616 85.46deg, #2F80ED 147.09deg, #F39912 198.08deg, #CD0666 245.92deg, #11D2FC 304.76deg, #F1239F 360deg);
+                    filter: blur(5px);
+                    -webkit-animation:spin 4s linear infinite;
+                    -moz-animation:spin 4s linear infinite;
+                    animation:spin 4s linear infinite;
+                }
+                
+                .option-btn{
+                    background: conic-gradient(from 180deg at 50% 50%, #F1239F 0deg, #00FC19 46.06deg, #EC1616 85.46deg, #2F80ED 147.09deg, #F39912 198.08deg, #CD0666 245.92deg, #11D2FC 304.76deg, #F1239F 360deg);
+                    filter: blur(2px);
+                }
 
+                .btn{
+                    border: none;
+                    outline: none;
+                }
+
+                .line{
+                    width: 3px;
+                    height: 100%;
+                    background: linear-gradient(#2F80ED,#EC1616);
+
+                }
+                }
+
+                .left-container{
+                    width: 100%;
+                }
+
+                .right-container{
+                    display: none;
+                }
+
+                @media only screen and (min-width: 768px) {
+                    .left-container{
+                        width: 60%;
+                    }
+
+                    .right-container{
+                        width: 40%;
+                        display: block;
+                    }
+
+                }
+
+                // Animation for 360 rotation background 
+                @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+                @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+                @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg);}}
 
             `}
             </style>
