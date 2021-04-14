@@ -19,7 +19,7 @@ const MainContent: React.FC = () => {
 
     return(
         <>
-            <div className="h-auto w-screen rounded-t-lg -mt-4 bg-drak_blue_background">
+            <div className="h-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10">
                <div className="w-16 h-16 rounded-full m-auto relative -mt-8 mb-4">
                    <div className="profile-image-back w-16 h-16 rounded-full absolute"></div>
                    <div className="absolute"><img src="./images/michaeljackson.jpg" className="w-16 h-16 rounded-full"/></div>
@@ -107,11 +107,11 @@ const MainContent: React.FC = () => {
 
                 @media only screen and (min-width: 768px) {
                     .left-container{
-                        width: 60%;
+                        width: 65%;
                     }
 
                     .right-container{
-                        width: 40%;
+                        width: 35%;
                         display: block;
                     }
 
