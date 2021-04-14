@@ -46,14 +46,19 @@ const MainContent: React.FC = () =>{
                     </div>
                 </IconContext.Provider>
 
-                <div className="w-screen flex flex-row">
-                    <div className="h-auto w-3/4 min-h-full flex flex-col">
+                <div className="w-screen flex flex-row mt-8">
+                    
+                    <div className="left-container h-auto flex flex-col md:pl-16">
+                        <div className="flex flex-row text-white justify-end mr-4 -mb-4">
+                            <button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 ">Popular</button>
+                            <div className="line"></div>
+                            <button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60">Newest</button>
+                        </div>
                         <ProductListCard/>
                         {/* <ProductListCard/>
                         <ProductListCard/> */}
-
                     </div>
-                    <div className="h-auto bg-blue-700 "></div>
+                    <div className="right-container h-auto bg-blue-700"></div>
                 </div>   
             </div>
 
@@ -72,10 +77,36 @@ const MainContent: React.FC = () =>{
                     filter: blur(2px);
                 }
 
-                .icon-btn:hover + .option-btn{
-                    -webkit-animation:spin 4s linear infinite;
-                    -moz-animation:spin 4s linear infinite;
-                    animation:spin 4s linear infinite;
+                .btn{
+                    border: none;
+                    outline: none;
+                }
+
+                .line{
+                    width: 3px;
+                    height: 100%;
+                    background: linear-gradient(#2F80ED,#EC1616);
+                }
+
+                .left-container{
+                    width: 1000%;
+                }
+
+                .right-container{
+                    width: 0%;
+                    display: none;
+                }
+
+                @media only screen and (min-width: 768px) {
+                    .left-container{
+                        width: 60%;
+                    }
+
+                    .right-container{
+                        width: 40%;
+                        display: block;
+                    }
+
                 }
 
                 // Animation for 360 rotation background 
