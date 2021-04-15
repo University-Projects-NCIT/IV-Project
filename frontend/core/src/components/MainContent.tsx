@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ProductListCard from "./ProductListCard";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { MdAdd } from "react-icons/md";
@@ -7,6 +7,7 @@ import { IconContext } from "react-icons/lib";
 import Search from "./Search";
 import UpcomingProductCard from "./UpcomingProductCard";
 import NewsLetterCard from "./NewsLetterCard";
+import { useToggle } from "../hooks/Togglge";
 
 const MainContent: React.FC = () => {
 	/**
@@ -15,12 +16,54 @@ const MainContent: React.FC = () => {
 	 * displays the product list and card etc.
 	 */
 
+	//Pop us when click to profile image if loged in is false
+	const [toggled, toggle] = useToggle(false);
+
+	const profileImageClick = () => {
+		toggle();
+	};
+
+	const dismissBack = () => {
+		toggle();
+	};
+
+	const loginWithGoogle = () => {
+		// login
+		console.log("login");
+	};
+
+	const signupWithGooglw = () => {
+		//TODO sign up
+		console.log("signup");
+	};
+
 	return (
 		<>
+			{toggled ? (
+				<>
+					<div
+						className="w-full h-full bg-black opacity-75 z-20 fixed"
+						onClick={dismissBack}
+					></div>
+					<div className="w-80 h-80 bg-white z-30 p-8 centered-fixed fixed ">
+						<img src="./images/michaeljackson.jpg" className="w-14 h-14"></img>
+						<div className="w-full h-14 bg-color5" onClick={loginWithGoogle}>
+							Login With Google
+						</div>
+						<div>
+							<p>Already have an account?</p>
+						</div>
+						<div className="w-full h-14 bg-color5" onClick={signupWithGooglw}>
+							Sign Up With Google
+						</div>
+					</div>
+				</>
+			) : null}
+
 			<div className="h-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10">
 				<div className="w-16 h-16 rounded-full m-auto relative -mt-8 mb-4">
 					<div className="profile-image-back w-16 h-16 rounded-full absolute"></div>
-					<div className="absolute cursor-pointer">
+					<div className="absolute cursor-pointer" onClick={profileImageClick}>
 						<img
 							src="./images/michaeljackson.jpg"
 							className="w-16 h-16 rounded-full"
@@ -59,7 +102,7 @@ const MainContent: React.FC = () => {
 					</div>
 				</IconContext.Provider>
 
-				<div className="w-screen flex flex-row mt-8">
+				<div className="w-full flex flex-row mt-8">
 					<div className="left-container h-auto flex flex-col md:pl-32 pr-4 pl-4">
 						<div className="flex flex-row text-white justify-end -mb-4">
 							<button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70">
@@ -133,6 +176,11 @@ const MainContent: React.FC = () => {
 
 					.right-container {
 						display: none;
+					}
+
+					.centered-fixed {
+						left: 50%;
+						transform: translate(-50%, 0);
 					}
 
 					@media only screen and (min-width: 768px) {
