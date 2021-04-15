@@ -50,7 +50,7 @@ const MainContent: React.FC = () => {
                     </div>
                 </IconContext.Provider>
 
-                <div className="w-screen flex flex-row mt-8">
+                <div className="w-full flex flex-row mt-8">
                     
                     <div className="left-container h-auto flex flex-col md:pl-32 pr-4 pl-4">
                         <div className="flex flex-row text-white justify-end -mb-4">
