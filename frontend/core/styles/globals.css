@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Center the fixed div horizontally  */
+.centered-fixed {
+    left: 50%;
+		transform: translate(-50%, 0);
+		}

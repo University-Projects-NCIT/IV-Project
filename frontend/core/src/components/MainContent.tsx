@@ -8,10 +8,10 @@ import Search from "./Search";
 import UpcomingProductCard from "./UpcomingProductCard";
 import NewsLetterCard from "./NewsLetterCard";
 import { useToggle } from "../hooks/Toggle";
-import { ImCross } from 'react-icons/im'
-import {FcGoogle} from 'react-icons/fc'
+import LoginForm from './LoginForm'
 
-const MainContent: React.FC = () => {
+
+const MainContent: React.FC = (props): JSX.Element => {
 	/**
 	 * MainContent is the second main component
 	 * It holds all the other component rendering in Home
@@ -19,45 +19,12 @@ const MainContent: React.FC = () => {
 	 */
 
 	//Pop us when click to profile image if loged in is false
-	const [toggled, toggle] = useToggle(false);
-
-	const loginWithGoogle = () => {
-		// login
-		console.log("login");
-	};
-
-	const signupWithGooglw = () => {
-		//TODO sign up
-		console.log("signup");
-	};
+	const [loginForm, toggle] = useToggle(false);
 
 	return (
 		<>
-			{toggled ? (
-				<>
-					<div
-						className="w-full h-full bg-black opacity-75 z-20 fixed"
-						onClick={toggle}
-					></div>
-					<div className="w-full h-full xs:w-80 xs:h-96 bg-drak_blue_background xs:bg-white z-30 centered-fixed fixed xs:mt-16 p-4">
-						<IconContext.Provider value ={{color: "#ffffff", size: "2rem"}}>
-							<div className="m-auto w-8 xs:hidden mt-16" onClick={toggle}><ImCross className=""/></div>
-						</IconContext.Provider>
-						<img src="./images/michaeljackson.jpg" className="w-32 h-32 rounded-3xl m-auto mt-8 mb-16"></img>
-						<div className="w-full h-14 bg-color5 rounded-lg text-center align-baseline" onClick={loginWithGoogle}>
-							<FcGoogle />
-							<p>Login With Google</p>
-						</div>
-						<div>
-							<p>No, Account?</p>
-						</div>
-						<div className="w-full h-14 rounded-lg bg-color5" onClick={signupWithGooglw}>
-							<FcGoogle/>
-							<p>Login With Google</p>
-						</div>
-
-					</div>
-				</>
+			{loginForm ? (
+				<LoginForm toggleForm = {toggle}/>
 			) : null}
 
 
@@ -116,7 +83,7 @@ const MainContent: React.FC = () => {
 						</div>
 						<ProductListCard />
 						<ProductListCard />
-						<ProductListCard />
+						<ProductListCard/>
 					</div>
 					<div className="right-container h-auto pt-1 mr-4 lg:mr-40">
 						<UpcomingProductCard />
@@ -177,11 +144,6 @@ const MainContent: React.FC = () => {
 
 					.right-container {
 						display: none;
-					}
-
-					.centered-fixed {
-						left: 50%;
-						transform: translate(-50%, 0);
 					}
 
 					@media only screen and (min-width: 768px) {
