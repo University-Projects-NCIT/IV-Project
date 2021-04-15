@@ -28,8 +28,14 @@ module.exports = {
         // upvote button color red type 
         color7: '#EB5757',
 
+      },
+
+      screens: {
+        'xs': '400px'
       }
+
     },
+
   },
   variants: {
     extend: {},
