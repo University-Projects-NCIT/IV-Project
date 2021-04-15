@@ -13,7 +13,7 @@ const UpcomingItemList: React.FC = () => {
 		<>
 			<div className="bg-color5 p-4">
 				<div className="flex justify-between">
-					<div className="text-gray-50 space-y-3">
+					<div className="text-gray-50 space-y-3 ">
 						<h3 className="text-sm">{initialValue.title}</h3>
 						<p className="text-xs">{initialValue.tagline}</p>
 						<button
@@ -25,7 +25,7 @@ const UpcomingItemList: React.FC = () => {
 						</button>
 					</div>
 
-					<div>
+					<div className="pl-4">
 						<img
 							src="./images/snapchat.png"
 							alt=""
