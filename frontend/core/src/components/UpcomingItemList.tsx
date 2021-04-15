@@ -1,7 +1,7 @@
 import React from "react";
 import { ProductInterface } from "../interfaces/Interfaces";
 
-const UpcommingItemList: React.FC = () => {
+const UpcomingItemList: React.FC = () => {
 	const initialValue = {
 		title: "Snapchat Android app",
 		tagline:
@@ -34,4 +34,4 @@ const UpcommingItemList: React.FC = () => {
 	);
 };
 
-export default UpcommingItemList;
+export default UpcomingItemList;

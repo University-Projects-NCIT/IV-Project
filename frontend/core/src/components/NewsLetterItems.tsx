@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const NewsLatterItems: React.FC = () => {
+const NewsLetterItems: React.FC = () => {
   const initialValues = {
     value: "We are launching the new IOS app",
     date: "23-4-2021"
@@ -21,4 +21,4 @@ const NewsLatterItems: React.FC = () => {
   )
 }
 
-export default NewsLatterItems
+export default NewsLetterItems

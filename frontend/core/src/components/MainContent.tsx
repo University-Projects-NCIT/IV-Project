@@ -5,8 +5,8 @@ import {MdAdd} from 'react-icons/md'
 import {IoMdNotifications} from 'react-icons/io'
 import { IconContext } from 'react-icons/lib'
 import Search from './Search'
-import UpcommingProductCard from './UpcommingProductCard'
-import NewsLatterCard from './NewsLatterCard'
+import UpcomingProductCard from './UpcomingProductCard'
+import NewsLetterCard from './NewsLetterCard'
 
 
 const MainContent: React.FC = () => {
@@ -63,8 +63,8 @@ const MainContent: React.FC = () => {
                         <ProductListCard/>
                     </div>
                     <div className="right-container h-auto pt-1 mr-4 lg:mr-40">
-                        <UpcommingProductCard />
-                        <NewsLatterCard/>
+                        <UpcomingProductCard />
+                        <NewsLetterCard/>
                     </div>
                 </div>   
             </div>

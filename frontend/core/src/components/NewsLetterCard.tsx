@@ -1,6 +1,6 @@
-import NewsLatterItems from './NewsLatterItems'
+import NewsLetterItems from './NewsLetterItems'
 
-const NewsLatterCard: React.FC = () =>{
+const NewsLetterCard: React.FC = () =>{
     /**
      * @returns  Notice News Latter List  as card 
      */
@@ -11,12 +11,12 @@ const NewsLatterCard: React.FC = () =>{
                 <div className="text-lg"> Your News Letter  </div>
             </div>
             <div className="rounded-lg mb-4 overflow-hidden w-full h-auto">     
-                <NewsLatterItems/>
-                <NewsLatterItems/>
-                <NewsLatterItems/>
+                <NewsLetterItems/>
+                <NewsLetterItems/>
+                <NewsLetterItems/>
             </div>
         </>
     )
 }
 
-export default NewsLatterCard;
+export default NewsLetterCard;
