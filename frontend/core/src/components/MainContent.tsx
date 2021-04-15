@@ -7,7 +7,7 @@ import { IconContext } from "react-icons/lib";
 import Search from "./Search";
 import UpcomingProductCard from "./UpcomingProductCard";
 import NewsLetterCard from "./NewsLetterCard";
-import { useToggle } from "../hooks/Togglge";
+import { useToggle } from "../hooks/Toggle";
 
 const MainContent: React.FC = () => {
 	/**
