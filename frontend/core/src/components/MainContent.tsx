@@ -28,13 +28,29 @@ const MainContent: React.FC = () => {
         toggle();
     }
 
+    const loginWithGoogle = () => {
+        // login
+        console.log("login")
+    }
+
+    const signupWithGooglw = ()=> {
+        //TODO sign up 
+        console.log("signup")
+    }
+
 
     return(
         <>
             {toggled ? (
                 <>
                     <div className="w-full h-full bg-black opacity-75 z-20 fixed" onClick={dismissBack}></div>
-                    <div className="w-full h-full bg-red-500 z-30 p-8 centered-fixed fixed "></div>
+                    <div className="w-80 h-80 bg-white z-30 p-8 centered-fixed fixed ">
+                        <img src="./images/michaeljackson.jpg" className="w-14 h-14"></img>
+                        <div className="w-full h-14 bg-color5" onClick={loginWithGoogle}>Login With Google</div>
+                        <div><p>Already have an account?</p></div>
+                        <div className="w-full h-14 bg-color5" onClick={signupWithGooglw}>Sign Up With Google</div>
+
+                    </div>
                 </>
             ) : null}
             
