@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{ useState }from 'react'
 import ProductListCard from './ProductListCard'
 import {FiMoreHorizontal} from 'react-icons/fi'
 import {MdAdd} from 'react-icons/md'
@@ -7,6 +7,7 @@ import { IconContext } from 'react-icons/lib'
 import Search from './Search'
 import UpcommingProductCard from './UpcommingProductCard'
 import NewsLatterCard from './NewsLatterCard'
+import {useToggle } from '../hooks/Togglge'
 
 
 const MainContent: React.FC = () => {
@@ -16,13 +17,34 @@ const MainContent: React.FC = () => {
 	 * displays the product list and card etc.
 	 */
 
+    //Pop us when click to profile image if loged in is false
+    const [toggled, toggle] = useToggle(false);
+
+    const profileImageClick = () => {
+        toggle();
+    }
+
+    const dismissBack = () => {
+        toggle();
+    }
+
 
     return(
         <>
+            {toggled ? (
+                <>
+                    <div className="w-full h-full bg-black opacity-75 z-20 fixed" onClick={dismissBack}></div>
+                    <div className="w-full h-full bg-red-500 z-30 p-8 centered-fixed fixed "></div>
+                </>
+            ) : null}
+            
+     
+
+
             <div className="h-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10">
                <div className="w-16 h-16 rounded-full m-auto relative -mt-8 mb-4">
                    <div className="profile-image-back w-16 h-16 rounded-full absolute"></div>
-                   <div className="absolute cursor-pointer"><img src="./images/michaeljackson.jpg" className="w-16 h-16 rounded-full"/></div>
+                   <div className="absolute cursor-pointer" onClick={profileImageClick}><img src="./images/michaeljackson.jpg" className="w-16 h-16 rounded-full"/></div>
                </div>
                <IconContext.Provider
                     value={{ color: '#ffffff', size: '1.5rem' }}>
@@ -93,7 +115,6 @@ const MainContent: React.FC = () => {
                     width: 3px;
                     height: 100%;
                     background: linear-gradient(#2F80ED,#EC1616);
-
                 }
                 
 
@@ -104,6 +125,13 @@ const MainContent: React.FC = () => {
                 .right-container{
                     display: none;
                 }
+
+                .centered-fixed{
+                    left: 50%;
+                    transform : translate(-50%, 0);
+                }
+
+ 
 
                 @media only screen and (min-width: 768px) {
                     .left-container{
