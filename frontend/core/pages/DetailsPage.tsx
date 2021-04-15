@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ProductComment from "../src/components/product_details/ProductComment";
 import ProductDescription from "../src/components/product_details/ProductDescription";
 
 // img(icon)
@@ -46,6 +47,12 @@ const Details: React.FC = () => {
 				<h1 className="uppercase text-xs py-6">Discussion</h1>
 				<ProductDiscussion />
 			</div> */}
+
+			{/* Comment component */}
+			<div className="mt-8 text-white ">
+				<h3 className="uppercase text-xs py-5">Comment</h3>
+				<ProductComment />
+			</div>
 		</div>
 	);
 };
