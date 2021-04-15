@@ -1,6 +1,6 @@
 import React ,{ useState } from 'react';
-import { ProductInterface } from '../Interfaces'
-import {BsFillTriangleFill} from 'react-icons/bs'
+import { ProductInterface } from '../interfaces/Interfaces'
+import { BsFillTriangleFill } from 'react-icons/bs'
 
 const ProductListItem: React.FC = (props) =>{
     
@@ -21,7 +21,7 @@ const ProductListItem: React.FC = (props) =>{
         <>
             <div className="w-full bg-item_list_bg text-gray-100 flex flex-col hover:opacity-70"> 
                 <div className="flex pt-4 pb-4">
-                    <div className="w-16 h-16 mt-2 ml-4 mr-4">
+                    <div className="w-20 h-20 mt-2 ml-4 mr-4 rounded-md overflow-hidden">
                         <img src = "./images/snapchat.png" alt="product image logo"/>
                     </div>
                     <div className="">

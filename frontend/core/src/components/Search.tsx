@@ -5,8 +5,9 @@ import {VscSearch} from 'react-icons/vsc'
 const Search: React.FC = () => {
   return (
   <>
-  <div>
-        <input type="text" className="input w-full md:w-2/5 bg-item_list_bg rounded-md border-none"></input>  
+  <div className="flex flex-row">
+        <input type="text" className="input w-full md:w-2/5 bg-item_list_bg rounded-md border-none"></input>
+        <VscSearch className="-ml-8 mt-1"/>
   </div>
       
       <style jsx>{`
