@@ -8,7 +8,7 @@ import Search from "./Search";
 import UpcomingProductCard from "./UpcomingProductCard";
 import NewsLetterCard from "./NewsLetterCard";
 import { useToggle } from "../hooks/Toggle";
-import LoginFrom from './LoginForm'
+import LoginForm from './LoginForm'
 
 
 const MainContent: React.FC = (props): JSX.Element => {
