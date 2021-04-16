@@ -19,8 +19,10 @@ const Details: React.FC = () => {
 
 	return (
 		// container for the details
-		<div className="bg-drak_blue_background h-auto min-h-screen p-8">
-			{/* product name with icon */}
+		<div className="bg-drak_blue_background h-auto min-h-screen p-8 flex">
+			{/* left side container */}
+			<div>
+          {/* product name with icon */}
 			<div className="text-gray-100 flex space-x-5 items-center">
 				<div>
 					<img src={data.img} alt="icon" width="50" />
@@ -53,6 +55,10 @@ const Details: React.FC = () => {
 				<h3 className="uppercase text-xs py-5">Comment</h3>
 				<ProductComment />
 			</div>
+			</div>
+
+		
+      			
 		</div>
 	);
 };
