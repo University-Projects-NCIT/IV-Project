@@ -24,6 +24,7 @@ const MainContent: React.FC = (props): JSX.Element => {
 	return (
 		<>
 			{loginForm ? (
+				// TODO fix typescript type error 
 				<LoginForm toggleForm = {toggle}/>
 			) : null}
 

@@ -48,6 +48,8 @@ class User(models.Model):
     auth_providers = models.CharField(verbose_name =("Auth providers "), max_length=100, default = "email")
     USERNAME_FIELD = ["email"]
 
+    
+
 
 class Product(models.Model):
     """

@@ -2,6 +2,7 @@ import React from "react";
 import { ProductInterface } from "../interfaces/Interfaces";
 
 const UpcomingItemList: React.FC = () => {
+
 	const initialValue = {
 		title: "Snapchat Android app",
 		tagline:
@@ -15,7 +16,7 @@ const UpcomingItemList: React.FC = () => {
 				<div className="flex justify-between">
 					<div className="text-gray-50 space-y-3 ">
 						<h3 className="text-sm">{initialValue.title}</h3>
-						<p className="text-xs">{initialValue.tagline}</p>
+						<p className="text-xs text-gray-300">{initialValue.tagline}</p>
 						<button
 							className="outline-none border-none focus:outline-none 
 							hover:opacity-70 bg-color6 text-xs
@@ -35,6 +36,7 @@ const UpcomingItemList: React.FC = () => {
 						/>
 					</div>
 				</div>
+				<div className="text-gray-50 flex justify-end text-xs">20-3-2021 </div>
 			</div>
 		</>
 	);
