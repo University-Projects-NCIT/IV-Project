@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import DetailPageButtons from "./DetailPageButtons";
+import ImageCarousel from "./ImageCarousel";
 import ImageGallery from "./ImageGallery";
+import ProductHunter from "./ProductHunter";
 
 const ProductDescription: React.FC = () => {
 	const initialValue = {
@@ -12,17 +15,22 @@ const ProductDescription: React.FC = () => {
 	const [data, setData] = useState(initialValue);
 
 	return (
-		<div className="bg-item_list_bg rounded-sm p-6 w-3/5 mt-8">
-			{/* screenshots of product */}
-			<div>
-				<img src={data.img} alt="" width="" />
-				{/* image gallery */}
-				<div className="flex space-x-1 py-4  border border-l-0 border-r-0 border-gray-500">
-					<ImageGallery />
-					<ImageGallery />
-					<ImageGallery />
+		<div className="mt-8 flex items-start">
+			{/* product description container */}
+			<div className="bg-item_list_bg rounded-sm p-6 w-3/5">
+							{/* screenshots of product */}
+				<div>
+					<ImageCarousel />
 				</div>
-			</div>
+					{/* <img src={data.img} alt="" width="" /> */}
+					
+			      	{/* image gallery */}
+			      	{/* <div className="flex space-x-1 py-4  border border-l-0 border-r-0 border-gray-500">
+				       	<ImageGallery />
+					      <ImageGallery />
+					      <ImageGallery />
+				     </div> */}
+			
 
 			{/* product description */}
 			<div className="mt-5">
@@ -33,6 +41,15 @@ const ProductDescription: React.FC = () => {
 					let me know if you have any questions.
 				</p>
 			</div>
+			</div>
+
+			{/* right side container */}
+			<div className=" w-auto ml-10 space-y-7">
+				<DetailPageButtons />
+				<ProductHunter/>
+			</div>
+			
+
 		</div>
 	);
 };
