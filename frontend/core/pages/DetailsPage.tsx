@@ -25,7 +25,7 @@ const Details: React.FC = () => {
           {/* product name with icon */}
 			<div className="text-gray-100 flex space-x-5 items-center">
 				<div>
-					<img src={data.img} alt="icon" width="50" />
+					<img src={data.img} alt="icon" className="w-20 h-20" />
 				</div>
 
 				<div className="space-y-1">

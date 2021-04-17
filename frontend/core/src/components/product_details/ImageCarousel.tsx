@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
 
 const ImageCarousel: React.FC = () => {
-  const data = [
+
+  let defaultData = [{
+      img : './images/default_image.png'
+  }]
+  
+  let api = [
     {
       img: './images/snap1.jpeg'
     },
@@ -13,36 +18,61 @@ const ImageCarousel: React.FC = () => {
       img: './images/snap3.jpeg'
     }
   ]
-  
+
+  const [data, setdata] = useState(defaultData);
   const [current, setCurrent] = useState(0)
-
-  const length = data.length;
-  // console.log(length);
-
+  const [imgUrl, setImgUrl] = useState(data[current].img)
+  
+  
   const nextImage = () => {
-    setCurrent(current === length-1 ? 0 : current + 1);
+    // setCurrent(current == length - 1 ? 0 : current + 1);
+    const index = (current + 1) % data.length;
+    setCurrent(index)
+    setImgUrl(data[index].img)
   }
 
   const previousImage = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
+    // setCurrent(current == 0 ? length - 1 : current - 1);
+    const index = (current == 0? data.length-1 : (current - 1) % data.length);
+    console.log("prev " + index)
+    setCurrent(index)
+    setImgUrl(data[index].img)
+
   }
-  
-  console.log(current);
+
+  useEffect(() => {
+
+    // Checking if api response if giving not 
+    // Empty data or not , sets default if empty
+    if (api.length !== 0)
+    {
+      setdata(api)
+
+      // Display the first image to image board
+      setImgUrl(api[0].img)
+    }
+    
+  },[])
 
   return (
     <>
-    <div className="flex  items-center justify-center relative">
-      <FaArrowAltCircleLeft  className="absolute top-2/4 left-8 text-3xl z-10 cursor-pointer" onClick={previousImage}/>
-      <FaArrowAltCircleRight className="absolute top-2/4 right-8 text-3xl z-10 cursor-pointer" onClick={nextImage}/>
-      {data.map(({ img }, index) => {
-        return (
-          <div className={index === current ? 'slide active' : 'slide'} key={index}>
-            {index === current && ( <img src={img} alt="screenshots" className="w-3/4 rounded"  />)}
-          </div>
-         
-        )
-       })}
+    <div className="w-full flex space-between items-center">
+        <div className="text-3xl z-10 cursor-pointer" onClick={previousImage}><FaArrowAltCircleLeft /></div>
+        <div className="w-full h-96 p-16  overflow-hidden flex items-center">
+          <img src={imgUrl} width="100%;" className="active"/>
+        </div>
+        
+      <div className="text-3xl z-10 cursor-pointer" onClick={nextImage}><FaArrowAltCircleRight/></div>
+
       </div>
+      <div className=" h-14 mt-6 overflow-hidden w-full flex flex-row items-center">
+        {
+          data.map((img,i) => {
+            return (<div key={i}><img src={img.img} className="w-28" onClick={() => setImgUrl(img.img)}></img></div>)
+          })
+        }
+      </div>
+
 
       <style jsx>
         {`
@@ -51,7 +81,7 @@ const ImageCarousel: React.FC = () => {
              transition-duration: 1s ease;
            }
            
-           .slide.active{
+          .active{
              opacity: 1;
              transition-duration: 1s;
              transform: scale(1.08);
