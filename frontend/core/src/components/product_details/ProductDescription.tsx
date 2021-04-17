@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DetailPageButtons from "./DetailPageButtons";
+import ImageCarousel from "./ImageCarousel";
 import ImageGallery from "./ImageGallery";
 import ProductHunter from "./ProductHunter";
 
@@ -18,15 +19,18 @@ const ProductDescription: React.FC = () => {
 			{/* product description container */}
 			<div className="bg-item_list_bg rounded-sm p-6 w-3/5">
 							{/* screenshots of product */}
-			<div>
-				<img src={data.img} alt="" width="" />
-				{/* image gallery */}
-				<div className="flex space-x-1 py-4  border border-l-0 border-r-0 border-gray-500">
-					<ImageGallery />
-					<ImageGallery />
-					<ImageGallery />
+				<div>
+					<ImageCarousel />
 				</div>
-			</div>
+					{/* <img src={data.img} alt="" width="" /> */}
+					
+			      	{/* image gallery */}
+			      	{/* <div className="flex space-x-1 py-4  border border-l-0 border-r-0 border-gray-500">
+				       	<ImageGallery />
+					      <ImageGallery />
+					      <ImageGallery />
+				     </div> */}
+			
 
 			{/* product description */}
 			<div className="mt-5">
