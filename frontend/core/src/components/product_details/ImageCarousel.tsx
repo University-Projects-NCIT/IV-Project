@@ -25,14 +25,12 @@ const ImageCarousel: React.FC = () => {
   
   
   const nextImage = () => {
-    // setCurrent(current == length - 1 ? 0 : current + 1);
     const index = (current + 1) % data.length;
     setCurrent(index)
     setImgUrl(data[index].img)
   }
 
   const previousImage = () => {
-    // setCurrent(current == 0 ? length - 1 : current - 1);
     const index = (current == 0? data.length-1 : (current - 1) % data.length);
     console.log("prev " + index)
     setCurrent(index)
@@ -56,38 +54,38 @@ const ImageCarousel: React.FC = () => {
 
   return (
     <>
-    <div className="w-full flex space-between items-center">
-        <div className="text-3xl z-10 cursor-pointer" onClick={previousImage}><FaArrowAltCircleLeft /></div>
-        <div className="w-full h-96 p-16  overflow-hidden flex items-center">
-          <img src={imgUrl} width="100%;" className="active"/>
+      <div className="w-full flex space-between items-center">
+          <div className="text-3xl z-10 cursor-pointer" onClick={previousImage}><FaArrowAltCircleLeft /></div>
+          <div className="w-full h-96 p-16  overflow-hidden flex items-center">
+            <img src={imgUrl} width="100%;" className="active"/>
+          </div>
+          
+        <div className="text-3xl z-10 cursor-pointer" onClick={nextImage}><FaArrowAltCircleRight/></div>
+
         </div>
-        
-      <div className="text-3xl z-10 cursor-pointer" onClick={nextImage}><FaArrowAltCircleRight/></div>
-
-      </div>
-      <div className=" h-14 mt-6 overflow-hidden w-full flex flex-row items-center">
-        {
-          data.map((img,i) => {
-            return (<div key={i}><img src={img.img} className="w-28" onClick={() => setImgUrl(img.img)}></img></div>)
-          })
-        }
-      </div>
+        <div className=" h-14 mt-6 overflow-hidden w-full flex flex-row items-center">
+          {
+            data.map((img,i) => {
+              return (<div key={i}><img src={img.img} className="w-28" onClick={() => setImgUrl(img.img)}></img></div>)
+            })
+          }
+        </div>
 
 
-      <style jsx>
-        {`
-           .slide{
-             opacity: 0;
-             transition-duration: 1s ease;
-           }
-           
-          .active{
-             opacity: 1;
-             transition-duration: 1s;
-             transform: scale(1.08);
-           }
-        `}
-      </style>
+        <style jsx>
+          {`
+            .slide{
+              opacity: 0;
+              transition-duration: 1s ease;
+            }
+            
+            .active{
+              opacity: 1;
+              transition-duration: 1s;
+              transform: scale(1.08);
+            }
+          `}
+        </style>
       </>
   )
 }
