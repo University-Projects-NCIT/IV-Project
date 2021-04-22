@@ -8,10 +8,13 @@ import Search from "./Search";
 import UpcomingProductCard from "./UpcomingProductCard";
 import NewsLetterCard from "./NewsLetterCard";
 import { useToggle } from "../hooks/Toggle";
-import LoginForm from './LoginForm'
+import AuthForm from './authentications/Auth'
+import { useRouter } from 'next/router'
+import {ToggleContext} from '../Contexts/ToggleContext'
 
 
-const MainContent: React.FC = (props): JSX.Element => {
+
+const MainContent: React.FC = React.memo((props): JSX.Element => {
 	/**
 	 * MainContent is the second main component
 	 * It holds all the other component rendering in Home
@@ -20,12 +23,15 @@ const MainContent: React.FC = (props): JSX.Element => {
 
 	//Pop us when click to profile image if loged in is false
 	const [loginForm, toggle] = useToggle(false);
+	const router = useRouter();
 
 	return (
 		<>
 			{loginForm ? (
 				// TODO fix typescript type error 
-				<LoginForm toggleForm = {toggle}/>
+				<ToggleContext.Provider value={toggle}>
+					<AuthForm/>
+				</ToggleContext.Provider>
 			) : null}
 
 
@@ -179,6 +185,6 @@ const MainContent: React.FC = (props): JSX.Element => {
 			</style>
 		</>
 	);
-};
+});
 
 export default MainContent;
