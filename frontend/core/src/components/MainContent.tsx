@@ -10,25 +10,30 @@ import NewsLetterCard from "./NewsLetterCard";
 import { useToggle } from "../hooks/Toggle";
 import AuthForm from './authentications/Auth'
 import { useRouter } from 'next/router'
-import {ToggleContext} from '../Contexts/ToggleContext'
+import { ToggleContext } from '../Contexts/ToggleContext'
+import { connect } from 'react-redux'
 
 
 
-const MainContent: React.FC = React.memo((props): JSX.Element => {
+const MainContent: React.FC = React.memo(({ user }: any): JSX.Element => {
+
 	/**
 	 * MainContent is the second main component
 	 * It holds all the other component rendering in Home
 	 * displays the product list and card etc.
 	 */
 
+
+
 	//Pop us when click to profile image if loged in is false
 	const [loginForm, toggle] = useToggle(false);
 	const router = useRouter();
 
+
+
 	return (
 		<>
-			{loginForm ? (
-				// TODO fix typescript type error 
+			{loginForm? (
 				<ToggleContext.Provider value={toggle}>
 					<AuthForm/>
 				</ToggleContext.Provider>
@@ -40,7 +45,7 @@ const MainContent: React.FC = React.memo((props): JSX.Element => {
 					<div className="profile-image-back w-16 h-16 rounded-full absolute"></div>
 					<div className="absolute cursor-pointer" onClick={toggle}>
 						<img
-							src="./images/michaeljackson.jpg"
+							src={ user != null ? user.profile_image : "images/michaeljackson.jpg"}
 							className="w-16 h-16 rounded-full"
 						/>
 					</div>
@@ -187,4 +192,9 @@ const MainContent: React.FC = React.memo((props): JSX.Element => {
 	);
 });
 
-export default MainContent;
+const mapStateToProps = state => (
+	{
+			user: state.auth.user,
+	})
+
+export default connect(mapStateToProps, {})(MainContent);

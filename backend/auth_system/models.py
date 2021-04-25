@@ -10,12 +10,19 @@ class UserAccountManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email= email, **extra_fields)
         user.set_password(password)
+
+        # regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
+        # djfksjdfhks@kdfgjfkkdhaf
+
+        # if re.fullmatch(r'[A-Za-z0-9@#$%^&+=]{8,}', password) and (re.search(regex, email)):
         user.save(using = self.db)
 
         return user
 
     
     def create_superuser(self,email, password, **extra_fields):
+
+        # print("jsdgsgdhg " + extra_fields)
         """
         Creates and saves a superuser with the given email password.
         """
@@ -44,18 +51,15 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
         primary_key=True
     )
 
-    
+    profile_image = models.CharField(
+      verbose_name = (" Profile image url "),
+      max_length=500
+     )
 
     email = models.EmailField(
       verbose_name=("UserEmail"),
       max_length=254,
       unique=True
-      )
-
-    username = models.CharField(
-      verbose_name=("UserName"),
-      max_length=255,
-      default = email,
       )
 
 
@@ -82,15 +86,6 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
       default=False
       )
 
-    profile_image = models.ImageField(
-        verbose_name=("Profile image "),
-        upload_to='images/',
-        default='images/default.png',
-        height_field=None,
-        width_field=None,
-        max_length=None
-        )
-
     is_active = models.BooleanField(default=False)
 
 
@@ -103,10 +98,10 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ["first_name", "last_name"]
+    REQUIRED_FIELDS = ["first_name", "last_name", "profile_image"]
 
     def __str__(self):
-        return self.email + " " + self.username
+        return self.email 
         
 
 
