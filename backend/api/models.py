@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 ##  All the models(Tables) are defined here
 ##  Edit and add new models(table) defining new class 
@@ -17,39 +18,6 @@ class ProfileImage(models.Model):
     created_at = models.DateTimeField(verbose_name=("Created at"), auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name=("Updated at"), auto_now_add=True)
 
-class User(models.Model):
-    userID = models.CharField(
-        verbose_name = ("User id "),
-        help_text = ("Required and Unique"),
-        unique = True,
-        max_length=100,
-        primary_key = True,
-    )
-    
-    profile_image = models.ForeignKey(
-        ProfileImage,
-        verbose_name= ("User Profile Image "),
-        null = True,
-        on_delete = models.SET_NULL,
-        default = 'images/default.png'
-        )
-
-    username = models.CharField(
-        verbose_name = ("User Name "),
-        unique= True, 
-        blank= False,
-        null = False ,
-        max_length= 50
-        )
-
-    email = models.EmailField(verbose_name = ("UserEmail"), max_length=254, unique = True)
-    is_staff = models.BooleanField(verbose_name=("Staff "), default= False)
-    created_at = models.DateTimeField(verbose_name = ("Created At"),  auto_now_add=True)
-    auth_providers = models.CharField(verbose_name =("Auth providers "), max_length=100, default = "email")
-    USERNAME_FIELD = ["email"]
-
-    
-
 
 class Product(models.Model):
     """
@@ -58,13 +26,6 @@ class Product(models.Model):
     posted by users.
     """
 
-    ACTIVE = "at"
-    UPCOMMING = "up"
-    # make two choice for product status 
-    PRODUCT_STATUS_CHOICES = [
-        (ACTIVE, "active"),
-        (UPCOMMING, "upcoming")
-        ]
 
     productID = models.CharField(
         verbose_name = ("prodcut id "),
@@ -73,13 +34,7 @@ class Product(models.Model):
         max_length=50,
         primary_key = True,
     )
-
-    product_status = models.CharField(
-        verbose_name = ("Product Status "),
-        help_text =("Select product status "),
-        choices = PRODUCT_STATUS_CHOICES,
-        max_length=50
-        )
+    
 
     title = models.CharField(
         verbose_name = ("Product Name "),
@@ -120,10 +75,11 @@ class Product(models.Model):
         )
 
     created_at = models.DateTimeField(("Created at"), auto_now_add=True,editable = False)
+    launch_at = models.DateTimeField(("Launch at"), auto_now_add=True,editable = False)
     created_by = models.ForeignKey( 
-        User,
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
         verbose_name=("Creator id "), 
-        on_delete=models.CASCADE
         )
 
 class ProductImage(models.Model):

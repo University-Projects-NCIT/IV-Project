@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
 import { signup } from '../../actions/auth.action'
 import { v4 as uuidv4 } from 'uuid'
 import { useRouter } from 'next/router'
+import {AiFillEdit} from 'react-icons/ai'
 
 
 
@@ -11,15 +12,19 @@ import { useRouter } from 'next/router'
 const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any) => {
   
   const router = useRouter();
+  const profileImageRef = useRef(null);
 
   const initialValues= {
     id: uuidv4(),
-    email:'',
+    email: '',
+    profile_image: '',
     first_name: '',
     last_name: '',
     password: '',
     re_password: ''
   }
+
+  const [imageFile ,setImageFile] = useState(null)
   
 
   const [isAccountCreated, setIsAccountCreated] = useState({
@@ -72,6 +77,22 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
     }
   }
 
+  const onClickProfileImage = (e) => {
+    profileImageRef.current.click();
+  }
+
+  const onChangeProfileimage = e => {
+    const file = e.target.files[0];
+
+    // To display preview image 
+    if (file)
+    {  
+      setImageFile(URL.createObjectURL(file))
+    }
+
+    setFormData({ ...formData, [e.target.name]: file})
+    }
+
 
   const login = () => {
     setLoginState(true)
@@ -83,21 +104,28 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
 
   return (
     <>
-    <div className="w-full h-auto">
-      <div><img src="/images/michaeljackson.jpg"  className="w-32 h-32 rounded-lg m-auto"></img></div>
+    <div className="w-full h-auto flex flex-col">
+        <div className="relative w-32 h-32 m-auto">
+          <img src={imageFile || "/images/default_profileimg.jpg"} className="w-32 h-32 rounded-full m-auto absolute"></img>
+            <div className="w-32 h-32 absolute rounded-full flex flex-row justify-center items-center">Edit<AiFillEdit className="inline"/></div>
+            <div className="w-32 h-32 absolute rounded-full" onClick={onClickProfileImage}></div>
+            <input type="file" name="profile_image" className="hidden absolute" ref={profileImageRef} onChange={onChangeProfileimage}></input>
+        </div>
 
-      <form onSubmit={onSubmit}>
-        <input type="email" onBlur={onBlur} value={ email } required placeholder="Email" className="block" name="email" onChange={onChange}></input>
-        <input type="text" onBlur={onBlur} value={first_name } required placeholder="First Name " className="block" name="first_name" onChange={onChange}></input>
-        <input type="text" onBlur={onBlur} value={last_name} required placeholder="Last Name " className="block" name="last_name" onChange={onChange}></input>
-        <input type="password" onBlur={onBlur} value={ password} required placeholder="Password" className="block" name="password" onChange={onChange}></input>
-        <input type="password" onBlur={onBlur} value={ re_password} required placeholder="Confirm Password" className="block" name="re_password" onChange={onChange}></input>
-      </form>
-      {isAccountCreated.message != '' && <h2 > {isAccountCreated.message} </h2>}
-      <button className="w-full h-12 bg-color5 text-white" onClick={onSubmit}>Sinup</button>
-      <h2>Already have an account ?</h2>
-      <button className="w-full h-12 bg-color5 text-white" onClick={login}>Login</button>
-      <button className="w-full h-12 bg-color5 text-white" onClick={forgetPassword}>Forget Password ?</button>
+        <div>
+          <form onSubmit={onSubmit}>
+          <input type="email" onBlur={onBlur} value={ email } required placeholder="Email" className="block" name="email" onChange={onChange}></input>
+          <input type="text" onBlur={onBlur} value={first_name } required placeholder="First Name " className="block" name="first_name" onChange={onChange}></input>
+          <input type="text" onBlur={onBlur} value={last_name} required placeholder="Last Name " className="block" name="last_name" onChange={onChange}></input>
+          <input type="password" onBlur={onBlur} value={ password} required placeholder="Password" className="block" name="password" onChange={onChange}></input>
+          <input type="password" onBlur={onBlur} value={ re_password} required placeholder="Confirm Password" className="block" name="re_password" onChange={onChange}></input>
+          </form>
+          {isAccountCreated.message != '' && <h2 > {isAccountCreated.message} </h2>}
+          <button className="w-full h-12 bg-color5 text-white" onClick={onSubmit}>Signup</button>
+          <h2>Already have an account ?</h2>
+          <button className="w-full h-12 bg-color5 text-white" onClick={login}>Login</button>
+          <button className="w-full h-12 bg-color5 text-white" onClick={forgetPassword}>Forget Password ?</button>  
+        </div>
 
       </div>
       

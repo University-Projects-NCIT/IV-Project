@@ -9,7 +9,6 @@ from .serializers import (
     ProductImageSerializer,
     ProfileImageSerializer,
     ProductCommentSerializer,
-    UserSerializer,
     CategorySerializer
 )
 
@@ -19,7 +18,6 @@ from .models import(
     ProductComment,
     ProductImage,
     ProfileImage,
-    User,
     Category
 )
 
@@ -127,12 +125,6 @@ class ProductCommentViewSet(viewsets.ModelViewSet):
 
         return queryset
     
-
-# application user api 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [permissions.AllowAny]
 
     
 

@@ -17,8 +17,7 @@ class UserAccountManager(BaseUserManager):
     
     def create_superuser(self,email, password, **extra_fields):
         """
-        Creates and saves a superuser with the given email, date of
-        birth and password.
+        Creates and saves a superuser with the given email password.
         """
         user = self.create_user(
             email=email,
@@ -36,6 +35,7 @@ class UserAccountManager(BaseUserManager):
 
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
+
     id = models.CharField(
         verbose_name=("User id "),
         help_text=("Required and Unique"),
@@ -44,10 +44,18 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
         primary_key=True
     )
 
+    
+
     email = models.EmailField(
       verbose_name=("UserEmail"),
       max_length=254,
       unique=True
+      )
+
+    username = models.CharField(
+      verbose_name=("UserName"),
+      max_length=255,
+      default = email,
       )
 
 
