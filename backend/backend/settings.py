@@ -32,11 +32,11 @@ INSTALLED_APPS = [
     'core',
     'django.contrib.admin',
     'django_filters',
-    'corsheaders', #To allow call api from nextjs frontend app
-    'rest_framework_simplejwt', # For generate JWT (library)
-    'djoser', # Djoser is library to make authenticate backend
-    'social_django', # Social authenticate eg. Google ,facebook oauth
-    'rest_framework_simplejwt.token_blacklist', # helps jwt auth system
+    'corsheaders',  # To allow call api from nextjs frontend app
+    'rest_framework_simplejwt',  # For generate JWT (library)
+    'djoser',  # Djoser is library to make authenticate backend
+    'social_django',  # Social authenticate eg. Google ,facebook oauth
+    'rest_framework_simplejwt.token_blacklist',  # helps jwt auth system
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -46,7 +46,7 @@ MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware', 
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -85,17 +85,17 @@ DATABASES = {
     }
 }
 
-### Email details for authentication 
+# Email details for authentication
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get('EMAIL_E')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 
 
-CORS_ORIGIN_ALLOW_ALL = True # allows to access from any fronend domains
-CORS_ALLOW_CREDENTIALS = True # allows to return cookies and sessions
+CORS_ORIGIN_ALLOW_ALL = True  # allows to access from any fronend domains
+CORS_ALLOW_CREDENTIALS = True  # allows to return cookies and sessions
 
 
 # Password validation
@@ -142,7 +142,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
     ],
-    
+
 }
 
 AUTHENTICATION_BACKENDS = (
@@ -159,10 +159,10 @@ SIMPLE_JWT = {
     )
 }
 
-DOMAIN = ('localhost:8080') # frontend domain
-SITE_NAME = ('StartupMe') # app Name
+DOMAIN = ('localhost:8080')  # frontend domain
+SITE_NAME = ('StartupMe')  # app Name
 
-### Djoser library settings for authentications 
+# Djoser library settings for authentications
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE': True,
@@ -176,7 +176,7 @@ DJOSER = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
-    #'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/google'],
+    # 'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/google'],
     'SERIALIZERS': {
         'user_create': 'auth_system.serializers.UserCreateSerializer',
         'user': 'auth_system.serializers.UserCreateSerializer',
@@ -192,7 +192,6 @@ DJOSER = {
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
-
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
