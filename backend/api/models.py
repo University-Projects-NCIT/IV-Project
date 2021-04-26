@@ -8,14 +8,12 @@ class ProfileImage(models.Model):
     User Profile images who are signed in
     website also product profile icon or logo is stored here.
     """
-    image = models.ImageField(
+    image = models.URLField(
         verbose_name  = ("Product profile image "),
-        help_text = ("Product profile images ,logo, icons  "),
-        upload_to="images/",
-        default = "images/default.png"
+        help_text = ("Product profile images ,logo, icons  ")
         ) 
 
-    created_at = models.DateTimeField(verbose_name=("Created at"), auto_now_add=True)
+    created_at = models.DateTimeField(verbose_name=("Created at"), auto_now_add=True, editable = False)
     updated_at = models.DateTimeField(verbose_name=("Updated at"), auto_now_add=True)
 
 
@@ -25,7 +23,6 @@ class Product(models.Model):
     etc. suppose to be product that is 
     posted by users.
     """
-
 
     productID = models.CharField(
         verbose_name = ("prodcut id "),
@@ -66,12 +63,9 @@ class Product(models.Model):
         default =1
         )
 
-    profile_image = models.ForeignKey(
-        ProfileImage,
+    profile_image = models.URLField(
         verbose_name= ("Product icon or logo"),
         null = True,
-        on_delete = models.SET_NULL,
-        default = 'images/default.png'
         )
 
     created_at = models.DateTimeField(("Created at"), auto_now_add=True,editable = False)
@@ -89,10 +83,10 @@ class ProductImage(models.Model):
     """
     product = models.ForeignKey(Product, verbose_name=("product Id"), on_delete=models.CASCADE)
     created_at = models.DateTimeField(verbose_name=("Created At"), editable = False , auto_now_add=True)
-    image = models.ImageField(
+    image = models.URLField(
         verbose_name  = ("Product image "),
-        help_text = ("Product screenshot images "),
-        upload_to="images/") 
+        help_text = ("Product screenshot images ")
+        ) 
 
 
 class ProductComment(models.Model):

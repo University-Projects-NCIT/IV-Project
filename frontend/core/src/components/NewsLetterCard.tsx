@@ -1,9 +1,11 @@
 import NewsLetterItems from "./NewsLetterItems";
 
-const NewsLetterCard: React.FC = () => {
+const NewsLetterCard: React.FC = ({cardData} : any) => {
 	/**
 	 * @returns  Notice News Latter List  as card
 	 */
+
+	console.log(cardData)
 
 	return (
 		<>

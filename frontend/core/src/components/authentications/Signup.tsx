@@ -73,6 +73,7 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
     {
       setIsAccountCreated({ created: true, message: "Activate your account via email" })
       setFormData(initialValues);
+      setImageFile(null);
     } else {
       setIsAccountCreated({created: false, message: "Signup Fail ! Tips: Keep password strong inlcuding number, symbol and altleast 8 character. May be wrong email address !"})
     }

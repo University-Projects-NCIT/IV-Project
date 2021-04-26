@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import ProductListCard from "./ProductListCard";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { MdAdd } from "react-icons/md";
@@ -8,14 +8,14 @@ import Search from "./Search";
 import UpcomingProductCard from "./UpcomingProductCard";
 import NewsLetterCard from "./NewsLetterCard";
 import { useToggle } from "../hooks/Toggle";
-import AuthForm from './authentications/Auth'
-import { useRouter } from 'next/router'
-import { ToggleContext } from '../Contexts/ToggleContext'
-import { connect } from 'react-redux'
+import AuthForm from './authentications/Auth';
+import { useRouter } from 'next/router';
+import { ToggleContext } from '../Contexts/ToggleContext';
+import { connect } from 'react-redux';
 
 
 
-const MainContent: React.FC = React.memo(({ user }: any): JSX.Element => {
+const MainContent: React.FC = React.memo(({ user, isAuthenticated }: any): JSX.Element => {
 
 	/**
 	 * MainContent is the second main component
@@ -29,11 +29,78 @@ const MainContent: React.FC = React.memo(({ user }: any): JSX.Element => {
 	const [loginForm, toggle] = useToggle(false);
 	const router = useRouter();
 
+	const data = [
+		{'Todays ': [{
+			title: "Instagram App",
+			tagline: "The way to share your photo to the world .",
+			category: ["IOS", "Android", "Wesite"],
+		},
+			{
+			title: "Instagram App",
+			tagline: "The way to share your photo to the world .",
+			category: ["IOS", "Android", "Wesite"],
+			},
+			{
+			title: "Instagram App",
+			tagline: "The way to share your photo to the world .",
+			category: ["IOS", "Android", "Wesite"],
+			},
+			{
+			title: "Instagram App",
+			tagline: "The way to share your photo to the world .",
+			category: ["IOS", "Android", "Wesite"],
+		},
+		]},
+		{'Yestarday' : [{
+			title: "Instagram App",
+			tagline: "The way to share your photo to the world .",
+			category: ["IOS", "Android", "Wesite"],
+		},
+			{
+			title: "Instagram App",
+			tagline: "The way to share your photo to the world .",
+			category: ["IOS", "Android", "Wesite"],
+			},
+			{
+			title: "Instagram App",
+			tagline: "The way to share your photo to the world .",
+			category: ["IOS", "Android", "Wesite"],
+			},
+			{
+			title: "Instagram App",
+			tagline: "The way to share your photo to the world .",
+			category: ["IOS", "Android", "Wesite"],
+		},
+		]},
+		{
+			'2021 jun 13': [{
+			title: "Instagram App",
+			tagline: "The way to share your photo to the world .",
+			category: ["IOS", "Android", "Wesite"],
+		  },
+			{
+			title: "Instagram App",
+			tagline: "The way to share your photo to the world .",
+			category: ["IOS", "Android", "Wesite"],
+			},
+			{
+			title: "Instagram App",
+			tagline: "The way to share your photo to the world .",
+			category: ["IOS", "Android", "Wesite"],
+			},
+			{
+			title: "Instagram App",
+			tagline: "The way to share your photo to the world .",
+			category: ["IOS", "Android", "Wesite"],
+		},
+		]}
+	]
 
 
 	return (
 		<>
-			{loginForm? (
+		
+			{ loginForm && !isAuthenticated ? (
 				<ToggleContext.Provider value={toggle}>
 					<AuthForm/>
 				</ToggleContext.Provider>
@@ -93,13 +160,20 @@ const MainContent: React.FC = React.memo(({ user }: any): JSX.Element => {
 								Newest
 							</button>
 						</div>
-						<ProductListCard />
-						<ProductListCard />
+						{/* {
+							data.map(data1 => {
+								data.map(data2 => {
+									console.log("data2 " + data2)
+								})
+							})
+						} */}
+						<ProductListCard/>
+						<ProductListCard/>
 						<ProductListCard/>
 					</div>
 					<div className="right-container h-auto pt-1 mr-4 lg:mr-40">
-						<UpcomingProductCard />
-						<NewsLetterCard />
+						<UpcomingProductCard key ="upcoming product"/>
+						<NewsLetterCard key="news latter"/>
 					</div>
 				</div>
 			</div>
@@ -194,7 +268,8 @@ const MainContent: React.FC = React.memo(({ user }: any): JSX.Element => {
 
 const mapStateToProps = state => (
 	{
-			user: state.auth.user,
+		user: state.auth.user,
+		isAuthenticated: state.auth.isAuthenticated
 	})
 
 export default connect(mapStateToProps, {})(MainContent);
