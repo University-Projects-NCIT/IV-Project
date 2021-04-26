@@ -64,7 +64,7 @@ const Login: React.FC = React.memo(({ access, error, isAuthenticated, login, set
   return (
     <>
       <div className="w-full h-auto">
-        <div><img src="/images/michaeljackson.jpg"  className="w-32 h-32 rounded-lg m-auto"></img></div>
+        <div><img src="/images/default_profileimg.jpg"  className="w-32 h-32 rounded-full m-auto"></img></div>
         <form onSubmit={onSubmit}>
           <input type="email" onBlur={ onBlur} name ="email" value={email} required placeholder="Email" className="block" onChange={onChange}></input>
           <input type="password" onBlur={onBlur} name="password" value={password} required placeholder="Password" className="block" onChange={onChange}></input>

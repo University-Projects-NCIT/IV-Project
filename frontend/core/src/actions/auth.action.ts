@@ -22,6 +22,27 @@ import {
 } from './types';
 
 
+// var fileUrl = 
+// 'https://firebasestorage.googleapis.com/b/bucket/o/images%20geeksforgeeks.jpg';
+  
+// // Create a reference to the file to delete
+// var fileRef = storage.refFromURL(fileUrl);
+  
+// console.log("File in database before delete exists : " 
+//         + fileRef.exists())
+  
+// // Delete the file using the delete() method 
+// fileRef.delete().then(function () {
+  
+//     // File deleted successfully
+//     console.log("File Deleted")
+// }).catch(function (error) {
+//     // Some Error occurred
+// });
+  
+// console.log("File in database after delete exists : "
+//         + fileRef.exists())
+
 
 
 export const load_user = () => async dispatch => {
@@ -160,7 +181,7 @@ export const login = (email, password) => async dispatch => {
     }
 };
 
-export const signup = (id, email, first_name, last_name, password, re_password) => async dispatch => {
+export const signup = (id,profile_image, email, first_name, last_name, password, re_password) => async dispatch => {
 
     const config = {
         headers: {
@@ -168,8 +189,9 @@ export const signup = (id, email, first_name, last_name, password, re_password) 
         }
     };
 
-  const body = JSON.stringify({ id, email, first_name, last_name, password, re_password });
-  console.log(body)
+    console.log("image link " + profile_image)
+    const body = JSON.stringify({ id, profile_image, email, first_name, last_name, password, re_password });
+    
 
     try {
         const res = await axios.post(`${BACKEND_URL}/auth/users/`, body, config);
@@ -179,9 +201,10 @@ export const signup = (id, email, first_name, last_name, password, re_password) 
             payload: res.data
         });
     } catch (err) {
+        console.log("sign up error " + err)
         dispatch({
             type: SIGNUP_FAIL,
-            error: err
+            payload: err
         })
     }
 };

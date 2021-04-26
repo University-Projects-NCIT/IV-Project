@@ -9,7 +9,6 @@ from .serializers import (
     ProductImageSerializer,
     ProfileImageSerializer,
     ProductCommentSerializer,
-    UserSerializer,
     CategorySerializer
 )
 
@@ -19,7 +18,6 @@ from .models import(
     ProductComment,
     ProductImage,
     ProfileImage,
-    User,
     Category
 )
 
@@ -28,7 +26,7 @@ from .models import(
 # Product api
 class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_backends = [filters.OrderingFilter, filters.SearchFilter]
     ## Table column created_at and upvote
     ordering_fields = ['created_at','upvote']
@@ -59,7 +57,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 #porduct image api
 class ProductImageViewSet(viewsets.ModelViewSet):
     serializer_class = ProductImageSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_backends=[filters.OrderingFilter]
 
     ### It orders the data according to the created date 
@@ -83,7 +81,7 @@ class ProductImageViewSet(viewsets.ModelViewSet):
 class ProfileImageViewSet(viewsets.ModelViewSet):
 
     serializer_class = ProfileImageSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
         """
@@ -104,7 +102,7 @@ class ProfileImageViewSet(viewsets.ModelViewSet):
 # product comments api 
 class ProductCommentViewSet(viewsets.ModelViewSet):
     serializer_class = ProductCommentSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_backends=[filters.OrderingFilter]
 
     ### to get data in order of created date 
@@ -128,18 +126,12 @@ class ProductCommentViewSet(viewsets.ModelViewSet):
         return queryset
     
 
-# application user api 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [permissions.AllowAny]
-
     
 
 # product categories api 
 class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
         """

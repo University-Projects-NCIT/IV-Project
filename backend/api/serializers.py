@@ -5,7 +5,6 @@ from .models import(
     ProductComment,
     ProductImage,
     ProfileImage,
-    User,
     Category
 )
 
@@ -14,13 +13,13 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = [
             "productID",
-            "product_status",
             "title",
             "tagline",
             "description",
             "upvote",
             "profile_image",
             "created_at", 
+            "launch_at",
             "created_by"
             ]
 
@@ -38,11 +37,6 @@ class ProductCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductComment
         fields = ["id", "product","comment" ,"created_at"]
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields =["userID","profile_image","email","username", "is_staff","created_at","auth_providers"]
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:

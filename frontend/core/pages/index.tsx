@@ -1,6 +1,4 @@
 
-import Head from "next/head";
-import ProductListCard from '../src/components/ProductListCard';
 import MainComponent from '../src/components/MainComponent'
 
 
