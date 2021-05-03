@@ -3,18 +3,6 @@ from django.conf import settings
 
 ##  All the models(Tables) are defined here
 ##  Edit and add new models(table) defining new class 
-class ProfileImage(models.Model):
-    """
-    User Profile images who are signed in
-    website also product profile icon or logo is stored here.
-    """
-    image = models.URLField(
-        verbose_name  = ("Product profile image "),
-        help_text = ("Product profile images ,logo, icons  ")
-        ) 
-
-    created_at = models.DateTimeField(verbose_name=("Created at"), auto_now_add=True, editable = False)
-    updated_at = models.DateTimeField(verbose_name=("Updated at"), auto_now_add=True)
 
 
 class Product(models.Model):
@@ -60,12 +48,7 @@ class Product(models.Model):
 
     upvote = models.IntegerField(
         verbose_name = ("product upvote "),
-        default =1
-        )
-
-    profile_image = models.URLField(
-        verbose_name= ("Product icon or logo"),
-        null = True,
+        default = 0
         )
 
     created_at = models.DateTimeField(("Created at"), auto_now_add=True,editable = False)
@@ -75,6 +58,22 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         verbose_name=("Creator id "), 
         )
+
+
+class ProductIcon(models.Model):
+    """
+    User Profile images who are signed in
+    website also product profile icon or logo is stored here.
+    """
+    image = models.URLField(
+        verbose_name  = ("Product profile image "),
+        help_text = ("Product profile images ,logo, icons  ")
+        ) 
+    product = models.ForeignKey(Product, verbose_name=("product Id"), on_delete=models.CASCADE)
+    
+    created_at = models.DateTimeField(verbose_name=("Created at"), auto_now_add=True, editable = False)
+    updated_at = models.DateTimeField(verbose_name=("Updated at"), auto_now_add=True)
+
 
 class ProductImage(models.Model):
     """

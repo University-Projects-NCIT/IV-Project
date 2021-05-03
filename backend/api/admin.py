@@ -4,7 +4,7 @@ from .models import (
     Product, 
     ProductImage, 
     ProductComment, 
-    ProfileImage,
+    ProductIcon,
     Category
 )
 
@@ -15,15 +15,14 @@ class ProductAdmin(admin.ModelAdmin):
     "tagline",
     "description",
     "upvote",
-    "profile_image",
     "created_at",
     "launch_at", 
     "created_by"
     ]
 
-@admin.register(ProfileImage)
-class ProfileImageAdmin(admin.ModelAdmin):
-    list_display = ["id", "image","created_at","updated_at"]
+@admin.register(ProductIcon)
+class ProductIconAdmin(admin.ModelAdmin):
+    list_display = ["id","product", "image","created_at","updated_at"]
 
 @admin.register(ProductImage)
 class ProductImageAdmin(admin.ModelAdmin):

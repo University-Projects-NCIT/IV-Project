@@ -4,7 +4,7 @@ from .views import(
     ProductViewSet,
     ProductCommentViewSet,
     ProductImageViewSet,
-    ProfileImageViewSet,
+    ProductIconViewSet,
     CategoryViewSet
 )
 
@@ -19,7 +19,7 @@ router.register(f'product_images', ProductImageViewSet, 'Product Images')
 # route for all the comment od products
 router.register(f'comments', ProductCommentViewSet, 'Comment')
 # api route for profile images table
-router.register(f'profile_images', ProfileImageViewSet, 'Profile Image')
+router.register(f'product_icon', ProductIconViewSet, 'Product Icon Image')
 # api route for Category of product table 
 router.register(f'categories', CategoryViewSet, 'product Category ')
 

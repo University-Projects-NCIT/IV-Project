@@ -58,6 +58,12 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
     for (let i in inputRef.current)
     {
       //check any input fields are empty 
+      if (profileImageRef.current[0].value == '')
+      {
+        alert("image fields can not be empty ")
+        return;
+      }
+
       if (inputRef.current[i].value == '')
       {
         inputRef.current[i].classList.add("red-border");

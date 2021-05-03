@@ -7,7 +7,7 @@ from .paginations import ProductLimitOffsetPagination
 from .serializers import (
     ProductSerializer,
     ProductImageSerializer,
-    ProfileImageSerializer,
+    ProductIconSerializer,
     ProductCommentSerializer,
     CategorySerializer
 )
@@ -17,7 +17,7 @@ from .models import(
     Product,
     ProductComment,
     ProductImage,
-    ProfileImage,
+    ProductIcon,
     Category
 )
 
@@ -78,9 +78,9 @@ class ProductImageViewSet(viewsets.ModelViewSet):
 
 
 # product profile image api 
-class ProfileImageViewSet(viewsets.ModelViewSet):
+class ProductIconViewSet(viewsets.ModelViewSet):
 
-    serializer_class = ProfileImageSerializer
+    serializer_class = ProductIconSerializer 
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):

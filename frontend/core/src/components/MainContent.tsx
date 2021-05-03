@@ -160,13 +160,13 @@ const MainContent: React.FC = React.memo(({ user, isAuthenticated }: any): JSX.E
 								Newest
 							</button>
 						</div>
-						{/* {
+						{
 							data.map(data1 => {
 								data.map(data2 => {
 									console.log("data2 " + data2)
 								})
 							})
-						} */}
+						}
 						<ProductListCard/>
 						<ProductListCard/>
 						<ProductListCard/>
