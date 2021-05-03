@@ -1,10 +1,12 @@
+activate env:
+source env/bin/activate
 
 migrate database python :
 python manage.py makemigrations 
 python manage.py migrate 
 
 run server :
-python manage.py runsrver 9000
+python manage.py runserver 9000
 pip freeze 
 pip install [deps]
 pip install -r requirements.txt
