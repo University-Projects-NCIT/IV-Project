@@ -26,7 +26,7 @@ from .models import(
 # Product api
 class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
     filter_backends = [filters.OrderingFilter, filters.SearchFilter]
     ## Table column created_at and upvote
     ordering_fields = ['created_at','upvote']
@@ -44,13 +44,19 @@ class ProductViewSet(viewsets.ModelViewSet):
 
         ## End point: /product/ordering='-upvote'
         ordering_query = self.request.query_params.get('m_order')
+        print(ordering_query == 'upvote')
         if ordering_query == "created_at" :
             return queryset.order_by('-created_at')
 
         if ordering_query == "upvote":
+            print("upvote called ")
             return queryset.order_by('-upvote')
 
         return queryset
+
+    # @property
+    # def categories(self):
+    #     return self.category_set.all()
     
 
 

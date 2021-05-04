@@ -5,14 +5,20 @@ import '../styles/apply.css'
 import { Provider } from 'react-redux'
 import store from '../src/store'
 import Layout from '../src/layout/Layout'
+import {QueryClient, QueryClientProvider} from 'react-query'
 
 function MyApp({ Component, pageProps }) {
+
+  const queryClient = new QueryClient();
+
   return (
-    <Provider store ={store}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </Provider>
+    <QueryClientProvider client= {queryClient}>
+      <Provider store ={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
+    </QueryClientProvider>
   )
 }
 
