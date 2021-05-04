@@ -17,7 +17,6 @@ class ProductAdmin(admin.ModelAdmin):
     "upvote",
     "created_at",
     "launch_at", 
-    "created_by"
     ]
 
 @admin.register(ProductIcon)

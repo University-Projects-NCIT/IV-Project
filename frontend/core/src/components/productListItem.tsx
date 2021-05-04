@@ -1,21 +1,18 @@
 import React, { useState } from "react";
-import { ProductInterface } from "../interfaces/Interfaces";
+import { CardDataInterface, CardItemDataInterface } from "../interfaces/Interfaces";
 import { BsFillTriangleFill } from "react-icons/bs";
 
-const ProductListItem: React.FC = (props) => {
+const ProductListItem: React.FC<CardItemDataInterface> = ({itemData}) => {
 	/**
 	 * @returns the each single product list
 	 */
 
-	const initialValue = {
-		title: "Instagram App",
-		tagline: "The way to share your photo to the world .",
-		category: ["IOS", "Android", "Wesite"],
-	};
 
-	const [upvote, setUpvote] = useState(345);
 
-	const [data, setData] = useState<ProductInterface>(initialValue);
+
+	const [upvote, setUpvote] = useState(0);
+
+	const [data, setData] = useState<CardItemDataInterface>(null);
 	return (
 		<>
 			<div className="w-full bg-item_list_bg text-gray-100 flex flex-col hover:opacity-70 cursor-pointer">
@@ -24,10 +21,10 @@ const ProductListItem: React.FC = (props) => {
 						<img src="./images/snapchat.png" alt="product image logo" />
 					</div>
 					<div className="">
-						<h4 className="mt-1">{data.title}</h4>
-						<p className="text-xs mt-1 text-gray-300">{data.tagline}</p>
+						<h4 className="mt-1">{itemData.title}</h4>
+						<p className="text-xs mt-1 text-gray-300">{itemData.tagline}</p>
 						<div className="flex flex-start mt-2">
-							{data.category.map((item) => {
+							{itemData.category.map((item) => {
 								return (
 									<p className="category m-1 uppercase" key={item}>
 										{item}

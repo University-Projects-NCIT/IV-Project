@@ -12,6 +12,9 @@ import AuthForm from './authentications/Auth';
 import { useRouter } from 'next/router';
 import { ToggleContext } from '../Contexts/ToggleContext';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid'
+import { fecthProductsByNewest } from '../productapi';
+import { useQuery } from 'react-query'
 
 
 
@@ -29,71 +32,84 @@ const MainContent: React.FC = React.memo(({ user, isAuthenticated }: any): JSX.E
 	const [loginForm, toggle] = useToggle(false);
 	const router = useRouter();
 
-	const data = [
-		{'Todays ': [{
+	const { data, error, isLoading, isError } = useQuery("products", fecthProductsByNewest);
+console.log(data + " datafrom api p")
+
+	const initialData = [
+		[{
 			title: "Instagram App",
+			date: "2020 march 13",
 			tagline: "The way to share your photo to the world .",
 			category: ["IOS", "Android", "Wesite"],
 		},
 			{
 			title: "Instagram App",
+			date: "2020 march 13",
 			tagline: "The way to share your photo to the world .",
 			category: ["IOS", "Android", "Wesite"],
 			},
 			{
 			title: "Instagram App",
+			date: "2020 march 13",
 			tagline: "The way to share your photo to the world .",
 			category: ["IOS", "Android", "Wesite"],
 			},
 			{
 			title: "Instagram App",
+			date: "2020 march 13",
+			tagline: "The way to share your photo to the world .",
+			category: ["IOS", "Android", "Wesite"],
+			}],
+		
+		[{
+			title: "Instagram App",
+			date: "2020 march 13",
 			tagline: "The way to share your photo to the world .",
 			category: ["IOS", "Android", "Wesite"],
 		},
-		]},
-		{'Yestarday' : [{
-			title: "Instagram App",
-			tagline: "The way to share your photo to the world .",
-			category: ["IOS", "Android", "Wesite"],
-		},
 			{
 			title: "Instagram App",
+			date: "2020 march 13",
 			tagline: "The way to share your photo to the world .",
 			category: ["IOS", "Android", "Wesite"],
 			},
 			{
 			title: "Instagram App",
+			date: "2020 march 13",
 			tagline: "The way to share your photo to the world .",
 			category: ["IOS", "Android", "Wesite"],
 			},
 			{
 			title: "Instagram App",
+			date: "2020 march 13",
 			tagline: "The way to share your photo to the world .",
 			category: ["IOS", "Android", "Wesite"],
-		},
-		]},
-		{
-			'2021 jun 13': [{
+			}],
+		
+		[{
 			title: "Instagram App",
+			date: "2020 march 13",
 			tagline: "The way to share your photo to the world .",
 			category: ["IOS", "Android", "Wesite"],
 		  },
 			{
 			title: "Instagram App",
+			date: "2020 march 13",
 			tagline: "The way to share your photo to the world .",
 			category: ["IOS", "Android", "Wesite"],
 			},
 			{
 			title: "Instagram App",
+			date: "2020 march 13",
 			tagline: "The way to share your photo to the world .",
 			category: ["IOS", "Android", "Wesite"],
 			},
 			{
 			title: "Instagram App",
+			date: "2020 march 13",
 			tagline: "The way to share your photo to the world .",
 			category: ["IOS", "Android", "Wesite"],
-		},
-		]}
+		}]
 	]
 
 
@@ -161,19 +177,15 @@ const MainContent: React.FC = React.memo(({ user, isAuthenticated }: any): JSX.E
 							</button>
 						</div>
 						{
-							data.map(data1 => {
-								data.map(data2 => {
-									console.log("data2 " + data2)
-								})
+							initialData.map(cardData => {
+								return <ProductListCard data={cardData} key= {uuidv4()}/>
 							})
 						}
-						<ProductListCard/>
-						<ProductListCard/>
-						<ProductListCard/>
+
 					</div>
 					<div className="right-container h-auto pt-1 mr-4 lg:mr-40">
-						<UpcomingProductCard key ="upcoming product"/>
-						<NewsLetterCard key="news latter"/>
+						<UpcomingProductCard key={uuidv4()}/>
+						<NewsLetterCard key={uuidv4()}/>
 					</div>
 				</div>
 			</div>

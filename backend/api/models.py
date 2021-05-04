@@ -1,9 +1,12 @@
 from django.db import models
 from django.conf import settings
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 ##  All the models(Tables) are defined here
 ##  Edit and add new models(table) defining new class 
-
 
 class Product(models.Model):
     """
@@ -53,11 +56,14 @@ class Product(models.Model):
 
     created_at = models.DateTimeField(("Created at"), auto_now_add=True,editable = False)
     launch_at = models.DateTimeField(("Launch at"), auto_now_add=True,editable = False)
-    created_by = models.ForeignKey( 
+    author = models.ForeignKey( 
         settings.AUTH_USER_MODEL,
+        related_name="author",
         on_delete=models.CASCADE,
-        verbose_name=("Creator id "), 
-        )
+        verbose_name=("Creator "), 
+    )
+
+
 
 
 class ProductIcon(models.Model):
@@ -69,8 +75,9 @@ class ProductIcon(models.Model):
         verbose_name  = ("Product profile image "),
         help_text = ("Product profile images ,logo, icons  ")
         ) 
-    product = models.ForeignKey(Product, verbose_name=("product Id"), on_delete=models.CASCADE)
-    
+        
+    product = models.ForeignKey(Product,related_name="product_icon", verbose_name=("product ID"), on_delete=models.CASCADE)
+
     created_at = models.DateTimeField(verbose_name=("Created at"), auto_now_add=True, editable = False)
     updated_at = models.DateTimeField(verbose_name=("Updated at"), auto_now_add=True)
 
@@ -80,7 +87,7 @@ class ProductImage(models.Model):
     Product screenshots images or may be featured image to show 
     your product for describing the product
     """
-    product = models.ForeignKey(Product, verbose_name=("product Id"), on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,related_name="product_images", verbose_name=("product Id"), on_delete=models.CASCADE)
     created_at = models.DateTimeField(verbose_name=("Created At"), editable = False , auto_now_add=True)
     image = models.URLField(
         verbose_name  = ("Product image "),
@@ -93,7 +100,7 @@ class ProductComment(models.Model):
     It stores the all comments make to 
     any porduct .
     """
-    product = models.ForeignKey(Product, verbose_name=("product Id"), on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,related_name="product_comment", verbose_name=("product Id"), on_delete=models.CASCADE)
     comment = models.TextField(
         verbose_name = ("Comments text"),
         help_text =("Comment made to prouct "),
@@ -107,4 +114,6 @@ class Category(models.Model):
     belongs like android ,ios , website etc.
     """
     name = models.CharField(verbose_name = ("Product categories"), max_length=20)
-    product = models.ForeignKey(Product, verbose_name=("product Id"), on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,related_name="categories", verbose_name=("product Id"), on_delete=models.CASCADE)
+
+

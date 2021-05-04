@@ -1,15 +1,20 @@
 import ProductListItem from "./productListItem";
 import Link from 'next/link'
+import { CardDataInterface } from '../interfaces/Interfaces'
+import {v4 as uuidv4} from 'uuid'
 
-const ProductListCard: React.FC = () => {
+
+
+const ProductListCard: React.FC<CardDataInterface> = (props) => {
 	/**
 	 * @returns Product list as card with grouping the same date
 	 * for eg: Product are grouping with Today, yesterday card
 	 * Each card should be different date card
 	 */
 
-	const data = [{ title: "App" }, { title: "android" },
-	{ title: "Ios" }, { title: "Ios" }]
+	// const data = [{ title: "App" }, { title: "android" },
+	// { title: "Ios" }, { title: "Ios" }]
+
 
 	return (
 		<>
@@ -19,13 +24,16 @@ const ProductListCard: React.FC = () => {
 			</div>
 			<div className="rounded mb-10 overflow-hidden w-full h-auto">
 				{
-					data.map(item => {
-						return (<Link href={{
-							pathname: "/LoginForm",
-							query: { title : item.title },
-						}}>
-							<ProductListItem/>
-						</Link>)
+					props.data.map(itemData => {
+
+						return (
+						// 	<Link href={{
+						// 	pathname: "/LoginForm",
+						// 	query: { title : itemData.title },
+						// }}>
+						//</Link>
+							<ProductListItem itemData={itemData} key={uuidv4()}/>
+						)
 					})
 				}
 			</div>
