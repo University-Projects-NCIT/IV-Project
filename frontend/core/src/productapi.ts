@@ -21,3 +21,18 @@ export const getProduct = async () => {
 		console.log(e);
 	}
 };
+
+export const fecthProducts = async (key, order = "created_at") => {
+	const AUTH_HEADER = {
+		"Content-Type": "application/json",
+		Accept: "application/json",
+	};
+
+	let url = `${API_URL}/products/?m_order=${order}`;
+
+	return await fetch(url, {
+		headers: {
+			...AUTH_HEADER,
+		},
+	}).then((res) => res.json());
+};

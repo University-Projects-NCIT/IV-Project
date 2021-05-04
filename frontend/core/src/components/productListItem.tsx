@@ -24,7 +24,7 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData}) => {
 						<h4 className="mt-1">{itemData.title}</h4>
 						<p className="text-xs mt-1 text-gray-300">{itemData.tagline}</p>
 						<div className="flex flex-start mt-2">
-							{itemData.category.map((item) => {
+							{itemData.categories.map((item) => {
 								return (
 									<p className="category m-1 uppercase" key={item}>
 										{item}

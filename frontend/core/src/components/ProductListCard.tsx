@@ -15,6 +15,8 @@ const ProductListCard: React.FC<CardDataInterface> = (props) => {
 	// const data = [{ title: "App" }, { title: "android" },
 	// { title: "Ios" }, { title: "Ios" }]
 
+	console.log(props.data)
+
 
 	return (
 		<>

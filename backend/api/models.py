@@ -55,7 +55,7 @@ class Product(models.Model):
         )
 
     created_at = models.DateTimeField(("Created at"), auto_now_add=True,editable = False)
-    launch_at = models.DateTimeField(("Launch at"), auto_now_add=True,editable = False)
+    launch_at = models.DateTimeField(("Launch at"), auto_now=False, editable = True)
     author = models.ForeignKey( 
         settings.AUTH_USER_MODEL,
         related_name="author",
