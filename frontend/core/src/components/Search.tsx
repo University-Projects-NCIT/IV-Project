@@ -10,7 +10,7 @@ const Search: React.FC = () => {
 					type="text"
 					className="input w-full md:w-2/5 bg-item_list_bg rounded-md border-none"
 				></input>
-				<VscSearch className="-ml-8 mt-1" />
+				<VscSearch className="-ml-7 mt-1" />
 			</div>
 
 			<style jsx>
