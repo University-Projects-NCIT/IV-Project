@@ -5,11 +5,18 @@ migrate database python :
 python manage.py makemigrations 
 python manage.py migrate 
 
+activate Env :
+linux or mac : source env/bin/activate
+window: env\Scripts\activate
+
 run server :
 python manage.py runserver 9000
 pip freeze 
 pip install [deps]
 pip install -r requirements.txt
+
+## super@super.com
+## Super321@123
 
 query all products : 
     /products 
