@@ -1,23 +1,23 @@
-import axios from 'axios'
+import axios from "axios";
 
-const API_URL = "http://localhost:9000"
+const API_URL = "http://localhost:9000";
 
-const access = (typeof window !== "undefined") ? localStorage.getItem('access') : '';
+// const access =
+// 	typeof window !== "undefined" ? localStorage.getItem("access") : "";
 
 const config = {
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    }
+	headers: {
+		"Content-Type": "application/json",
+		Accept: "application/json",
+	},
 };
 
-export const fecthProductsByNewest = async (key) => {
-  try {
-    const res = await axios.get(`${API_URL}/products/`, config);
-    console.log(res + " response data");
-    return res;
-  } catch (err)
-  {
-    console.log(err)
-  }
-}
+export const getProduct = async () => {
+	try {
+		const res = await axios.get(`${API_URL}/products/`, config);
+		console.log(res, "get products");
+		return res;
+	} catch (e) {
+		console.log(e);
+	}
+};
