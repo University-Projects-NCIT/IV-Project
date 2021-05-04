@@ -1,10 +1,16 @@
 import ProductListItem from "./productListItem";
 import UpcomingItemList from "./UpcomingItemList";
+import { ProductInterface } from '../interfaces/Interfaces'
 
-const ProductListCard: React.FC = () => {
+const ProductListCard: React.FC<ProductInterface[]> = (data) => {
 	/**
 	 * @returns Upcomming Product list as card
 	 */
+
+// 	console.log(data + " from upcmmong card ")
+// 	data.map(d => {
+// 	console.log(d)
+// })
 
 	return (
 		<>
@@ -12,9 +18,12 @@ const ProductListCard: React.FC = () => {
 				<div className="text-lg">Upcoming Product </div>
 			</div>
 			<div className="rounded-lg mb-8 overflow-hidden ">
-				<UpcomingItemList />
-				<UpcomingItemList />
-				<UpcomingItemList />
+				{
+				// 	data.map(productData => {
+				// 	return <UpcomingItemList data={productData}/>
+				// })
+				}
+
 			</div>
 		</>
 	);

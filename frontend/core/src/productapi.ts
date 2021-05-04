@@ -11,13 +11,21 @@ const config = {
     }
 };
 
-export const fecthProductsByNewest = async (key) => {
-  try {
-    const res = await axios.get(`${API_URL}/products/`, config);
-    console.log(res + " response data");
-    return res;
-  } catch (err)
-  {
-    console.log(err)
+export const fecthProducts = async (key, order = "created_at") => {
+  const AUTH_HEADER = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
   }
+
+  let url = `${API_URL}/products/?m_order=${order}`;
+
+  return await fetch(url, {
+    headers: {
+      ...AUTH_HEADER
+    }
+  }).then(res => res.json())
 }
+
+
+
+

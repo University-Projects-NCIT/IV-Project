@@ -1,9 +1,9 @@
 import React from "react";
 import { ProductInterface } from "../interfaces/Interfaces";
 
-const UpcomingItemList: React.FC = () => {
+const UpcomingItemList: React.FC<ProductInterface[]> = (data) => {
 
-	const initialValue = {
+	const initialvalues = {
 		title: "Snapchat Android app",
 		tagline:
 			"The way to share your photo to the world The way to share your photo to the world .",
@@ -15,8 +15,8 @@ const UpcomingItemList: React.FC = () => {
 			<div className="bg-color5 p-4">
 				<div className="flex justify-between">
 					<div className="text-gray-50 space-y-3 ">
-						<h3 className="text-sm">{initialValue.title}</h3>
-						<p className="text-xs text-gray-300">{initialValue.tagline}</p>
+						<h3 className="text-sm">{initialvalues.title}</h3>
+						<p className="text-xs text-gray-300">{initialvalues.tagline}</p>
 						<button
 							className="outline-none border-none focus:outline-none 
 							hover:opacity-70 bg-color6 text-xs

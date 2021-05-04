@@ -63,7 +63,7 @@ query all the user :
     -> (unsecure) 
     -> gives all the info of user from user table 
 
-    /user/id
+    /users/id
     -> where id is user id 
 
 query the categories :

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect ,useState} from "react";
 import ProductListCard from "./ProductListCard";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { MdAdd } from "react-icons/md";
@@ -13,8 +13,9 @@ import { useRouter } from 'next/router';
 import { ToggleContext } from '../Contexts/ToggleContext';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid'
-import { fecthProductsByNewest } from '../productapi';
+import { fecthProducts } from '../productapi';
 import { useQuery } from 'react-query'
+import {NEWEST, POPULAR} from '../constraints'
 
 
 
@@ -30,87 +31,83 @@ const MainContent: React.FC = React.memo(({ user, isAuthenticated }: any): JSX.E
 
 	//Pop us when click to profile image if loged in is false
 	const [loginForm, toggle] = useToggle(false);
+	const [productOrderBy, setProductOrderBy] = useState(NEWEST)
 	const router = useRouter();
+	let launchedData , upcommingData;
 
-	const { data, error, isLoading, isError } = useQuery("products", fecthProductsByNewest);
-console.log(data + " datafrom api p")
+	const { data, error, isLoading, isError } = useQuery("products", fecthProducts);
 
-	const initialData = [
-		[{
-			title: "Instagram App",
-			date: "2020 march 13",
-			tagline: "The way to share your photo to the world .",
-			category: ["IOS", "Android", "Wesite"],
-		},
+	if (isError || error )
+	{
+		return <h1>Error occurs </h1>;
+	}
+
+	if (isLoading)
+	{
+		return <h1>Data is loading </h1>;
+	}
+
+
+	const filterLaunched = (data) => {
+		/**
+		 * This function filters the data according to the 
+		 * Date it is launched . Only already lauhced data is filtered
+		 */
+		const date1 = new Date();
+		return data.filter(obj => date1 >= new Date(obj.launch_at))
+	}
+
+	const filterUpcomming = (data) => {
+		const date1 = new Date()
+		return data.filter(obj => date1 < new Date(obj.launch_at))
+
+	}
+
+
+	const groupByDate = (data) => {
+		/**
+		 * Groups the object data in array 
+		 * as by same date in day 
+		 */
+
+		let groupedData = []
+		let temp = []
+		data.map((product, index) => {
+			//Checking the date of previous produdct and current product 
+			// substring first 10 string because it contains the date 
+			// we subtract the time 
+			if (temp.length != 0 && String(temp[temp.length - 1].created_at).substring(0,10) == String(product.created_at).substring(0,10)){
+				temp.push(product)
+			} else if(temp.length != 0 && String(temp[temp.length - 1].created_at).substring(0,10) != String(product.created_at).substring(0,10)){
+				groupedData.push(temp)
+				temp = [];
+			}
+
+			if (temp.length == 0)
 			{
-			title: "Instagram App",
-			date: "2020 march 13",
-			tagline: "The way to share your photo to the world .",
-			category: ["IOS", "Android", "Wesite"],
-			},
+				temp.push(product)
+			}
+
+			if (data.length - 1 == index && temp.length != 0)
 			{
-			title: "Instagram App",
-			date: "2020 march 13",
-			tagline: "The way to share your photo to the world .",
-			category: ["IOS", "Android", "Wesite"],
-			},
-			{
-			title: "Instagram App",
-			date: "2020 march 13",
-			tagline: "The way to share your photo to the world .",
-			category: ["IOS", "Android", "Wesite"],
-			}],
-		
-		[{
-			title: "Instagram App",
-			date: "2020 march 13",
-			tagline: "The way to share your photo to the world .",
-			category: ["IOS", "Android", "Wesite"],
-		},
-			{
-			title: "Instagram App",
-			date: "2020 march 13",
-			tagline: "The way to share your photo to the world .",
-			category: ["IOS", "Android", "Wesite"],
-			},
-			{
-			title: "Instagram App",
-			date: "2020 march 13",
-			tagline: "The way to share your photo to the world .",
-			category: ["IOS", "Android", "Wesite"],
-			},
-			{
-			title: "Instagram App",
-			date: "2020 march 13",
-			tagline: "The way to share your photo to the world .",
-			category: ["IOS", "Android", "Wesite"],
-			}],
-		
-		[{
-			title: "Instagram App",
-			date: "2020 march 13",
-			tagline: "The way to share your photo to the world .",
-			category: ["IOS", "Android", "Wesite"],
-		  },
-			{
-			title: "Instagram App",
-			date: "2020 march 13",
-			tagline: "The way to share your photo to the world .",
-			category: ["IOS", "Android", "Wesite"],
-			},
-			{
-			title: "Instagram App",
-			date: "2020 march 13",
-			tagline: "The way to share your photo to the world .",
-			category: ["IOS", "Android", "Wesite"],
-			},
-			{
-			title: "Instagram App",
-			date: "2020 march 13",
-			tagline: "The way to share your photo to the world .",
-			category: ["IOS", "Android", "Wesite"],
-		}]
-	]
+				// The data is last we should manually push in group data
+				groupedData.push(temp)
+			}
+
+			
+		})
+		return groupedData;
+	}
+
+	if (data != undefined && data.length != 0)
+	{
+		 launchedData= groupByDate(filterLaunched(data));
+		 upcommingData = filterUpcomming(data);
+	}
+
+console.log("upcomming " + upcommingData)
+
+
 
 
 	return (
@@ -177,14 +174,17 @@ console.log(data + " datafrom api p")
 							</button>
 						</div>
 						{
-							initialData.map(cardData => {
+							launchedData.map(cardData => {
 								return <ProductListCard data={cardData} key= {uuidv4()}/>
 							})
 						}
 
 					</div>
 					<div className="right-container h-auto pt-1 mr-4 lg:mr-40">
-						<UpcomingProductCard key={uuidv4()}/>
+						{
+							
+							< UpcomingProductCard data={upcommingData} key={uuidv4()} />
+						}
 						<NewsLetterCard key={uuidv4()}/>
 					</div>
 				</div>
