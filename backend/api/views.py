@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions
 from rest_framework import filters
 from .paginations import ProductLimitOffsetPagination
+from rest_framework.generics import ListAPIView 
 
 ## Importing serializers 
 from .serializers import (
@@ -42,9 +43,8 @@ class ProductViewSet(viewsets.ModelViewSet):
         """
         queryset = Product.objects.all()
 
-        ## End point: /product/ordering='-upvote'
         ordering_query = self.request.query_params.get('m_order')
-        print(ordering_query == 'upvote')
+        
         if ordering_query == "created_at" :
             return queryset.order_by('-created_at')
 

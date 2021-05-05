@@ -13,9 +13,12 @@ import { useRouter } from 'next/router';
 import { ToggleContext } from '../Contexts/ToggleContext';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid'
-import { fecthProducts } from '../productapi';
-import { useQuery } from 'react-query'
-import {NEWEST, POPULAR} from '../constraints'
+import { fecthProducts, fecthUpcommingProducts, fetchSearchProducts } from '../productapi';
+import { useInfiniteQuery, useQuery } from 'react-query'
+import { NEWEST, POPULAR } from '../constraints'
+import { filterLaunched, filterUpcomming, groupByDate } from './utils'
+import { useOnScreen } from '../hooks/useOnScreen'
+import { BiSearchAlt } from "react-icons/bi";
 
 
 
@@ -25,20 +28,52 @@ const MainContent: React.FC = React.memo(({ user, isAuthenticated }: any): JSX.E
 	 * MainContent is the second main component
 	 * It holds all the other component rendering in Home
 	 * displays the product list and card etc.
-	 */
-
+	*/
 
 
 	//Pop us when click to profile image if loged in is false
 	const [loginForm, toggle] = useToggle(false);
 	const [productOrderBy, setProductOrderBy] = useState(NEWEST)
+	const [searchKey, setSearchKey] = useState("")
+	const [setRef, isIntersecting] = useOnScreen()
 	const router = useRouter();
-	let launchedData , upcommingData;
+	let launchedData, upcommingData;
+	let productData = [];
 
-	const { data, error, isLoading, isError } = useQuery("products", fecthProducts);
+	const {
+		data,
+		error,
+		isLoading,
+		isError,
+		isFetching,
+		isFetchingNextPage,
+		hasNextPage,
+		fetchNextPage,
+	} = useInfiniteQuery(['products', productOrderBy],
+		fecthProducts,
+		{
+			getNextPageParam: (lastPage, pages) => {
+				return lastPage.next ?? false
+			}
+		})
+	
+	const searchProducts = useInfiniteQuery(['search_products', productOrderBy, searchKey],
+		fetchSearchProducts,
+		{
+			getNextPageParam: (lastPage, pages) => {
+				return lastPage.next ?? false
+			}
+		})
+	
+
+	
+	const UpcommingProductFetch = useQuery("upcommingProduct",fecthUpcommingProducts )
+
+	
 
 	if (isError || error )
 	{
+		console.log(error)
 		return <h1>Error occurs </h1>;
 	}
 
@@ -47,66 +82,62 @@ const MainContent: React.FC = React.memo(({ user, isAuthenticated }: any): JSX.E
 		return <h1>Data is loading </h1>;
 	}
 
-
-	const filterLaunched = (data) => {
-		/**
-		 * This function filters the data according to the 
-		 * Date it is launched . Only already lauhced data is filtered
-		 */
-		const date1 = new Date();
-		return data.filter(obj => date1 >= new Date(obj.launch_at))
-	}
-
-	const filterUpcomming = (data) => {
-		const date1 = new Date()
-		return data.filter(obj => date1 < new Date(obj.launch_at))
-
-	}
-
-
-	const groupByDate = (data) => {
-		/**
-		 * Groups the object data in array 
-		 * as by same date in day 
-		 */
-
-		let groupedData = []
-		let temp = []
-		data.map((product, index) => {
-			//Checking the date of previous produdct and current product 
-			// substring first 10 string because it contains the date 
-			// we subtract the time 
-			if (temp.length != 0 && String(temp[temp.length - 1].created_at).substring(0,10) == String(product.created_at).substring(0,10)){
-				temp.push(product)
-			} else if(temp.length != 0 && String(temp[temp.length - 1].created_at).substring(0,10) != String(product.created_at).substring(0,10)){
-				groupedData.push(temp)
-				temp = [];
-			}
-
-			if (temp.length == 0)
-			{
-				temp.push(product)
-			}
-
-			if (data.length - 1 == index && temp.length != 0)
-			{
-				// The data is last we should manually push in group data
-				groupedData.push(temp)
-			}
-
-			
-		})
-		return groupedData;
-	}
-
-	if (data != undefined && data.length != 0)
+	
+	if (data == undefined)
 	{
-		 launchedData= groupByDate(filterLaunched(data));
-		 upcommingData = filterUpcomming(data);
+		return <h1>No data avaiable </h1>
 	}
 
-console.log("upcomming " + upcommingData)
+const search = (key) => {
+			setSearchKey(key)
 
+	if (searchProducts.data.pages != undefined || searchProducts.data.pages.length != 0) {
+		productData = []
+		console.log("searchProducts.data")
+		console.log(searchProducts.data)
+		searchProducts.data.pages.map(pData => {
+			productData = [...productData, ...pData.results]
+		})
+	} else {
+		return <div> No Seacah value avaialbe </div>
+		}
+	
+	}
+
+
+	data.pages.map(pData => {
+		if (searchKey == "")
+		{
+			productData = [...productData, ...pData.results]
+		} else {
+			search(searchKey)
+		}
+	})
+
+
+
+
+	if (productData != undefined && productData.length != 0)
+	{
+		if (Array.isArray(productData))
+		{
+				launchedData= groupByDate(filterLaunched(productData));
+		}
+	}
+
+	if (UpcommingProductFetch.data != undefined && UpcommingProductFetch.data.length != 0)
+	{
+		if (Array.isArray(UpcommingProductFetch.data))
+		{
+			upcommingData = filterUpcomming(UpcommingProductFetch.data)
+		}
+	}
+
+	if (isIntersecting && hasNextPage)
+	{
+		fetchNextPage();
+	}
+	
 
 
 
@@ -120,7 +151,7 @@ console.log("upcomming " + upcommingData)
 			) : null}
 
 
-			<div className="h-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10">
+			<div className="h-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10" >
 				<div className="w-16 h-16 rounded-full m-auto relative -mt-8 mb-4">
 					<div className="profile-image-back w-16 h-16 rounded-full absolute"></div>
 					<div className="absolute cursor-pointer" onClick={toggle}>
@@ -157,7 +188,7 @@ console.log("upcomming " + upcommingData)
 							</IconContext.Provider>
 						</div>
 						<div className="ml-16 md:-mt-8 mr-16">
-							<Search />
+							<Search search={search}/>
 						</div>
 					</div>
 				</IconContext.Provider>
@@ -165,11 +196,11 @@ console.log("upcomming " + upcommingData)
 				<div className="w-full flex flex-row mt-8">
 					<div className="left-container h-auto flex flex-col md:pl-32 pr-4 pl-4">
 						<div className="flex flex-row text-white justify-end -mb-4">
-							<button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70">
+							<button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70" onClick={()=> setProductOrderBy(POPULAR)}>
 								Popular
 							</button>
 							<div className="line"></div>
-							<button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70">
+							<button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70" onClick={()=> setProductOrderBy(NEWEST)}>
 								Newest
 							</button>
 						</div>
@@ -179,11 +210,14 @@ console.log("upcomming " + upcommingData)
 							})
 						}
 
+						{/* Detects intersection points  */}
+						<div ref={setRef}>
+						</div>
+
 					</div>
 					<div className="right-container h-auto pt-1 mr-4 lg:mr-40">
-						{
-							
-							< UpcomingProductCard data={upcommingData} key={uuidv4()} />
+						{	
+							<UpcomingProductCard data={upcommingData} key={uuidv4()} />
 						}
 						<NewsLetterCard key={uuidv4()}/>
 					</div>
@@ -277,6 +311,10 @@ console.log("upcomming " + upcommingData)
 		</>
 	);
 });
+
+
+
+
 
 const mapStateToProps = state => (
 	{

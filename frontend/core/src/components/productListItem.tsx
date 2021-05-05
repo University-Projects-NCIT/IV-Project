@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CardDataInterface, CardItemDataInterface } from "../interfaces/Interfaces";
 import { BsFillTriangleFill } from "react-icons/bs";
+import {v4 as uuidv4 } from 'uuid'
 
 const ProductListItem: React.FC<CardItemDataInterface> = ({itemData}) => {
 	/**
@@ -18,7 +19,7 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData}) => {
 			<div className="w-full bg-item_list_bg text-gray-100 flex flex-col hover:opacity-70 cursor-pointer">
 				<div className="flex pt-4 pb-4">
 					<div className="w-20 h-20 mt-2 ml-4 mr-4 rounded-md overflow-hidden">
-						<img src="./images/snapchat.png" alt="product image logo" />
+						<img src={encodeURI(String(itemData.product_icon)) || "./images/snapchat.png"} alt="product image logo" />
 					</div>
 					<div className="">
 						<h4 className="mt-1">{itemData.title}</h4>
@@ -26,9 +27,9 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData}) => {
 						<div className="flex flex-start mt-2">
 							{itemData.categories.map((item) => {
 								return (
-									<p className="category m-1 uppercase" key={item}>
-										{item}
-									</p>
+									<div className="category m-1 uppercase" key={uuidv4()}>
+										{item.name}
+									</div>
 								);
 							})}
 						</div>
@@ -37,7 +38,7 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData}) => {
 						<div>
 							<BsFillTriangleFill className="color-black" />
 						</div>
-						<div>{upvote}</div>
+						<div>{itemData.upvote}</div>
 					</div>
 				</div>
 				<div className="line"></div>

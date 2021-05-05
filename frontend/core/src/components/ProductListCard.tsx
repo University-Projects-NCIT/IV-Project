@@ -12,16 +12,29 @@ const ProductListCard: React.FC<CardDataInterface> = (props) => {
 	 * Each card should be different date card
 	 */
 
-	// const data = [{ title: "App" }, { title: "android" },
-	// { title: "Ios" }, { title: "Ios" }]
+	const convertDate = (date) =>
+	{
+		const cardDate = date.toDateString()
 
-	console.log(props.data)
+		if (String(date).substring(0,10) == String(new Date()).substring(0,10))
+		{
+			return "Today's Product ";
+		}
 
+		if (String(date -1).substring(0,10) == String(new Date()).substring(0,10))
+		{
+			return "Yesterday's Product ";
+		}
+
+		return cardDate;
+	}
+
+	const convertedDate = convertDate(new Date(props.data[0].created_at))
 
 	return (
 		<>
 			<div className="flex flex-row pb-4 text-white justify-between">
-				<div className="text-lg">Today's Product</div>
+				<div className="text-lg">{convertedDate}</div>
 				
 			</div>
 			<div className="rounded mb-10 overflow-hidden w-full h-auto">

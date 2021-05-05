@@ -1,16 +1,17 @@
 import ProductListItem from "./productListItem";
 import UpcomingItemList from "./UpcomingItemList";
-import { ProductInterface } from '../interfaces/Interfaces'
+import { CardUpcommingInterface } from '../interfaces/Interfaces'
+import {v4 as uuidv4} from 'uuid'
 
-const ProductListCard: React.FC<ProductInterface[]> = (data) => {
+const ProductListCard: React.FC<CardUpcommingInterface> = (props) => {
 	/**
 	 * @returns Upcomming Product list as card
 	 */
 
-// 	console.log(data + " from upcmmong card ")
-// 	data.map(d => {
-// 	console.log(d)
-// })
+	if (props.data == undefined)
+	{
+		return <h1>Empty upcomming data </h1> 
+	}
 
 	return (
 		<>
@@ -19,9 +20,9 @@ const ProductListCard: React.FC<ProductInterface[]> = (data) => {
 			</div>
 			<div className="rounded-lg mb-8 overflow-hidden ">
 				{
-				// 	data.map(productData => {
-				// 	return <UpcomingItemList data={productData}/>
-				// })
+					props.data.map(productData => {
+					return <UpcomingItemList itemData={productData} key={uuidv4()}/>
+				})
 				}
 
 			</div>

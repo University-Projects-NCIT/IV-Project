@@ -7,7 +7,7 @@ export interface ProductInterface{
   productID: string;
   tagline: string;
   title: string;
-  upvote: BigInt ;
+  upvote?: BigInt ;
   product_icon: [] | ProductIconInteface[];
   product_images: [] | ProductImagesInteface[];
   product_comment: [] | ProductCommentInteface[];
@@ -42,4 +42,12 @@ export interface CardDataInterface {
 export interface CardItemDataInterface
 {
  itemData: ProductInterface  
+}
+
+export interface CardUpcommingInterface {
+  data: ProductInterface[];
+}
+
+export interface CardUpcommingListInterface {
+  itemData: ProductInterface
 }

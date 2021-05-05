@@ -14,6 +14,7 @@ router = DefaultRouter()
 
 # route for all the product list 
 router.register(f'products', ProductViewSet, 'Product')
+#upcomming product only 
 # route for product feature images 
 router.register(f'product_images', ProductImageViewSet, 'Product Images')
 # route for all the comment od products

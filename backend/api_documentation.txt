@@ -32,6 +32,8 @@ query all products :
     /products/?m_order=created_at
     -> Orders according to created_at time as newest come first
 
+    /products/?search=<key from tagline or title >
+
 query product images :
     /product_images/
     -> get all the images from product images table

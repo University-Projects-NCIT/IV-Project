@@ -2,15 +2,37 @@ import React from "react";
 import BiSearchAlt from "react-icons/bi";
 import { VscSearch } from "react-icons/vsc";
 
-const Search: React.FC = () => {
+interface propsInterface {
+	search: (key: string ) => void;
+}
+
+const Search: React.FC<propsInterface> = (props) => {
+
+	const [inputData, setInput] = React.useState("")
+
+	const onChange = (e) => {
+		setInput(e.target.value)
+		props.search(inputData)
+	}
+
+	const onSubmit = (e) => {
+		e.preventDefault()
+		if (inputData == "") return;
+		props.search(inputData)
+		setInput("")
+	}
 	return (
 		<>
-			<div className="flex flex-row">
-				<input
+			<div>
+				<form onSubmit={onSubmit} className="w-full flex flex-row">
+					<input
 					type="text"
-					className="input w-full md:w-2/5 bg-item_list_bg rounded-md border-none"
+						className="input w-full md:w-2/5 bg-item_list_bg rounded-md border-none"
+						value={inputData}
+						onChange={onChange}
 				></input>
-				<VscSearch className="-ml-7 mt-1" />
+				<VscSearch className="-ml-7 mt-1" onClick={onSubmit}/>
+				</form>
 			</div>
 
 			<style jsx>
