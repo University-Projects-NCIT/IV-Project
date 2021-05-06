@@ -5,7 +5,8 @@ from .views import(
     ProductCommentViewSet,
     ProductImageViewSet,
     ProductIconViewSet,
-    CategoryViewSet
+    CategoryViewSet,
+    ProductUpvoteViewSet
 )
 
 ## Using default router 
@@ -14,6 +15,7 @@ router = DefaultRouter()
 
 # route for all the product list 
 router.register(f'products', ProductViewSet, 'Product')
+router.register(f'product_upvote', ProductUpvoteViewSet, 'Product Upvote ')
 #upcomming product only 
 # route for product feature images 
 router.register(f'product_images', ProductImageViewSet, 'Product Images')

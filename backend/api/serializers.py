@@ -7,7 +7,8 @@ from .models import(
     ProductComment,
     ProductImage,
     ProductIcon,
-    Category
+    Category,
+    ProductUpvote
 )
 
 
@@ -32,6 +33,11 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ["id","name","product"]
+
+class ProductUpvoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductUpvote
+        fields = ["id","productID","userID"]
         
 class ProductSerializer(serializers.ModelSerializer):
     product_images = ProductImageSerializer(many = True)

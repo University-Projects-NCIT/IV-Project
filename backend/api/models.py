@@ -65,6 +65,19 @@ class Product(models.Model):
 
 
 
+class ProductUpvote(models.Model):
+    """
+    Holds both user id and product id which was upvoted 
+    """
+    productID = models.ForeignKey(Product,related_name="upvoteProductID", verbose_name=("product ID"), on_delete=models.CASCADE)
+    userID = models.ForeignKey( 
+        settings.AUTH_USER_MODEL,
+        related_name="userid",
+        on_delete=models.CASCADE,
+        verbose_name=("user id "), 
+    )
+    created_at = models.DateTimeField(verbose_name=("Created at"), auto_now_add=True, editable = False)
+
 
 class ProductIcon(models.Model):
     """

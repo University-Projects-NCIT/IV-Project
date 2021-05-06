@@ -13,6 +13,9 @@ pip freeze
 pip install [deps]
 pip install -r requirements.txt
 
+## email details 
+-> astartup02@gmail.com
+-> startupa@2020
 ## super@super.com
 ## Super321@123
 

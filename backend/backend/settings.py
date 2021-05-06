@@ -36,8 +36,8 @@ INSTALLED_APPS = [
     'corsheaders', #To allow call api from nextjs frontend app
     'rest_framework_simplejwt', # For generate JWT (library)
     'djoser', # Djoser is library to make authenticate backend
-    'social_django', # Social authenticate eg. Google ,facebook oauth
-    'rest_framework_simplejwt.token_blacklist', # helps jwt auth system
+    # 'social_django', # Social authenticate eg. Google ,facebook oauth
+    # 'rest_framework_simplejwt.token_blacklist', # helps jwt auth system
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -90,9 +90,13 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get('EMAIL_E')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+# EMAIL_HOST_USER = os.environ.get('EMAIL_E')
+EMAIL_HOST_USER = "astartup02@gmail.com"
+
+EMAIL_HOST_PASSWORD = "startupa@2020"
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 EMAIL_USE_TLS = True
+
 
 
 CORS_ORIGIN_ALLOW_ALL = True # allows to access from any fronend domains
@@ -176,7 +180,7 @@ DJOSER = {
     'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
-    'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
+    # 'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
     #'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/google'],
     'SERIALIZERS': {
         'user_create': 'auth_system.serializers.UserCreateSerializer',

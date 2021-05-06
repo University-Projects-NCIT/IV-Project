@@ -10,7 +10,8 @@ from .serializers import (
     ProductImageSerializer,
     ProductIconSerializer,
     ProductCommentSerializer,
-    CategorySerializer
+    CategorySerializer,
+    ProductUpvoteSerializer
 )
 
 #importing the models /Tables 
@@ -19,7 +20,8 @@ from .models import(
     ProductComment,
     ProductImage,
     ProductIcon,
-    Category
+    Category,
+    ProductUpvote
 )
 
 ### Custom filter 
@@ -98,6 +100,24 @@ class ProductIconViewSet(viewsets.ModelViewSet):
         queryset = ProfileImage.objects.all()
 
         id = self.request.query_params.get('id')
+        
+        if id is not None:
+            queryset = queryset.filter(product = id)
+
+        return queryset
+
+# product upvote api 
+class ProductUpvoteViewSet(viewsets.ModelViewSet):
+
+    serializer_class = ProductUpvoteSerializer 
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        """
+        """
+        queryset = ProductUpvote.objects.all()
+
+        id = self.request.query_params.get('userid')
         
         if id is not None:
             queryset = queryset.filter(product = id)
