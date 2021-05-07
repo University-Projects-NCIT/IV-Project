@@ -19,6 +19,15 @@ pip install -r requirements.txt
 ## super@super.com
 ## Super321@123
 
+query product upvote:
+    
+    /product_upvote/ -> all
+    /product_upvote/?userid=<userID>
+    -> gives all data with related that userID 
+
+    http://127.0.0.1:9000/product_upvote/?productid=jhgjldshgjkjksghjhgsd&userid=7ea95486-72a2-4122-9252-3ead867ee5bd
+    -> get upvote data with combine userid and productid 
+    
 query all products : 
     /products 
     -> get all the products 

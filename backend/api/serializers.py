@@ -40,10 +40,10 @@ class ProductUpvoteSerializer(serializers.ModelSerializer):
         fields = ["id","productID","userID"]
         
 class ProductSerializer(serializers.ModelSerializer):
-    product_images = ProductImageSerializer(many = True)
-    product_icon = ProductIconSerializer(many = True)
-    product_comment = ProductCommentSerializer(many = True)
-    categories = CategorySerializer(many = True)
+    product_images = ProductImageSerializer(many = True, read_only=True)
+    product_icon = ProductIconSerializer(many = True, read_only= True)
+    product_comment = ProductCommentSerializer(many = True, read_only = True)
+    categories = CategorySerializer(many = True, read_only =True)
     class Meta:
         model = Product
         fields = [

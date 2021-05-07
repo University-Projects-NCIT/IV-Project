@@ -5,7 +5,8 @@ from .models import (
     ProductImage, 
     ProductComment, 
     ProductIcon,
-    Category
+    Category,
+    ProductUpvote
 )
 
 @admin.register(Product)
@@ -22,6 +23,10 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(ProductIcon)
 class ProductIconAdmin(admin.ModelAdmin):
     list_display = ["id","product", "image","created_at","updated_at"]
+
+@admin.register(ProductUpvote)
+class ProductUpvoteAdmin(admin.ModelAdmin):
+    list_display = ["id","productID", "userID","created_at"]
 
 @admin.register(ProductImage)
 class ProductImageAdmin(admin.ModelAdmin):

@@ -1,7 +1,8 @@
 import ProductListItem from "./productListItem";
 import Link from 'next/link'
 import { CardDataInterface } from '../interfaces/Interfaces'
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
+import React from 'react'
 
 
 
@@ -42,12 +43,12 @@ const ProductListCard: React.FC<CardDataInterface> = (props) => {
 					props.data.map(itemData => {
 
 						return (
-						// 	<Link href={{
-						// 	pathname: "/LoginForm",
-						// 	query: { title : itemData.title },
-						// }}>
-						//</Link>
-							<ProductListItem itemData={itemData} key={uuidv4()}/>
+							<Link key={uuidv4()} href={{
+								pathname: "/DetailsPage/",
+								query: {productID: itemData.productID}
+							}}>
+							<a><ProductListItem itemData={itemData} key={uuidv4()}/></a>
+						</Link>
 						)
 					})
 				}

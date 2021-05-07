@@ -34,11 +34,12 @@ const MainContent: React.FC = React.memo(({ user, isAuthenticated }: any): JSX.E
 	//Pop us when click to profile image if loged in is false
 	const [loginForm, toggle] = useToggle(false);
 	const [productOrderBy, setProductOrderBy] = useState(NEWEST)
-	const [searchKey, setSearchKey] = useState("")
+	const [searchKey, setSeachKey] = useState("")
 	const [setRef, isIntersecting] = useOnScreen()
 	const router = useRouter();
 	let launchedData, upcommingData;
 	let productData = [];
+	
 
 	const {
 		data,
@@ -53,17 +54,37 @@ const MainContent: React.FC = React.memo(({ user, isAuthenticated }: any): JSX.E
 		fecthProducts,
 		{
 			getNextPageParam: (lastPage, pages) => {
-				return lastPage.next ?? false
-			}
+				if (lastPage.next)
+				{
+					const array = lastPage.next?.split('=')
+					const offset = array[array.length-1]
+					return offset ?? false
+				}
+				return false
+			},
+			refetchOnWindowFocus: false,
 		})
 	
 	const searchProducts = useInfiniteQuery(['search_products', productOrderBy, searchKey],
-		fetchSearchProducts,
-		{
-			getNextPageParam: (lastPage, pages) => {
-				return lastPage.next ?? false
+	fetchSearchProducts,
+	{
+		getNextPageParam: (lastPage, pages) => {
+			if (lastPage.next)
+			{
+				const array = lastPage.next.substring(lastPage.next.indexOf("offset"))
+				const offset = array[7] // index 7 because counting "offset=" character 
+				return offset ?? false
 			}
-		})
+			return false
+		},
+		refetchOnWindowFocus: false,
+		onSuccess: () => {
+			console.log("success data ")
+			console.log(searchProducts.data)
+		}
+
+			
+	})
 	
 
 	
@@ -77,47 +98,47 @@ const MainContent: React.FC = React.memo(({ user, isAuthenticated }: any): JSX.E
 		return <h1>Error occurs </h1>;
 	}
 
-	if (isLoading)
-	{
-		return <h1>Data is loading </h1>;
-	}
-
 	
-	if (data == undefined)
-	{
-		return <h1>No data avaiable </h1>
+	// if (typeof data == undefined)
+	// {
+	// 	return <h1>No data avaiable </h1>
+	// }
+
+	const LoadingPage = () => {
+		return (
+			<React.Fragment>
+				<div className="w-full h-full flex-row justify-items-center items-center animate-pulse">
+					
+				</div>
+			</React.Fragment>
+		)
 	}
 
-const search = (key) => {
-			setSearchKey(key)
 
-	if (searchProducts.data.pages != undefined || searchProducts.data.pages.length != 0) {
-		productData = []
-		console.log("searchProducts.data")
-		console.log(searchProducts.data)
-		searchProducts.data.pages.map(pData => {
-			productData = [...productData, ...pData.results]
-		})
-	} else {
-		return <div> No Seacah value avaialbe </div>
-		}
+	const search = (key) => {
+		setSeachKey(key)
+	// if ( searchProducts.data.pages != undefined) {
+	// 	productData = []
+	// 	console.log("searchProducts.data")
+	// 	console.log(searchProducts.data)
+	// 	searchProducts.data.pages.map(pData => {
+	// 		productData = [...productData, ...pData.results]
+	// 	})
+	// 	} else {
+	// 	return <div> No Seacah value avaialbe </div>
+	// 	}
 	
 	}
 
-
-	data.pages.map(pData => {
-		if (searchKey == "")
-		{
-			productData = [...productData, ...pData.results]
-		} else {
-			search(searchKey)
-		}
+	if (typeof data != "undefined")
+	{
+		data.pages.map(pData => {
+		productData = [...productData, ...pData.results]
 	})
+	}
 
-
-
-
-	if (productData != undefined && productData.length != 0)
+	
+	if (typeof productData != "undefined" && productData.length != 0)
 	{
 		if (Array.isArray(productData))
 		{
@@ -125,7 +146,7 @@ const search = (key) => {
 		}
 	}
 
-	if (UpcommingProductFetch.data != undefined && UpcommingProductFetch.data.length != 0)
+	if (typeof UpcommingProductFetch.data != "undefined" && UpcommingProductFetch.data.length != 0)
 	{
 		if (Array.isArray(UpcommingProductFetch.data))
 		{
@@ -172,7 +193,7 @@ const search = (key) => {
 							</div>
 							<div className="w-6 h-6 m-2 realtive cursor-pointer">
 								<div className="option-btn w-6 h-6 rounded-full absolute"></div>
-								<div className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary">
+								<div onClick={()=> router.push("/post/")} className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary">
 									<MdAdd />
 								</div>
 							</div>
@@ -193,7 +214,7 @@ const search = (key) => {
 					</div>
 				</IconContext.Provider>
 
-				<div className="w-full flex flex-row mt-8">
+				<div className="w-full flex md:flex-row flex-col-reverse mt-8">
 					<div className="left-container h-auto flex flex-col md:pl-32 pr-4 pl-4">
 						<div className="flex flex-row text-white justify-end -mb-4">
 							<button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70" onClick={()=> setProductOrderBy(POPULAR)}>
@@ -205,9 +226,10 @@ const search = (key) => {
 							</button>
 						</div>
 						{
-							launchedData.map(cardData => {
+							isLoading ? LoadingPage() : typeof data == "undefined" ? <div className="animate-spin w-full h-full"></div> :
+							typeof launchedData != "undefined"	? launchedData.map(cardData => {
 								return <ProductListCard data={cardData} key= {uuidv4()}/>
-							})
+							}) : null
 						}
 
 						{/* Detects intersection points  */}
@@ -215,11 +237,15 @@ const search = (key) => {
 						</div>
 
 					</div>
-					<div className="right-container h-auto pt-1 mr-4 lg:mr-40">
+					<div className="right-container h-auto pt-1 mr-4 ml-4 lg:mr-40">
+						<div>
 						{	
 							<UpcomingProductCard data={upcommingData} key={uuidv4()} />
 						}
-						<NewsLetterCard key={uuidv4()}/>
+						</div>
+						<div className="">
+							<NewsLetterCard key={uuidv4()}/>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -275,7 +301,11 @@ const search = (key) => {
 					}
 
 					.right-container {
-						display: none;
+						display: block;
+					}
+
+					.newscard{
+						display : none;
 					}
 
 					@media only screen and (min-width: 768px) {

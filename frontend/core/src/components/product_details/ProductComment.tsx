@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 const ProductComment: React.FC = () => {
-	const cols: number = 10;
-	const rows: number = 8;
+	const cols = 10;
+	const rows = 8;
 
 	const value = [
 		{

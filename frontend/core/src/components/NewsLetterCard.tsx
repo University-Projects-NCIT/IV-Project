@@ -9,7 +9,9 @@ const NewsLetterCard: React.FC = () => {
 
 	const displayEmptyMsg = () => {
 		return <React.Fragment>
-			<div> Your News are empty !</div>
+			<div>
+				<img src="./images/empty.svg" className="h-52 w-52 m-auto"></img>
+			</div>
 		</React.Fragment>
 	}
 

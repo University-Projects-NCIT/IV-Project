@@ -1,5 +1,4 @@
 import React from "react";
-import BiSearchAlt from "react-icons/bi";
 import { VscSearch } from "react-icons/vsc";
 
 interface propsInterface {
@@ -8,29 +7,25 @@ interface propsInterface {
 
 const Search: React.FC<propsInterface> = (props) => {
 
-	const [inputData, setInput] = React.useState("")
+	const inputRef = React.useRef(null)
 
-	const onChange = (e) => {
-		setInput(e.target.value)
-		props.search(inputData)
-	}
 
 	const onSubmit = (e) => {
 		e.preventDefault()
-		if (inputData == "") return;
-		props.search(inputData)
-		setInput("")
+		if (inputRef.current.value == "") return;
+		props.search(inputRef.current.value)
+		inputRef.current.value= ""
 	}
+	
 	return (
 		<>
 			<div>
 				<form onSubmit={onSubmit} className="w-full flex flex-row">
 					<input
-					type="text"
+						ref={inputRef}
+						type="text"
 						className="input w-full md:w-2/5 bg-item_list_bg rounded-md border-none"
-						value={inputData}
-						onChange={onChange}
-				></input>
+					></input>
 				<VscSearch className="-ml-7 mt-1" onClick={onSubmit}/>
 				</form>
 			</div>

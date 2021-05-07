@@ -16,7 +16,7 @@ SECRET_KEY = 'zy01lli-uu&_z$+#o)@%!phi8+k9*t(4h$7bzods##64qzm&$7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -80,10 +80,14 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+   'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd95mjp0mnpabdi',
+        'USER': 'ugycwptmpaqhkm',
+        'PASSWORD': 'c6a8faae38dd3cd6e73ef69063661ed73e363ca86c447f1414c9da9d2cdf7568',
+        'HOST': 'ec2-54-166-167-192.compute-1.amazonaws.com',
+        'PORT': '5432',
+    } 
 }
 
 ### Email details for authentication 
@@ -197,6 +201,9 @@ DJOSER = {
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
+
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 
 

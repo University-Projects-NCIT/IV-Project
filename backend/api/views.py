@@ -3,6 +3,7 @@ from rest_framework import viewsets, permissions
 from rest_framework import filters
 from .paginations import ProductLimitOffsetPagination
 from rest_framework.generics import ListAPIView 
+from django.views.generic import TemplateView
 
 ## Importing serializers 
 from .serializers import (
@@ -24,7 +25,9 @@ from .models import(
     ProductUpvote
 )
 
-### Custom filter 
+
+class HomePageView(TemplateView):
+    template_name = "index.html"
 
 # Product api
 class ProductViewSet(viewsets.ModelViewSet):
@@ -37,6 +40,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     search_fields = ['$title', '$tagline']
     ## Paginations to get product list 
     pagination_class = ProductLimitOffsetPagination
+
 
     def get_queryset(self):
         """
@@ -56,6 +60,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 
         return queryset
 
+
     # @property
     # def categories(self):
     #     return self.category_set.all()
@@ -65,7 +70,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 #porduct image api
 class ProductImageViewSet(viewsets.ModelViewSet):
     serializer_class = ProductImageSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
     filter_backends=[filters.OrderingFilter]
 
     ### It orders the data according to the created date 
@@ -89,7 +94,7 @@ class ProductImageViewSet(viewsets.ModelViewSet):
 class ProductIconViewSet(viewsets.ModelViewSet):
 
     serializer_class = ProductIconSerializer 
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         """
@@ -97,7 +102,7 @@ class ProductIconViewSet(viewsets.ModelViewSet):
         images of associated authenticated user or product.
         only should authenticated for user not for product.
         """
-        queryset = ProfileImage.objects.all()
+        queryset = ProductIcon.objects.all()
 
         id = self.request.query_params.get('id')
         
@@ -117,18 +122,25 @@ class ProductUpvoteViewSet(viewsets.ModelViewSet):
         """
         queryset = ProductUpvote.objects.all()
 
-        id = self.request.query_params.get('userid')
+        userid = self.request.query_params.get('userid')
+        productid = self.request.query_params.get('productid')
         
-        if id is not None:
-            queryset = queryset.filter(product = id)
+        if userid is not None and productid is not None:
+            queryset = queryset.filter(userID = userid).filter(productID = productid)
+        
+        # if userid is not None:
+        #     queryset = queryset.filter(userID = userid)
+        
+        # if productid is not None:
+        #     queryset = queryset.filter(productID= productid)
 
         return queryset
-    
+
 
 # product comments api 
 class ProductCommentViewSet(viewsets.ModelViewSet):
     serializer_class = ProductCommentSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
     filter_backends=[filters.OrderingFilter]
 
     ### to get data in order of created date 
@@ -157,7 +169,7 @@ class ProductCommentViewSet(viewsets.ModelViewSet):
 # product categories api 
 class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         """

@@ -1,4 +1,6 @@
 from rest_framework.routers import DefaultRouter,SimpleRouter
+from django.urls import path, include
+
 
 from .views import(
     ProductViewSet,
@@ -6,7 +8,8 @@ from .views import(
     ProductImageViewSet,
     ProductIconViewSet,
     CategoryViewSet,
-    ProductUpvoteViewSet
+    ProductUpvoteViewSet,
+    HomePageView
 )
 
 ## Using default router 
@@ -27,4 +30,7 @@ router.register(f'product_icon', ProductIconViewSet, 'Product Icon Image')
 router.register(f'categories', CategoryViewSet, 'product Category ')
 
 # Assigning the api urls which is used in main urls setting 
-urlpatterns = router.urls
+urlpatterns = [
+    path('', HomePageView.as_view()),
+    path('', include(router.urls)),
+]

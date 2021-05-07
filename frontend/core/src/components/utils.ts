@@ -59,7 +59,13 @@ export function msToDayTime(duration : number) {
 	let hoursStr = (hours < 10) ? "0" + hours : hours;
 	let minutesStr = (minutes < 10) ? "0" + minutes : minutes;
   let secondsStr = (seconds < 10) ? "0" + seconds : seconds;
-  let dayStr = day + " Day "
+	let dayStr
+	if (day > 1)
+	{
+		 dayStr = day + " Days "
+	} else {
+		dayStr= day+ " Day "
+	}
   
 
 
