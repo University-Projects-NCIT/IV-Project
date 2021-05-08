@@ -1,7 +1,8 @@
 import ProductListItem from "./productListItem";
 import Link from 'next/link'
 import { CardDataInterface } from '../interfaces/Interfaces'
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
+import React from 'react'
 
 
 
@@ -12,16 +13,29 @@ const ProductListCard: React.FC<CardDataInterface> = (props) => {
 	 * Each card should be different date card
 	 */
 
-	// const data = [{ title: "App" }, { title: "android" },
-	// { title: "Ios" }, { title: "Ios" }]
+	const convertDate = (date) =>
+	{
+		const cardDate = date.toDateString()
 
-	console.log(props.data)
+		if (String(date).substring(0,10) == String(new Date()).substring(0,10))
+		{
+			return "Today's Product ";
+		}
 
+		if (String(date -1).substring(0,10) == String(new Date()).substring(0,10))
+		{
+			return "Yesterday's Product ";
+		}
+
+		return cardDate;
+	}
+
+	const convertedDate = convertDate(new Date(props.data[0].created_at))
 
 	return (
 		<>
 			<div className="flex flex-row pb-4 text-white justify-between">
-				<div className="text-lg">Today's Product</div>
+				<div className="text-lg">{convertedDate}</div>
 				
 			</div>
 			<div className="rounded mb-10 overflow-hidden w-full h-auto">
@@ -29,12 +43,12 @@ const ProductListCard: React.FC<CardDataInterface> = (props) => {
 					props.data.map(itemData => {
 
 						return (
-						// 	<Link href={{
-						// 	pathname: "/LoginForm",
-						// 	query: { title : itemData.title },
-						// }}>
-						//</Link>
-							<ProductListItem itemData={itemData} key={uuidv4()}/>
+							<Link key={uuidv4()} href={{
+								pathname: "/DetailsPage/",
+								query: {productID: itemData.productID}
+							}}>
+							<a><ProductListItem itemData={itemData} key={uuidv4()}/></a>
+						</Link>
 						)
 					})
 				}

@@ -19,7 +19,7 @@ class Product(models.Model):
         verbose_name = ("prodcut id "),
         help_text = ("Required and Unique"),
         unique = True,
-        max_length=50,
+        max_length=100,
         primary_key = True,
     )
     
@@ -27,13 +27,12 @@ class Product(models.Model):
     title = models.CharField(
         verbose_name = ("Product Name "),
         help_text = ("Required "),
-        max_length = 20,
+        max_length = 50,
     )
 
     product_link = models.URLField(
         verbose_name = ("Product Url"),
-        help_text=("The product website or link"),
-        max_length=255
+        help_text=("The product website or link")
         )
 
     tagline = models.CharField(
@@ -45,7 +44,7 @@ class Product(models.Model):
     description = models.TextField(
         verbose_name = ("long product description"),
         help_text = ("Describe in long of your product"),
-        max_length = 500,
+        max_length = 800,
         blank = False,
     )
 
@@ -64,6 +63,19 @@ class Product(models.Model):
     )
 
 
+
+class ProductUpvote(models.Model):
+    """
+    Holds both user id and product id which was upvoted 
+    """
+    productID = models.ForeignKey(Product,related_name="upvoteProductID", verbose_name=("product ID"), on_delete=models.CASCADE)
+    userID = models.ForeignKey( 
+        settings.AUTH_USER_MODEL,
+        related_name="userid",
+        on_delete=models.CASCADE,
+        verbose_name=("user id "), 
+    )
+    created_at = models.DateTimeField(verbose_name=("Created at"), auto_now_add=True, editable = False)
 
 
 class ProductIcon(models.Model):

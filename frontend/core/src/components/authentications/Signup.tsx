@@ -12,13 +12,7 @@ import { storage } from '../../firebase'
 
 const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any) => {
   
-  const router = useRouter();
-  const profileImageRef = useRef(null);
-  // Reference to elements of input from inarray form
-  const inputRef = useRef([]);
-
-
-  const initialValues= {
+   const initialValues= {
     id: uuidv4(),
     email: '',
     profile_image: '',
@@ -27,6 +21,11 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
     password: '',
     re_password: ''
   }
+  
+  const router = useRouter();
+  const profileImageRef = useRef(null);
+  // Reference to elements of input from inarray form
+  const inputRef = useRef([]);
 
   const [imageFile ,setImageFile] = useState(null)
   const [isAccountCreated, setIsAccountCreated] = useState({
@@ -134,7 +133,9 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
             setFormData({...formData, profile_image: url})
           });
       }
-    ); 
+    );
+    
+    console.log(" image url " + formData.profile_image)
   }
 
   const onChangeProfileimage = e => {
