@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useQuery } from "react-query";
 import ProductComment from "../src/components/product_details/ProductComment";
 import ProductDescription from "../src/components/product_details/ProductDescription";
-import { getProduct } from "../src/productapi";
+
 
 // img(icon)
 // title
@@ -19,8 +18,6 @@ const Details: React.FC = () => {
 
 	const [data, setData] = useState(initialValue);
 
-	const queryData = useQuery("product details", getProduct);
-	console.log("reactquery data", queryData);
 
 	return (
 		// container for the details

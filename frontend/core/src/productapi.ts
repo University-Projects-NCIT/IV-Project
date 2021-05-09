@@ -4,6 +4,19 @@ const API_URL = "https://startup-hunt.herokuapp.com"
 
 const access = (typeof window !== "undefined") ? localStorage.getItem('access') : '';
 
+// fetch selected product details
+export const fetchProductByID = async ({queryKey}) => {
+  const id = queryKey[1];
+  console.log("parameter passed from usequery", queryKey);
+  let url = `${API_URL}/products/${id}`;
+
+  return await fetch(url, {
+     headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+  }).then(res => res.json())
+}
 
 export const fecthProducts = async ({ queryKey, pageParam = 0 }) => {
   const order = queryKey[1]
@@ -197,3 +210,4 @@ export const addCategories = async (field) => {
     body: JSON.stringify(field)
   })
 }
+
