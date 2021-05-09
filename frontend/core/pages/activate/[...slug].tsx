@@ -21,7 +21,7 @@ const Activate = React.memo(({ verify }: any) => {
       if (verified) {
           router.push({
               pathname: '/',
-              query: {redirectedFromVerify: true}
+              query: {}
           })
       }
 

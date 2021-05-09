@@ -7,7 +7,7 @@ export interface ProductInterface{
   productID: string;
   tagline: string;
   title: string;
-  upvote?: BigInt ;
+  upvote?: number ;
   product_icon: [] | ProductIconInteface[];
   product_images: [] | ProductImagesInteface[];
   product_comment: [] | ProductCommentInteface[];

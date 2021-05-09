@@ -9,7 +9,7 @@ interface PropsInterface{
   error: string;
   isAuthenticated: boolean;
   login: (email: string, password: string) => void;
-  setLoginState: React.Dispatch<React.SetStateAction<boolean>>;
+  setLoginState: (activate: boolean) => void 
 }
 
 const Login: React.FC<PropsInterface> = React.memo(({ access, error, isAuthenticated, login, setLoginState}) => {
@@ -78,7 +78,7 @@ const Login: React.FC<PropsInterface> = React.memo(({ access, error, isAuthentic
           {error != null && <h3 className="text-red-700"> Something went wrong !</h3> }
           <button type="button" className="w-full h-12 bg-color5 text-white" onClick={onSubmit}>Login</button>
           <h2>No account yet ?</h2>
-          <button type="button" className="w-full h-12 bg-color5 text-white" onClick={signup}>Sinup</button>
+          <button type="button" className="w-full h-12 bg-color5 text-white" onClick={signup}>Signup</button>
           <button type="button" className="w-full h-12 bg-color5 text-white" onClick={forgetPassword}>Forget Password ?</button>
         </form>
       </div>

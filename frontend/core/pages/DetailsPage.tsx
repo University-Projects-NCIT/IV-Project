@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import ProductComment from "../src/components/product_details/ProductComment";
 import ProductDescription from "../src/components/product_details/ProductDescription";
 
-// img(icon)
-// title
-//tagline
-// category
+
 
 const Details: React.FC = () => {
 	const initialValue = {
@@ -27,7 +24,6 @@ const Details: React.FC = () => {
 				<div>
 					<img src={data.img} alt="icon" className="w-20 h-20" />
 				</div>
-
 				<div className="space-y-1">
 					<h1 className="">{data.title}</h1>
 					<p className="text-sm text-gray-300">{data.tagline}</p>
@@ -44,21 +40,13 @@ const Details: React.FC = () => {
 			{/* product description with screenshot */}
 			<ProductDescription />
 
-			{/* Product discussion component */}
-			{/* <div className="text-gray-100 mt-8">
-				<h1 className="uppercase text-xs py-6">Discussion</h1>
-				<ProductDiscussion />
-			</div> */}
-
 			{/* Comment component */}
 			<div className="mt-8 text-white ">
 				<h3 className="uppercase text-xs py-5">Comment</h3>
 				<ProductComment />
 			</div>
 			</div>
-
 		
-      			
 		</div>
 	);
 };

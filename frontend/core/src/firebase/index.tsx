@@ -9,7 +9,7 @@ import 'firebase/storage'
     messagingSenderId: "332549767848",
     appId: "1:332549767848:web:46f6fb3b292dc3f549789d",
     measurementId: "G-WX2ZPDQGYN"
-};
+  }
   
 // Initialize Firebase
 if (!firebase.apps.length) {

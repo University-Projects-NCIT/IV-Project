@@ -11,13 +11,13 @@ interface PropsInterface{
   error: string;
   isAuthenticated: boolean;
   signup: (id, profile_image, email, first_name, last_name, password, re_password) => void;
-  setLoginState: React.Dispatch<React.SetStateAction<boolean>>;
+  setLoginState: (active : boolean) => void 
 }
 
 
 const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setLoginState }) => {
   
-   const initialValues= {
+  const initialValues= {
     id: uuidv4(),
     email: '',
     profile_image: '',
@@ -28,8 +28,6 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
   }
   
   const router = useRouter();
-  const profileImageRef = useRef(null);
-  // Reference to elements of input from inarray form
   const inputRef = useRef([]);
 
   const [imageFile ,setImageFile] = useState(null)
@@ -40,10 +38,18 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
 
   const [formData, setFormData] = useState(initialValues);
 
-  
+
   const { id, profile_image , email, first_name, last_name, password, re_password } = formData;
 
   const onChange = (e) => {
+
+    if (e.target.name == "profile_image")
+    {
+      setImageFile(URL.createObjectURL(e.target.files[0]));
+      handleUploadImage(e.target.files[0]);
+      return
+    }
+    
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
     //check re enter password is equal 
@@ -61,15 +67,15 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
 
     for (let i in inputRef.current)
     {
-      //check any input fields are empty 
-      if (profileImageRef.current == undefined || profileImageRef.current.value == '')
-      {
-        alert("image fields can not be empty ")
-        return;
-      }
 
       if (inputRef.current[i].value == '')
       {
+
+        if (inputRef.current[i].name == "profile_image")
+        {
+          return alert("Profile Image Can not be empty !")  
+        }
+        
         inputRef.current[i].classList.add("red-border");
         inputRef.current[i].placeholder = "Can't be empty";
         inputRef.current[i].focus();
@@ -95,7 +101,6 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
       alert("Password must be atleat 8 character including Number ,one capital and sepcial symbol ..");
     }
 
-
    
   }
 
@@ -109,10 +114,6 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
     }
   }
 
-  const onClickProfileImage = (e) => {
-    //Allow to click to porfile picture as input file |
-    profileImageRef.current.click();
-  }
 
   const handleUploadImage = (file) => {
     const imageSizeMB = file.size / 1024 / 1024;
@@ -140,19 +141,8 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
       }
     );
     
-    console.log(" image url " + formData.profile_image)
   }
 
-  const onChangeProfileimage = e => {
-    const file = e.target.files[0];
-
-    // To display preview image |
-    if (file)
-    {  
-      setImageFile(URL.createObjectURL(file));
-      handleUploadImage(file);
-    }
-    }
 
 
   const login = () => {
@@ -167,10 +157,10 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
     <>
     <div className="w-full h-auto flex flex-col">
         <div className="relative w-32 h-32 m-auto">
-          <img src={imageFile || "/images/default_profileimg.jpg"} className="w-32 h-32 rounded-full m-auto absolute"></img>
+          <img src={imageFile || "/images/default_profileimg.jpg"} className="w-32 h-32 rounded-full m-auto absolute object-cover"></img>
             <div className="w-32 h-32 absolute rounded-full flex flex-row justify-center items-center">Edit<AiFillEdit className="inline"/></div>
-            <div className="w-32 h-32 absolute rounded-full" onClick={onClickProfileImage}></div>
-            <input type="file" name="profile_image" className="hidden absolute" ref={profileImageRef} onChange={onChangeProfileimage}></input>
+            <div className="w-32 h-32 absolute rounded-full" onClick={ ()=> inputRef.current[5].click()}></div>
+            <input type="file" name="profile_image" className="hidden absolute" ref={ref => inputRef.current[5] = ref} onChange={onChange}></input>
         </div>
 
         <div>
@@ -183,7 +173,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               placeholder="Email"
               className="block"
               name="email"
-              ref={(emailRef) => (inputRef.current[0] = emailRef)}
+              ref={(ref) => (inputRef.current[0] = ref)}
               onChange={onChange} />
             
             <input
@@ -192,9 +182,9 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={first_name}
               required
               placeholder="First Name "
-              className="block"
+              className="block capitalize"
               name="first_name"
-              ref={(f_nameRef) => (inputRef.current[1] = f_nameRef)}
+              ref={(ref) => (inputRef.current[1] = ref)}
               onChange={onChange} />
             
             <input
@@ -203,9 +193,9 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={last_name}
               required
               placeholder="Last Name "
-              className="block"
+              className="block capitalize"
               name="last_name"
-              ref={(l_nameRef) => (inputRef.current[2] = l_nameRef)}
+              ref={(ref) => (inputRef.current[2] = ref)}
               onChange={onChange} />
             
             <input
@@ -216,7 +206,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               placeholder="Password"
               className="block"
               name="password"
-              ref={(passRef) => (inputRef.current[3] = passRef)}
+              ref={(ref) => (inputRef.current[3] = ref)}
               onChange={onChange} />
             
             <input
@@ -227,12 +217,13 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               placeholder="Confirm Password"
               className="block"
               name="re_password"
-              ref={(re_passRef) => (inputRef.current[4] = re_passRef)}
+              ref={(ref) => (inputRef.current[4] = ref)}
               onChange={onChange} />
             
+              {isAccountCreated.message != '' && <h2 > {isAccountCreated.message} </h2>} 
+            <button type="submit" className="w-full h-12 bg-color5 text-white" onClick={onSubmit}>Signup</button>
+            
           </form>
-          {isAccountCreated.message != '' && <h2 > {isAccountCreated.message} </h2>} 
-          <button className="w-full h-12 bg-color5 text-white" onClick={onSubmit}>Signup</button>
           <h2>Already have an account ?</h2>
           <button className="w-full h-12 bg-color5 text-white" onClick={login}>Login</button>
           <button className="w-full h-12 bg-color5 text-white" onClick={forgetPassword}>Forget Password ?</button>  

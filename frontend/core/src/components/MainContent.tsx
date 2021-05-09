@@ -1,4 +1,4 @@
-import React, { useEffect ,useState} from "react";
+import React, { useState} from "react";
 import ProductListCard from "./ProductListCard";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { MdAdd } from "react-icons/md";
