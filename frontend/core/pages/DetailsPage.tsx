@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useQuery } from "react-query";
 import ProductComment from "../src/components/product_details/ProductComment";
 import ProductDescription from "../src/components/product_details/ProductDescription";
-
+import { fetchProductByID, fetchUserByID } from "../src/productapi";
+import { useRouter } from "next/router";
 
 // img(icon)
 // title
@@ -18,6 +20,12 @@ const Details: React.FC = () => {
 
 	const [data, setData] = useState(initialValue);
 
+	const router = useRouter();
+	const { id } = router.query;
+
+	const selectedProduct = useQuery(["selectedProduct", id], fetchProductByID);
+
+	console.log("selected product", selectedProduct.data);
 
 	return (
 		// container for the details
@@ -27,30 +35,35 @@ const Details: React.FC = () => {
 				{/* product name with icon */}
 				<div className="text-gray-100 flex space-x-5 items-center">
 					<div>
-						<img src={data.img} alt="icon" className="w-20 h-20" />
+						{selectedProduct.data == "undefined" ? null : selectedProduct.data
+								.product_icon[0] != "undefined" &&
+						  selectedProduct.data.product_icon.length != 0 ? (
+							<img
+								src={selectedProduct.data.product_icon[0]["image"]}
+								alt="icon"
+								className="w-20 h-20"
+							/>
+						) : null}
 					</div>
 
 					<div className="space-y-1">
-						<h1 className="">{data.title}</h1>
-						<p className="text-sm text-gray-300">{data.tagline}</p>
+						<h1 className="">{selectedProduct.data.title}</h1>
+						<p className="text-sm text-gray-300">
+							{selectedProduct.data.tagline}
+						</p>
 						<div className="flex space-x-3 text-xs ">
-							{data.category.map((item) => (
+							{selectedProduct.data.categories.map(({ name }) => (
 								<div className="cursor-pointer border-gray-300 border px-2 py-1">
-									{item}
+									{name}
 								</div>
 							))}
 						</div>
 					</div>
 				</div>
 
-				{/* product description with screenshot */}
-				<ProductDescription />
-
-				{/* Product discussion component */}
-				{/* <div className="text-gray-100 mt-8">
-				<h1 className="uppercase text-xs py-6">Discussion</h1>
-				<ProductDiscussion />
-			</div> */}
+				{typeof selectedProduct != "undefined" && (
+					<ProductDescription {...selectedProduct.data} />
+				)}
 
 				{/* Comment component */}
 				<div className="mt-8 text-white ">
