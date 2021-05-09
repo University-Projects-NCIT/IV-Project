@@ -98,18 +98,19 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 		setUpvotedButton(false)
 	}, [fetchProductUpvote])
 
-	return (
-		<>
-			<div className="w-full pb-4 bg-item_list_bg text-gray-100 flex flex-col hover:opacity-70 cursor-pointer">
+	const ItemList = (image, title, tagline, categories,upvote) => {
+		return (
+			<React.Fragment>
+			<div className="w-full pb-1 bg-item_list_bg text-gray-100 flex flex-col hover:opacity-70 cursor-pointer">
 				<div className="flex pt-4">
 					<div className="w-20 h-20 mt-2 ml-4 mr-4 rounded-md overflow-hidden bg-red-5000 ">
 						<img src={image || "./images/snapchat.png"} className="w-full h-full cover image object-cover" alt="product image logo" />
 					</div>
 					<div className="">
-						<h4 className="mt-1">{itemData.title}</h4>
-						<p className="text-xs mt-1 text-gray-300">{itemData.tagline}</p>
+						<h4 className="mt-1">{title}</h4>
+						<p className="text-xs mt-1 text-gray-300">{tagline}</p>
 						<div className="flex flex-start mt-2">
-							{itemData.categories.map((item) => {
+							{categories.map((item) => {
 								return (
 									<div className="category m-1 uppercase" key={uuidv4()}>
 										{item.name}
@@ -122,18 +123,17 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 						<div>
 							<BsFillTriangleFill className="color-black" />
 						</div>
-						<div>{itemData.upvote}</div>
+						<div>{upvote}</div>
 					</div>
 				</div>
-			</div>
-			<div className="line opacity-50"></div>
-
-			<style jsx>
+				</div>
+				
+				<div className="line opacity-50"></div>
+					<style jsx>
 				{`
 
 					.image{
   						object-fit: cover;
-
 							}
 
 					.line {
@@ -148,6 +148,13 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 					}
 				`}
 			</style>
+			</React.Fragment>
+		)
+	}
+
+	return (
+		<>
+			{ItemList(image, itemData.title, itemData.tagline,itemData.categories, itemData.upvote)}
 		</>
 	);
 };

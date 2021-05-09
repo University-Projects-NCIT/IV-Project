@@ -71,22 +71,57 @@ const Login: React.FC<PropsInterface> = React.memo(({ access, error, isAuthentic
   return (
     <>
       <div className="w-full h-auto">
-        <div><img src="/images/default_profileimg.jpg"  className="w-32 h-32 rounded-full m-auto"></img></div>
+        <div><img src="/images/default_profileimg.jpg"  className="w-24 h-24 rounded-full m-auto"></img></div>
         <form onSubmit={onSubmit}>
-          <input type="email" ref={ref => {inputRef.current[0] = ref}} onBlur={ onBlur} name ="email" value={email} required placeholder="Email" className="block" onChange={onChange}></input>
-          <input type="password" ref={ref => {inputRef.current[1] = ref}} onBlur={onBlur} name="password" value={password} required placeholder="Password" className="block" onChange={onChange}></input>
+          <input
+            type="email"
+            ref={ref => { inputRef.current[0] = ref }}
+            onBlur={onBlur}
+            name="email"
+            value={email}
+            required
+            placeholder="Email"
+            className="block w-full h-10 bg-item_list_bg mb-4 input border-none mt-8 pl-2 rounded-sm"
+            onChange={onChange}></input>
+          
+          <input
+            type="password"
+            ref={ref => { inputRef.current[1] = ref }}
+            onBlur={onBlur}
+            name="password"
+            value={password}
+            required
+            placeholder="Password"
+            className="block w-full h-10 bg-item_list_bg mb-4 input border-none pl-2 rounded-sm"
+            onChange={onChange}></input>
+          
           {error != null && <h3 className="text-red-700"> Something went wrong !</h3> }
-          <button type="button" className="w-full h-12 bg-color5 text-white" onClick={onSubmit}>Login</button>
-          <h2>No account yet ?</h2>
-          <button type="button" className="w-full h-12 bg-color5 text-white" onClick={signup}>Signup</button>
-          <button type="button" className="w-full h-12 bg-color5 text-white" onClick={forgetPassword}>Forget Password ?</button>
+          <button type="button" className="w-full h-12 bg-color5 text-white uppercase mt-12 focus:outline-none hover:opacity-70" onClick={onSubmit}>Login</button>
+          <h2 className="text-gray-200 mt-2 mb-2">No account yet ?</h2>
+          <button type="button" className="w-full h-12 bg-color5 text-white uppercase focus:outline-none hover:opacity-70" onClick={signup}>Signup</button>
+          <button type="button" className="w-full h-12 text-xs bg-color5 text-white uppercase focus:outline-none hover:opacity-70" onClick={forgetPassword}>Forget Password ?</button>
         </form>
       </div>
 
     <style jsx>{`
       .red-border{
-        background: red;
-      }
+            outline-offset: 0px;
+						outline: none;
+						box-shadow: 0.1px 0.1px 1px 0.1px red;
+          }
+
+      .input {
+						color: #ffffff;
+						padding-left: 1rem;
+						-webkit-transition: box-shadow 0.3s;
+						transition: box-shadow 0.3s;
+					}
+          
+					.input:focus {
+						outline-offset: 0px;
+						outline: none;
+						box-shadow: 1px 0.3px 2px 0.1px #111e6c;
+					}
      `}
     </style>
     </>

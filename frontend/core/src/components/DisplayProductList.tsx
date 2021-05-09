@@ -70,10 +70,10 @@ const displayProductList: React.FC = () => {
 	}
 	
   
-  const LoadingPage = () => {
+   const LoadingPage = () => {
 		return (
 			<React.Fragment>
-				<div className="w-full h-64 flex-row justify-items-center items-center animate-pulse">
+				<div className="w-full h-28 mt-4 rounded-md flex-row bg-item_list_bg justify-items-center items-center animate-pulse">
 				</div>
 			</React.Fragment>
 		)
@@ -83,7 +83,7 @@ const displayProductList: React.FC = () => {
   
   return (
     	<>
-						<div className="flex flex-row text-white justify-end -mb-4">
+				<div className="flex flex-row text-white justify-end -mb-4">
 							<button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70" onClick={()=> setProductOrderBy(POPULAR)}>
 								Popular
 							</button>
@@ -91,9 +91,8 @@ const displayProductList: React.FC = () => {
 							<button className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70" onClick={()=> setProductOrderBy(NEWEST)}>
 								Newest
 							</button>
-						</div>
-						{
-							isLoading ? LoadingPage() : typeof data == "undefined" ? <div className="animate-spin w-full h-full"></div> :
+			</div>
+						{isLoading ? <div className="mt-8">{[1, 2, 3, 4].map(i => LoadingPage())}</div> : typeof data == "undefined" ? <div className="animate-spin w-full h-full"></div> :
 							typeof launchedData != "undefined"	? launchedData.map(cardData => {
                 return <ProductListCard data={cardData} displayDate={true} key= {uuidv4()}/>
 							}) : null
