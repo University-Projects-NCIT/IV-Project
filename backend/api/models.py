@@ -129,3 +129,8 @@ class Category(models.Model):
     product = models.ForeignKey(Product,related_name="categories", verbose_name=("product Id"), on_delete=models.CASCADE)
 
 
+
+
+
+"https://firebasestorage.googleapis.com/v0/b/product-show-website.appspot.com/o/icon_image%2F115702939_702419260604216_2829197106263425711_n.jpg?alt=media&token=fbd7cbd9-f3ae-4743-9a2b-0d6f4c2bc722"
+"https://firebasestorage.googleapis.com/v0/b/product-show-website.appspot.com/o/icon_image%2F115702939_702419260604216_2829197106263425711_n.jpg?alt=media&token=fbd7cbd9-f3ae-4743-9a2b-0d6f4c2bc722"

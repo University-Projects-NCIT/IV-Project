@@ -36,26 +36,29 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
   const [iconUrl, setIconUrl] = useState(null)
   const [imagesUrl, setImageUrl] = useState([])
   const [categories, setCategories] = useState("")
-  const [inserted, setInserted] = useState(true)
+  const [inserted, setInserted] = useState(false)
 
-  const queryClient = useQueryClient()
   const router = useRouter()
   
   const productMutate = useMutation(addProduct, {
-    onSuccess: () => remainingMutate()
+    onSuccess: () => remainingMutate(),
+    onError: (err) => console.log("Error for adding product " + err)
   })
 
   const iconMutate = useMutation(addIcon, {
     onSuccess: () => console.log("Added Icon "),
-  
+    onError: (err) => console.log("Error to adding Icon " + err),
+    onMutate: ()=> console.log("test")
   })
 
   const productImagesMutate = useMutation(addProductImages, {
-    onSuccess : () => console.log("Added Images ")
+    onSuccess: () => console.log("Added Images "),
+    onError: (err) => console.log("Error to add product images " + err)
   })
 
   const categoriesMutate = useMutation(addCategories, {
-    onSuccess : ()=> setInserted(true)
+    onSuccess: () => setInserted(true),
+    onError: (err) => console.log("Error to add categories " + err)
   })
 
  
@@ -69,6 +72,19 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
     }
 
     for (let i in inputRef.current) {
+
+
+      // if(inputRef.current[i].name == "product_link")
+      // {
+      //   const reg = "/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g"
+      //   const find = inputRef.current[i].value.search(reg)
+      //   if (find < 0)
+      //   {
+      //     inputRef.current[i].classList.add("red-border")
+      //     inputRef.current[i].placeholder = "Enter valid url"
+      //    }
+      // }
+
       if (inputRef.current[i].value == "")
       {
         inputRef.current[i].classList.add("red-border")
@@ -89,10 +105,9 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
       return alert("Select App Images ")
     }
 
-    productMutate.mutate({ ...formData, productID: productId, author: user.id })
-    
-   
-      
+    const utcDateTime = new Date(formData.launch_at).toISOString()
+
+    productMutate.mutate({ ...formData,launch_at: utcDateTime, productID: productId, author: user.id })
     
   }
 
@@ -110,11 +125,8 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
 
     if (e.target.name == "icon_image")
     {
-
       setIcon(URL.createObjectURL(e.target.files[0]))
       handleUploadImage(e.target.files[0], e.target.name)
-      // console.log("iconUrl")
-      // console.log(iconUrl)
       return 
     }
 
@@ -154,11 +166,13 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
           .child(image_name)
           .getDownloadURL()
           .then(url => {
+
+            console.log("image url " + url )
             if (name == "icon_image")
             {
-              setIconUrl(url)
+              setIconUrl(url.toString())
             } else {
-              setImageUrl([...imagesUrl, url])
+              setImageUrl([...imagesUrl, url.toString()])
             }
           });
       }
@@ -196,7 +210,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
       { inserted ? insertedSuccess() :
       <>
         <form onSubmit={onSubmit}>
-          <label className="block capitalize mb-2" htmlFor="title">Title of your App</label>
+          <label className="block capitalize mb-2" htmlFor="title">Title of your App<span className="text-red-600"> *</span></label>
           <input
             required
             type="text"
@@ -208,7 +222,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
           >
           </input>
         
-          <label className="block capitalize mb-2" htmlFor="title">Tagline of your App</label>
+          <label className="block capitalize mb-2" htmlFor="title">Tagline of your App<span className="text-red-600"> *</span></label>
           <input
             type="text"
             name="tagline"
@@ -219,7 +233,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
             required>
           </input>
         
-          <label className="block capitalize mb-2" htmlFor="title">Description of your App</label>
+          <label className="block capitalize mb-2" htmlFor="title">Description of your App<span className="text-red-600"> *</span></label>
           <textarea
             name="description"
             onChange={onChange}
@@ -230,7 +244,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
             required>
           </textarea>
 
-          <label className="block capitalize mb-2" htmlFor="title">Launching date and time </label>
+          <label className="block capitalize mb-2" htmlFor="title">Launching date and time <span className="text-red-600"> *</span></label>
           <input
             type="datetime-local"
             name="launch_at"
@@ -241,7 +255,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
             required>
           </input>
         
-          <label className="block capitalize mb-2" htmlFor="title">Your app Icon</label>
+          <label className="block capitalize mb-2" htmlFor="title">Your app Icon<span className="text-red-600"> *</span></label>
           <input
             type="file"
             ref={iconRef}
@@ -256,7 +270,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
             <img src={icon || "./images/default_image.png"} className="w-full h-full object-cover" alt="product image logo" />
           </div>
         
-          <label className="block capitalize mb-2" htmlFor="title">Your app Images eg Screenshots etc.</label>
+          <label className="block capitalize mb-2" htmlFor="title">Your app Images eg Screenshots etc.<span className="text-red-600"> *</span></label>
           <input
             type="file"
             hidden
@@ -280,7 +294,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
           </div>
 
         
-          <label className="block capitalize mb-2" htmlFor="title">Your app link</label>
+          <label className="block capitalize mb-2" htmlFor="title">Your app link<span className="text-red-600"> *</span></label>
           <input
             type="url"
             name="product_link"
@@ -290,7 +304,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
             className="w-full h-10 mb-8 hover:opacity-70 bg-item_list_bg border-none input rounded-sm" placeholder="eg. https://myapp.com"
             required></input>
         
-          <label className="block capitalize mb-2" htmlFor="title">Categories</label>
+          <label className="block capitalize mb-2" htmlFor="title">Categories<span className="text-red-600"> *</span></label>
           <input
             type="text"
             name="categories"

@@ -1,16 +1,3 @@
-export const filterLaunched = (data) => {
-		/**
-		 * This function filters the data according to the 
-		 * Date it is launched . Only already lauhced data is filtered
-		 */
-		const date1 = new Date();
-		return data.filter(obj => date1 >= new Date(obj.launch_at))
-	}
-
-export const filterUpcomming = (data) => {
-		const date1 = new Date()
-		return data.filter(obj => date1 < new Date(obj.launch_at))
-	}
 
 
 export const groupByDate = (data) => {

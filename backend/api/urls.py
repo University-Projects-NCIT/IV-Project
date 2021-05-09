@@ -9,6 +9,7 @@ from .views import(
     ProductIconViewSet,
     CategoryViewSet,
     ProductUpvoteViewSet,
+    UpcommingProductViewSet,
     HomePageView
 )
 
@@ -20,6 +21,7 @@ router = DefaultRouter()
 router.register(f'products', ProductViewSet, 'Product')
 router.register(f'product_upvote', ProductUpvoteViewSet, 'Product Upvote ')
 #upcomming product only 
+router.register(f'upcomming_products', UpcommingProductViewSet, 'Upcomming Product ')
 # route for product feature images 
 router.register(f'product_images', ProductImageViewSet, 'Product Images')
 # route for all the comment od products
