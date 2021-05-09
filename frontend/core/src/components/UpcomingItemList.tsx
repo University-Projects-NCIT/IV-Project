@@ -1,26 +1,47 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { CardUpcommingListInterface } from "../interfaces/Interfaces";
 import { msToDayTime } from './utils'
+import { useQueryClient} from 'react-query'
 
 const UpcomingItemList: React.FC<CardUpcommingListInterface> = ({itemData}) => {
 
 	const date = Date.parse(itemData.launch_at)
 	const today = Date.parse(String(new Date()))
-	let diff = date - today
-	let image
+	const queryClient = useQueryClient()
 
-	const [launchingAt , setLaunching] = React.useState("")
+	// const [diff, setDiff] = React.useState(0)
+	const [launchingAt, setLaunching] = React.useState("")
+	// const [image, setImage] = React.useState("")
+
+	let image = ""
+	let diff=0
+
+	diff = date - today
+
+	if (diff < 0)
+	{
+		queryClient.invalidateQueries("porducts")
+		queryClient.invalidateQueries("upcommingProduct")
+	}
 
 	if (itemData.product_icon[0] != undefined)
 	{
-		image = itemData.product_icon[0].image
+		image = (itemData.product_icon[0].image)
 	}
 
 	//TODO fix memory leack here 
-	setTimeout(() => {
-		diff = diff - 1000
+	// setTimeout(() => {
+	// 	setLaunching(countRef.current)
+	// },1000)
+
+
+	window.setInterval(() => {
+		diff -= 1000;
 		setLaunching(msToDayTime(diff))
-	},1000)
+
+	}, 1000)
+	
+
 
 	return (
 		<>
@@ -40,7 +61,7 @@ const UpcomingItemList: React.FC<CardUpcommingListInterface> = ({itemData}) => {
 						</button>
 					</div>
 
-					<div className="h-16 w-16 bg-gray-400">
+					<div className="h-16 w-16 bg-gray-400 rounded-md">
 						<img
 							src={image || "./images/snapchat.png"}
 							// src="./images/snapchat.png"

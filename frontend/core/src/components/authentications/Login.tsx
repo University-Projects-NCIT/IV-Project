@@ -4,9 +4,15 @@ import { login } from '../../actions/auth.action';
 import { useRouter } from 'next/router'
 import {ToggleContext} from '../../Contexts/ToggleContext'
 
+interface PropsInterface{
+  access: string;
+  error: string;
+  isAuthenticated: boolean;
+  login: (email: string, password: string) => void;
+  setLoginState: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-
-const Login: React.FC = React.memo(({ access, error, isAuthenticated, login, setLoginState}: any) => {
+const Login: React.FC<PropsInterface> = React.memo(({ access, error, isAuthenticated, login, setLoginState}) => {
 
   const router = useRouter();
   const initialValues = {
@@ -37,10 +43,6 @@ const Login: React.FC = React.memo(({ access, error, isAuthenticated, login, set
     }
 
     const res = await login(email, password)
-    if (access != null)
-    {
-      toggle();
-    }
     
   }
 

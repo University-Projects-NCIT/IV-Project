@@ -4,6 +4,10 @@ from rest_framework import filters
 from .paginations import ProductLimitOffsetPagination
 from rest_framework.generics import ListAPIView 
 from django.views.generic import TemplateView
+from datetime import date
+from datetime import datetime
+from django.db.models import Q
+from django.utils import timezone
 
 ## Importing serializers 
 from .serializers import (
@@ -47,23 +51,44 @@ class ProductViewSet(viewsets.ModelViewSet):
         This method modifies the extra query as required 
         To midify the query params request 
         """
-        queryset = Product.objects.all()
+        
+        queryset = Product.objects.filter(~Q(launch_at__gt = datetime.utcnow()))
 
         ordering_query = self.request.query_params.get('m_order')
         
-        if ordering_query == "created_at" :
+        if ordering_query == "created_at":
             return queryset.order_by('-created_at')
 
         if ordering_query == "upvote":
-            print("upvote called ")
             return queryset.order_by('-upvote')
 
         return queryset
 
+# Product Upcomming api
+class UpcommingProductViewSet(viewsets.ModelViewSet):
+    serializer_class = ProductSerializer
+    permission_classes = [permissions.AllowAny]
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+    ## Table column created_at and upvote
+    ordering_fields = ['created_at','upvote']
 
-    # @property
-    # def categories(self):
-    #     return self.category_set.all()
+
+    def get_queryset(self):
+        """
+        This method modifies the extra query as required 
+        To midify the query params request 
+        """
+
+        # queryset = Product.objects.filter(Q(launch_at__gt = timezone.now()))
+        queryset = Product.objects.filter(Q(launch_at__gt = datetime.utcnow()))
+
+        print("Today time ")
+
+        print(datetime.utcnow())
+        
+        queryset.order_by('-created_at')
+
+        return queryset
     
 
 

@@ -1,14 +1,14 @@
 import axios from 'axios'
 import Post from '../pages/post';
+import { BACKEND_URL, LIMIT } from './constraints'
 
-const API_URL = "https://startup-hunt.herokuapp.com"
+const API_URL = BACKEND_URL
 
-const access = (typeof window !== "undefined") ? localStorage.getItem('access') : '';
 
 
 export const fecthProducts = async ({ queryKey, pageParam = 0 }) => {
   const order = queryKey[1]
-  let url = `${API_URL}/products/?m_order=${order}&limit=2`;
+  let url = `${API_URL}/products/?m_order=${order}&limit=${LIMIT}`;
 
   if (pageParam)
   {
@@ -23,15 +23,11 @@ export const fecthProducts = async ({ queryKey, pageParam = 0 }) => {
   }).then(res => res.json())
 }
 
-export const fetchSearchProducts = async ({queryKey , pageParam = 0}) => {
+export const fetchSearchProducts = async ({queryKey}) => {
   const searchKey = queryKey[2]
   const order = queryKey[1]
-  let url = `${API_URL}/products/?search=${searchKey}&m_order=${order}&limit=2`;
+  let url = `${API_URL}/products/?search=${searchKey}&m_order=${order}`;
 
-  if (pageParam)
-  {
-    url = url + `&offset=${pageParam}`
-  }
 
   return await fetch(url, {
     headers: {
@@ -41,10 +37,9 @@ export const fetchSearchProducts = async ({queryKey , pageParam = 0}) => {
   }).then(res => res.json())
 }
 
-export const fecthUpcommingProducts = async ({queryKey }) => {
+export const fecthUpcommingProducts = async () => {
 
-  const order = queryKey[1]
-  let url = `${API_URL}/products/?m_order=${order}`;
+  let url = `${API_URL}/upcomming_products/`;
 
 
   return await fetch(url, {
@@ -56,6 +51,10 @@ export const fecthUpcommingProducts = async ({queryKey }) => {
 }
 
 export const updateUpvote = async (props) => {
+  const access = (typeof window !== "undefined") ? localStorage.getItem('access') : '';
+  if (access == '') {
+    return alert("Unauthorized request ")
+  }
 
   let url = `${API_URL}/products/${props.productId}/`
   // let url2 = `${API_URL}/product_upvote`
@@ -75,6 +74,11 @@ export const updateUpvote = async (props) => {
 }
 
 export const addProductUpvote = async (field) => {
+  const access = (typeof window !== "undefined") ? localStorage.getItem('access') : '';
+  if (access == '') {
+    return alert("Unauthorized request ")
+  }
+
   let url = `${API_URL}/product_upvote/`
 
   const AUTH_HEADER = {
@@ -91,6 +95,11 @@ export const addProductUpvote = async (field) => {
   })
 }
 export const deleteProductUpvote = async (id) => {
+  const access = (typeof window !== "undefined") ? localStorage.getItem('access') : '';
+  if (access == '') {
+    return alert("Unauthorized request ")
+  }
+
   let url = `${API_URL}/product_upvote/${id}/`
 
   const AUTH_HEADER = {
@@ -106,7 +115,12 @@ export const deleteProductUpvote = async (id) => {
   })
 }
 
-export const getProductUpvote = async ({queryKey}) => {
+export const getProductUpvote = async ({ queryKey }) => {
+  const access = (typeof window !== "undefined") ? localStorage.getItem('access') : '';
+  if (access == '') {
+    return alert("Unauthorized request ")
+  }
+
   const userId = queryKey[1]
   const productId = queryKey[2]
   // const productId = "jhgjldshgjkjksghjhgsd"
@@ -126,6 +140,11 @@ export const getProductUpvote = async ({queryKey}) => {
 }
 
 export const addProduct = async (field) => {
+  const access = (typeof window !== "undefined") ? localStorage.getItem('access') : '';
+  if (access == '') {
+    return alert("Unauthorized request ")
+  }
+
   console.log(field)
   let url = `${API_URL}/products/`
 
@@ -144,6 +163,11 @@ export const addProduct = async (field) => {
 }
 
 export const addIcon = async (field) => {
+  const access = (typeof window !== "undefined") ? localStorage.getItem('access') : '';
+  if (access == '') {
+    return alert("Unauthorized request ")
+  }
+
   let url = `${API_URL}/product_icon/`
 
   const AUTH_HEADER = {
@@ -161,7 +185,11 @@ export const addIcon = async (field) => {
 }
 
 export const addProductImages = async (field) => {
-  console.log("imaages")
+  const access = (typeof window !== "undefined") ? localStorage.getItem('access') : '';
+  if (access == '') {
+    return alert("Unauthorized request ")
+  }
+
   console.log(field)
   let url = `${API_URL}/product_images/`
 
@@ -180,11 +208,12 @@ export const addProductImages = async (field) => {
 }
 
 export const addCategories = async (field) => {
+  const access = (typeof window !== "undefined") ? localStorage.getItem('access') : '';
+  if (access == '') {
+    return alert("Unauthorized request ")
+  }
+
   let url = `${API_URL}/categories/`
-
-  console.log("categores")
-  console.log(field)
-
   const AUTH_HEADER = {
     'Authorization': `JWT ${access}`
   }

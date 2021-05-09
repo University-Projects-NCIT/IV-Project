@@ -4,9 +4,12 @@ import { CardDataInterface } from '../interfaces/Interfaces'
 import { v4 as uuidv4 } from 'uuid'
 import React from 'react'
 
+interface PropsInterface {
+	data: CardDataInterface;
+	displayDate: boolean;
+}
 
-
-const ProductListCard: React.FC<CardDataInterface> = (props) => {
+const ProductListCard: React.FC<PropsInterface> = (props) => {
 	/**
 	 * @returns Product list as card with grouping the same date
 	 * for eg: Product are grouping with Today, yesterday card
@@ -30,22 +33,22 @@ const ProductListCard: React.FC<CardDataInterface> = (props) => {
 		return cardDate;
 	}
 
-	const convertedDate = convertDate(new Date(props.data[0].created_at))
 
 	return (
 		<>
 			<div className="flex flex-row pb-4 text-white justify-between">
-				<div className="text-lg">{convertedDate}</div>
+				<div className="text-lg">{ props.displayDate ? convertDate(new Date(props.data[0].created_at)) : ""}</div>
 				
 			</div>
 			<div className="rounded mb-10 overflow-hidden w-full h-auto">
 				{
+					Array.isArray(props.data) &&
+					
 					props.data.map(itemData => {
-
 						return (
 							<Link key={uuidv4()} href={{
 								pathname: "/DetailsPage/",
-								query: {productID: itemData.productID}
+								query: {id:itemData.productID}
 							}}>
 							<a><ProductListItem itemData={itemData} key={uuidv4()}/></a>
 						</Link>

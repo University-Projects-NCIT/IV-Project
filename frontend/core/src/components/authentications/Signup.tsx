@@ -7,10 +7,15 @@ import { AiFillEdit } from 'react-icons/ai'
 import { storage } from '../../firebase'
 
 
+interface PropsInterface{
+  error: string;
+  isAuthenticated: boolean;
+  signup: (id, profile_image, email, first_name, last_name, password, re_password) => void;
+  setLoginState: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 
-
-const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any) => {
+const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setLoginState }) => {
   
    const initialValues= {
     id: uuidv4(),
