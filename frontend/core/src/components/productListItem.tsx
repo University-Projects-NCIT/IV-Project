@@ -108,7 +108,7 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 					</div>
 					<div className="">
 						<h4 className="mt-1">{title}</h4>
-						<p className="text-xs mt-1 text-gray-300">{tagline}</p>
+						<p className="text-sm mt-1 text-gray-400">{tagline}</p>
 						<div className="flex flex-start mt-2">
 							{categories.map((item) => {
 								return (

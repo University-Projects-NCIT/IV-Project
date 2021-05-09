@@ -14,8 +14,8 @@ const Search: React.FC<propsInterface> = (props) => {
 		e.preventDefault()
 		if (inputRef.current.value == "") return;
 		props.search(inputRef.current.value)
-		inputRef.current.value= ""
 	}
+
 	
 	return (
 		<>
