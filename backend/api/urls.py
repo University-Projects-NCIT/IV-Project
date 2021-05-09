@@ -1,11 +1,16 @@
 from rest_framework.routers import DefaultRouter,SimpleRouter
+from django.urls import path, include
+
 
 from .views import(
     ProductViewSet,
     ProductCommentViewSet,
     ProductImageViewSet,
     ProductIconViewSet,
-    CategoryViewSet
+    CategoryViewSet,
+    ProductUpvoteViewSet,
+    UpcommingProductViewSet,
+    HomePageView
 )
 
 ## Using default router 
@@ -14,6 +19,9 @@ router = DefaultRouter()
 
 # route for all the product list 
 router.register(f'products', ProductViewSet, 'Product')
+router.register(f'product_upvote', ProductUpvoteViewSet, 'Product Upvote ')
+#upcomming product only 
+router.register(f'upcomming_products', UpcommingProductViewSet, 'Upcomming Product ')
 # route for product feature images 
 router.register(f'product_images', ProductImageViewSet, 'Product Images')
 # route for all the comment od products
@@ -24,4 +32,7 @@ router.register(f'product_icon', ProductIconViewSet, 'Product Icon Image')
 router.register(f'categories', CategoryViewSet, 'product Category ')
 
 # Assigning the api urls which is used in main urls setting 
-urlpatterns = router.urls
+urlpatterns = [
+    path('', HomePageView.as_view()),
+    path('', include(router.urls)),
+]

@@ -16,7 +16,7 @@ SECRET_KEY = 'zy01lli-uu&_z$+#o)@%!phi8+k9*t(4h$7bzods##64qzm&$7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -36,8 +36,8 @@ INSTALLED_APPS = [
     'corsheaders',  # To allow call api from nextjs frontend app
     'rest_framework_simplejwt',  # For generate JWT (library)
     'djoser',  # Djoser is library to make authenticate backend
-    'social_django',  # Social authenticate eg. Google ,facebook oauth
-    'rest_framework_simplejwt.token_blacklist',  # helps jwt auth system
+    # 'social_django', # Social authenticate eg. Google ,facebook oauth
+    # 'rest_framework_simplejwt.token_blacklist', # helps jwt auth system
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -80,9 +80,17 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #         'ENGINE': 'django.db.backends.sqlite3',
+    #         'NAME': BASE_DIR / 'db.sqlite3',
+    #     }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd7bujlf53aiuhc',
+        'USER': 'pnrghvujhkhnlq',
+        'PASSWORD': '313933474c0d575dcdb6cf1accd86674a119b19f9239125e70154fd443e6e46c',
+        'HOST': 'ec2-34-206-8-52.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -90,8 +98,11 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+# EMAIL_HOST_USER = os.environ.get('EMAIL_E')
+EMAIL_HOST_USER = "astartup02@gmail.com"
+
+EMAIL_HOST_PASSWORD = "startupa@2020"
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 EMAIL_USE_TLS = True
 
 
@@ -176,7 +187,7 @@ DJOSER = {
     'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
-    'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
+    # 'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
     # 'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/google'],
     'SERIALIZERS': {
         'user_create': 'auth_system.serializers.UserCreateSerializer',
@@ -193,6 +204,9 @@ DJOSER = {
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
+
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

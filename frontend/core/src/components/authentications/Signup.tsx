@@ -7,17 +7,16 @@ import { AiFillEdit } from 'react-icons/ai'
 import { storage } from '../../firebase'
 
 
+interface PropsInterface{
+  error: string;
+  isAuthenticated: boolean;
+  signup: (id, profile_image, email, first_name, last_name, password, re_password) => void;
+  setLoginState: (active : boolean) => void 
+}
 
 
-
-const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any) => {
+const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setLoginState }) => {
   
-  const router = useRouter();
-  const profileImageRef = useRef(null);
-  // Reference to elements of input from inarray form
-  const inputRef = useRef([]);
-
-
   const initialValues= {
     id: uuidv4(),
     email: '',
@@ -27,6 +26,9 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
     password: '',
     re_password: ''
   }
+  
+  const router = useRouter();
+  const inputRef = useRef([]);
 
   const [imageFile ,setImageFile] = useState(null)
   const [isAccountCreated, setIsAccountCreated] = useState({
@@ -36,10 +38,18 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
 
   const [formData, setFormData] = useState(initialValues);
 
-  
+
   const { id, profile_image , email, first_name, last_name, password, re_password } = formData;
 
   const onChange = (e) => {
+
+    if (e.target.name == "profile_image")
+    {
+      setImageFile(URL.createObjectURL(e.target.files[0]));
+      handleUploadImage(e.target.files[0]);
+      return
+    }
+    
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
     //check re enter password is equal 
@@ -57,15 +67,15 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
 
     for (let i in inputRef.current)
     {
-      //check any input fields are empty 
-      if (profileImageRef.current[0].value == '')
-      {
-        alert("image fields can not be empty ")
-        return;
-      }
 
       if (inputRef.current[i].value == '')
       {
+
+        if (inputRef.current[i].name == "profile_image")
+        {
+          return alert("Profile Image Can not be empty !")  
+        }
+        
         inputRef.current[i].classList.add("red-border");
         inputRef.current[i].placeholder = "Can't be empty";
         inputRef.current[i].focus();
@@ -91,7 +101,6 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
       alert("Password must be atleat 8 character including Number ,one capital and sepcial symbol ..");
     }
 
-
    
   }
 
@@ -105,10 +114,6 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
     }
   }
 
-  const onClickProfileImage = (e) => {
-    //Allow to click to porfile picture as input file |
-    profileImageRef.current.click();
-  }
 
   const handleUploadImage = (file) => {
     const imageSizeMB = file.size / 1024 / 1024;
@@ -134,19 +139,10 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
             setFormData({...formData, profile_image: url})
           });
       }
-    ); 
+    );
+    
   }
 
-  const onChangeProfileimage = e => {
-    const file = e.target.files[0];
-
-    // To display preview image |
-    if (file)
-    {  
-      setImageFile(URL.createObjectURL(file));
-      handleUploadImage(file);
-    }
-    }
 
 
   const login = () => {
@@ -161,10 +157,10 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
     <>
     <div className="w-full h-auto flex flex-col">
         <div className="relative w-32 h-32 m-auto">
-          <img src={imageFile || "/images/default_profileimg.jpg"} className="w-32 h-32 rounded-full m-auto absolute"></img>
+          <img src={imageFile || "/images/default_profileimg.jpg"} className="w-32 h-32 rounded-full m-auto absolute object-cover"></img>
             <div className="w-32 h-32 absolute rounded-full flex flex-row justify-center items-center">Edit<AiFillEdit className="inline"/></div>
-            <div className="w-32 h-32 absolute rounded-full" onClick={onClickProfileImage}></div>
-            <input type="file" name="profile_image" className="hidden absolute" ref={profileImageRef} onChange={onChangeProfileimage}></input>
+            <div className="w-32 h-32 absolute rounded-full" onClick={ ()=> inputRef.current[5].click()}></div>
+            <input type="file" name="profile_image" className="hidden absolute" ref={ref => inputRef.current[5] = ref} onChange={onChange}></input>
         </div>
 
         <div>
@@ -177,7 +173,7 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
               placeholder="Email"
               className="block"
               name="email"
-              ref={(emailRef) => (inputRef.current[0] = emailRef)}
+              ref={(ref) => (inputRef.current[0] = ref)}
               onChange={onChange} />
             
             <input
@@ -186,9 +182,9 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
               value={first_name}
               required
               placeholder="First Name "
-              className="block"
+              className="block capitalize"
               name="first_name"
-              ref={(f_nameRef) => (inputRef.current[1] = f_nameRef)}
+              ref={(ref) => (inputRef.current[1] = ref)}
               onChange={onChange} />
             
             <input
@@ -197,9 +193,9 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
               value={last_name}
               required
               placeholder="Last Name "
-              className="block"
+              className="block capitalize"
               name="last_name"
-              ref={(l_nameRef) => (inputRef.current[2] = l_nameRef)}
+              ref={(ref) => (inputRef.current[2] = ref)}
               onChange={onChange} />
             
             <input
@@ -210,7 +206,7 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
               placeholder="Password"
               className="block"
               name="password"
-              ref={(passRef) => (inputRef.current[3] = passRef)}
+              ref={(ref) => (inputRef.current[3] = ref)}
               onChange={onChange} />
             
             <input
@@ -221,12 +217,13 @@ const Signup: React.FC = ({ error, isAuthenticated, signup, setLoginState }: any
               placeholder="Confirm Password"
               className="block"
               name="re_password"
-              ref={(re_passRef) => (inputRef.current[4] = re_passRef)}
+              ref={(ref) => (inputRef.current[4] = ref)}
               onChange={onChange} />
             
+              {isAccountCreated.message != '' && <h2 > {isAccountCreated.message} </h2>} 
+            <button type="submit" className="w-full h-12 bg-color5 text-white" onClick={onSubmit}>Signup</button>
+            
           </form>
-          {isAccountCreated.message != '' && <h2 > {isAccountCreated.message} </h2>} 
-          <button className="w-full h-12 bg-color5 text-white" onClick={onSubmit}>Signup</button>
           <h2>Already have an account ?</h2>
           <button className="w-full h-12 bg-color5 text-white" onClick={login}>Login</button>
           <button className="w-full h-12 bg-color5 text-white" onClick={forgetPassword}>Forget Password ?</button>  

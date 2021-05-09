@@ -1,11 +1,14 @@
 from rest_framework import serializers
+# from auth_system.serializers import UserCreateSerializer
+from auth_system.serializers import UserCreateSerializer
 
 from .models import(
     Product,
     ProductComment,
     ProductImage,
     ProductIcon,
-    Category
+    Category,
+    ProductUpvote
 )
 
 
@@ -30,12 +33,17 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ["id","name","product"]
+
+class ProductUpvoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductUpvote
+        fields = ["id","productID","userID"]
         
 class ProductSerializer(serializers.ModelSerializer):
-    product_images = ProductImageSerializer(many = True)
-    product_icon = ProductIconSerializer(many = True)
-    product_comment = ProductCommentSerializer(many = True)
-    category = CategorySerializer(many = True)
+    product_images = ProductImageSerializer(many = True, read_only=True)
+    product_icon = ProductIconSerializer(many = True, read_only= True)
+    product_comment = ProductCommentSerializer(many = True, read_only = True)
+    categories = CategorySerializer(many = True, read_only =True)
     class Meta:
         model = Product
         fields = [
@@ -46,9 +54,9 @@ class ProductSerializer(serializers.ModelSerializer):
             "upvote",
             "created_at", 
             "launch_at",
-            "created_by",
-            'product_images',
+            "author",
             "product_icon",
             "product_comment",
-            "category"
+            "product_images",
+            "categories"
             ]

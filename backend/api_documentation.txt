@@ -15,22 +15,38 @@ pip freeze
 pip install [deps]
 pip install -r requirements.txt
 
+## email details 
+-> astartup02@gmail.com
+-> startupa@2020
 ## super@super.com
 ## Super321@123
 
+query product upvote:
+    
+    /product_upvote/ -> all
+    /product_upvote/?userid=<userID>
+    -> gives all data with related that userID 
+
+    http://127.0.0.1:9000/product_upvote/?productid=jhgjldshgjkjksghjhgsd&userid=7ea95486-72a2-4122-9252-3ead867ee5bd
+    -> get upvote data with combine userid and productid 
+    
 query all products : 
     /products 
     -> get all the products 
+    /products/<productID>
+    -> Get single product with product id 
 
     /products/?limit=3&offset=10 
     -> paginated list 
     -> limit is page size and offset is where to start 
 
-    /products/?m_order = 'upvote' or 
+    /products/?m_order=upvote or 
     -> Orders according to upvote as highest upvote comes first
 
-    /products/?m_order = 'created_at'
+    /products/?m_order=created_at
     -> Orders according to created_at time as newest come first
+
+    /products/?search=<key from tagline or title >
 
 query product images :
     /product_images/
@@ -63,7 +79,7 @@ query all the user :
     -> (unsecure) 
     -> gives all the info of user from user table 
 
-    /user/id
+    /users/id
     -> where id is user id 
 
 query the categories :
