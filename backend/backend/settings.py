@@ -33,9 +33,9 @@ INSTALLED_APPS = [
     'core',
     'django.contrib.admin',
     'django_filters',
-    'corsheaders', #To allow call api from nextjs frontend app
-    'rest_framework_simplejwt', # For generate JWT (library)
-    'djoser', # Djoser is library to make authenticate backend
+    'corsheaders',  # To allow call api from nextjs frontend app
+    'rest_framework_simplejwt',  # For generate JWT (library)
+    'djoser',  # Djoser is library to make authenticate backend
     # 'social_django', # Social authenticate eg. Google ,facebook oauth
     # 'rest_framework_simplejwt.token_blacklist', # helps jwt auth system
 ]
@@ -47,7 +47,7 @@ MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware', 
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -84,19 +84,17 @@ DATABASES = {
     #         'ENGINE': 'django.db.backends.sqlite3',
     #         'NAME': BASE_DIR / 'db.sqlite3',
     #     }
-
-
-     'default': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'd7bujlf53aiuhc',
         'USER': 'pnrghvujhkhnlq',
         'PASSWORD': '313933474c0d575dcdb6cf1accd86674a119b19f9239125e70154fd443e6e46c',
         'HOST': 'ec2-34-206-8-52.compute-1.amazonaws.com',
         'PORT': '5432',
-    } 
+    }
 }
 
-### Email details for authentication 
+# Email details for authentication
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -108,9 +106,8 @@ EMAIL_HOST_PASSWORD = "startupa@2020"
 EMAIL_USE_TLS = True
 
 
-
-CORS_ORIGIN_ALLOW_ALL = True # allows to access from any fronend domains
-CORS_ALLOW_CREDENTIALS = True # allows to return cookies and sessions
+CORS_ORIGIN_ALLOW_ALL = True  # allows to access from any fronend domains
+CORS_ALLOW_CREDENTIALS = True  # allows to return cookies and sessions
 
 
 # Password validation
@@ -157,7 +154,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
     ],
-    
+
 }
 
 AUTHENTICATION_BACKENDS = (
@@ -174,10 +171,10 @@ SIMPLE_JWT = {
     )
 }
 
-DOMAIN = ('localhost:8080') # frontend domain
-SITE_NAME = ('StartupMe') # app Name
+DOMAIN = ('localhost:8080')  # frontend domain
+SITE_NAME = ('StartupMe')  # app Name
 
-### Djoser library settings for authentications 
+# Djoser library settings for authentications
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE': True,
@@ -191,7 +188,7 @@ DJOSER = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     # 'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
-    #'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/google'],
+    # 'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/google'],
     'SERIALIZERS': {
         'user_create': 'auth_system.serializers.UserCreateSerializer',
         'user': 'auth_system.serializers.UserCreateSerializer',
@@ -210,7 +207,6 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
