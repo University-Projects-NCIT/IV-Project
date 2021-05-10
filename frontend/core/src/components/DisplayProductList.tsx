@@ -61,7 +61,7 @@ const displayProductList: React.FC = () => {
 		fetchNextPage();
   }
   
-  	if (typeof productData != "undefined" && productData.length != 0)
+  if (typeof productData != "undefined" && productData.length != 0)
 	{
 		if (Array.isArray(productData))
 		{
@@ -72,7 +72,7 @@ const displayProductList: React.FC = () => {
   
    const LoadingPage = () => {
 		return (
-			<React.Fragment>
+			<React.Fragment key={uuidv4()}>
 				<div className="w-full h-28 mt-4 rounded-md flex-row bg-item_list_bg justify-items-center items-center animate-pulse">
 				</div>
 			</React.Fragment>
@@ -92,14 +92,14 @@ const displayProductList: React.FC = () => {
 								Newest
 							</button>
 			</div>
-						{isLoading ? <div className="mt-8">{[1, 2, 3, 4].map(i => LoadingPage())}</div> : typeof data == "undefined" ? <div className="animate-spin w-full h-full"></div> :
+						{isLoading || isFetching ? <div className="mt-8">{[1, 2, 3, 4].map(i => LoadingPage())}</div> : typeof data == "undefined" ? <div className="animate-spin w-full h-full"></div> :
 							typeof launchedData != "undefined"	? launchedData.map(cardData => {
                 return <ProductListCard data={cardData} displayDate={true} key= {uuidv4()}/>
 							}) : null
 						}
 
 						{/* Detects intersection points  */}
-						<div className="h-32 w-full" ref={() => setRef}>
+			<div className={ hasNextPage ? "h-24 w-full" : " hidden h-24 w-full"} ref={() => setRef}>
 							{isFetchingNextPage ? 
 							<div className="animate-pulse rounded-sm w-full h-full bg-item_list_bg"></div> : null
 							}

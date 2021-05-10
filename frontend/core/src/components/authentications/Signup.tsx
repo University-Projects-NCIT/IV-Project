@@ -217,7 +217,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               ref={(ref) => (inputRef.current[4] = ref)}
               onChange={onChange} />
             
-              {isAccountCreated.message != '' && <h2 > {isAccountCreated.message} </h2>} 
+              {isAccountCreated.message != '' && <h2 className="text-gray-600"> {isAccountCreated.message} </h2>} 
             <button type="submit" className="w-full h-12 bg-color5 text-white uppercase focus:outline-none hover:opacity-70 mt-4" onClick={onSubmit}>Signup</button>
             
           </form>

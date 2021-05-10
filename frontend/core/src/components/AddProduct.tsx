@@ -152,9 +152,11 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
     {
       alert(" File size can not be more than 3 MB . Please compress you image and upload again !");
       return;
-    }
+     }
+     
     const image_name = file.name;
-    const uploadTask = storage.ref(`${name}/${image_name}`).put(file);
+    const timestamp = String(Math.round(new Date().getTime()/1000))
+    const uploadTask = storage.ref(`${name}/${timestamp+image_name}`).put(file);
     uploadTask.on(
       "state_changed",
       snapshot => {},
@@ -162,18 +164,18 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
         console.log(error);
       },
       () => {
-        storage
+          storage
           .ref(name)
-          .child(image_name)
+          .child(timestamp + image_name)
           .getDownloadURL()
           .then(url => {
 
             console.log("image url " + url )
             if (name == "icon_image")
             {
-              setIconUrl(url.toString())
+              setIconUrl(url)
             } else {
-              setImageUrl([...imagesUrl, url.toString()])
+              setImageUrl([...imagesUrl, url])
             }
           });
       }
@@ -354,6 +356,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
             onChange={onChange}
             value={formData.product_link}
             ref={(ref) => inputRef.current[4] = ref}
+            maxLength={200}
             className="w-full h-10 mb-8 hover:opacity-70 bg-item_list_bg border-none input rounded-sm" placeholder="eg. https://myapp.com"
             required></input>
         

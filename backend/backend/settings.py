@@ -84,14 +84,17 @@ DATABASES = {
     #         'ENGINE': 'django.db.backends.sqlite3',
     #         'NAME': BASE_DIR / 'db.sqlite3',
     #     }
+    
      'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'da1o0pq4rik9ve',
-        'USER': 'vbuhfkcrcdqnor',
-        'PASSWORD': '2ba62bfd63919f998cbaf4d1701c058372ff02ab211c5a26a97457700dccb608',
-        'HOST': 'ec2-34-193-113-223.compute-1.amazonaws.com',
+        'NAME': 'd7p7gu6ib2tiik',
+        'USER': 'doytsbdqzubrga',
+        'PASSWORD': '71972f1f68878d36fc58cf92f8fc48dd42f00802f630a3c33008f7808a4eb1b3',
+        'HOST': 'ec2-23-23-128-222.compute-1.amazonaws.com',
         'PORT': '5432',
     }
+
+
 }
 
 # Email details for authentication
