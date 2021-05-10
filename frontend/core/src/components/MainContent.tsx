@@ -105,7 +105,7 @@ const MainContent: React.FC = React.memo(
 									</div>
 								</IconContext.Provider>
 							</div>
-							<div className="ml-16 md:-mt-8 mr-16">
+							<div className="ml-4 mr-4 mt-2 md:ml-4 md:-mt-8 md:mr-16">
 								<Search search={search} />
 							</div>
 						</div>
@@ -125,7 +125,7 @@ const MainContent: React.FC = React.memo(
 							<div>
 								<UpcomingProductCard />
 							</div>
-							<div>
+							<div className="newscard mb-8 md:">
 								<NewsLetterCard />
 							</div>
 						</div>
@@ -134,6 +134,11 @@ const MainContent: React.FC = React.memo(
 
 				<style jsx>
 					{`
+
+						.newscard{
+							display : none;
+						}
+
 						.profile-image-back {
 							background: conic-gradient(
 								from 180deg at 50% 50%,
@@ -179,6 +184,10 @@ const MainContent: React.FC = React.memo(
 							}
 							.right-container {
 								width: 35%;
+								display: block;
+							}
+
+							.newscard{
 								display: block;
 							}
 						}
