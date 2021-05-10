@@ -1,5 +1,64 @@
 
 
+// export const groupByDate = (data) => {
+// 		/**
+// 		 * Groups the object data in array 
+// 		 * as by same date in day 
+// 		 */
+
+// 		let groupedData = []
+// 		let temp = []
+	
+// 	// data.reduce((accumulator, values) => {
+// 	// 	console.log("accu", accumulator)
+// 	// 	console.log("values", values)
+// 	// 	return (
+		 
+// 	// })
+	
+// 		data.map((product, index) => {
+// 			//Checking the date of previous produdct and current product 
+// 			// substring first 10 string because it contains the date 
+// 			// we subtract the time 
+// 			if (index > 0)
+// 			{
+// 				if ( String(data[index-1].created_at).substring(0,10) == String(product.created_at).substring(0,10)){
+// 				temp.push(product)
+// 				} else if( String(data[index-1].created_at).substring(0,10) != String(product.created_at).substring(0,10)){
+			
+// 				// groupedData.map((values, i) => {
+// 				// 	if (String(values.created_at).substring(0, 10) == String(product.created_at).substring(0, 10) &&
+// 				// 		values.upvote == product.upvote) {
+// 				// 		groupedData[i].push(temp)
+// 				// 		temp = []
+// 				// 		temp.push(product)
+// 				// 		return 
+// 				// 		}
+// 				// })
+					
+// 				groupedData.push(temp)
+// 				temp = [];
+// 				temp.push(product)
+// 				} 
+// 			}
+
+// 			if (index < 1)
+// 			{
+// 				temp.push(product)
+// 			}
+
+// 			if (data.length - 1 == index && temp.length != 0)
+// 			{
+// 				// The data is last we should manually push in group data
+// 				groupedData.push(temp)
+// 			}
+
+			
+// 		})
+	
+// 		return groupedData;
+// }
+
 export const groupByDate = (data) => {
 		/**
 		 * Groups the object data in array 
@@ -54,7 +113,5 @@ export function msToDayTime(duration : number) {
 		dayStr= day+ " Day "
 	}
   
-
-
   return dayStr + hoursStr + ":" + minutesStr + ":" + secondsStr;
 }

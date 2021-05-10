@@ -1,12 +1,12 @@
-import Post from "../pages/post";
 import { BACKEND_URL, LIMIT } from "./constraints";
+import axios from 'axios'
 
 const API_URL = BACKEND_URL;
 
 // fetch selected product details
 export const fetchProductByID = async ({ queryKey }) => {
 	const id = queryKey[1];
-	console.log("parameter passed from usequery", queryKey);
+	
 	let url = `${API_URL}/products/${id}`;
 
 	return await fetch(url, {
@@ -188,8 +188,7 @@ export const addProduct = async (field) => {
 };
 
 export const addIcon = async (field) => {
-	const access =
-		typeof window !== "undefined" ? localStorage.getItem("access") : "";
+	const access = typeof window != "undefined" ? localStorage.getItem("access") : "";
 	if (access == "") {
 		return alert("Unauthorized request ");
 	}
@@ -208,11 +207,13 @@ export const addIcon = async (field) => {
 		},
 		body: JSON.stringify(field),
 	});
+
+
 };
 
 export const addProductImages = async (field) => {
 	const access =
-		typeof window !== "undefined" ? localStorage.getItem("access") : "";
+		typeof window != "undefined" ? localStorage.getItem("access") : "";
 	if (access == "") {
 		return alert("Unauthorized request ");
 	}

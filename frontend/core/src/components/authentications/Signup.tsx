@@ -149,17 +149,14 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
     setLoginState(true)
   }
 
-  const forgetPassword = () => {
-    router.push('/api/forgetpassword')
-  }
 
   return (
     <>
     <div className="w-full h-auto flex flex-col">
-        <div className="relative w-32 h-32 m-auto">
-          <img src={imageFile || "/images/default_profileimg.jpg"} className="w-32 h-32 rounded-full m-auto absolute object-cover"></img>
-            <div className="w-32 h-32 absolute rounded-full flex flex-row justify-center items-center">Edit<AiFillEdit className="inline"/></div>
-            <div className="w-32 h-32 absolute rounded-full" onClick={ ()=> inputRef.current[5].click()}></div>
+        <div className="relative w-24 h-24 m-auto mb-8">
+          <img src={imageFile || "/images/default_profileimg.jpg"} className="w-24 h-24 rounded-full m-auto absolute object-cover"></img>
+            <div className="w-24 h-24 absolute rounded-full flex flex-row justify-center items-center">Edit<AiFillEdit className="inline"/></div>
+            <div className="w-24 h-24 absolute rounded-full" onClick={ ()=> inputRef.current[5].click()}></div>
             <input type="file" name="profile_image" className="hidden absolute" ref={ref => inputRef.current[5] = ref} onChange={onChange}></input>
         </div>
 
@@ -171,7 +168,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={email}
               required
               placeholder="Email"
-              className="block"
+              className="block w-full h-10 bg-item_list_bg mb-4 input border-none pl-2 rounded-sm"
               name="email"
               ref={(ref) => (inputRef.current[0] = ref)}
               onChange={onChange} />
@@ -182,7 +179,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={first_name}
               required
               placeholder="First Name "
-              className="block capitalize"
+              className="block capitalize w-full h-10 bg-item_list_bg mb-4 input border-none pl-2 rounded-sm"
               name="first_name"
               ref={(ref) => (inputRef.current[1] = ref)}
               onChange={onChange} />
@@ -193,7 +190,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={last_name}
               required
               placeholder="Last Name "
-              className="block capitalize"
+              className="block capitalize w-full h-10 bg-item_list_bg mb-4 input border-none pl-2 rounded-sm"
               name="last_name"
               ref={(ref) => (inputRef.current[2] = ref)}
               onChange={onChange} />
@@ -204,7 +201,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={password}
               required
               placeholder="Password"
-              className="block"
+              className="block w-full h-10 bg-item_list_bg mb-4 input border-none pl-2 rounded-sm"
               name="password"
               ref={(ref) => (inputRef.current[3] = ref)}
               onChange={onChange} />
@@ -215,18 +212,17 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={re_password}
               required
               placeholder="Confirm Password"
-              className="block"
+              className="block w-full h-10 bg-item_list_bg mb-4 input border-none pl-2 rounded-sm"
               name="re_password"
               ref={(ref) => (inputRef.current[4] = ref)}
               onChange={onChange} />
             
-              {isAccountCreated.message != '' && <h2 > {isAccountCreated.message} </h2>} 
-            <button type="submit" className="w-full h-12 bg-color5 text-white" onClick={onSubmit}>Signup</button>
+              {isAccountCreated.message != '' && <h2 className="text-gray-600"> {isAccountCreated.message} </h2>} 
+            <button type="submit" className="w-full h-12 bg-color5 text-white uppercase focus:outline-none hover:opacity-70 mt-4" onClick={onSubmit}>Signup</button>
             
           </form>
-          <h2>Already have an account ?</h2>
-          <button className="w-full h-12 bg-color5 text-white" onClick={login}>Login</button>
-          <button className="w-full h-12 bg-color5 text-white" onClick={forgetPassword}>Forget Password ?</button>  
+          <h2 className="mt-2 mb-2 text-gray-300">Already have an account ?</h2>
+          <button className="w-full h-12 bg-color5 text-white uppercase focus:outline-none hover:opacity-70" onClick={login}>Login</button>
         </div>
 
       </div>
@@ -234,8 +230,25 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
       <style jsx>
         {`
         .red-border{
-          background: red;
-        }
+            outline-offset: 0px;
+						outline: none;
+						box-shadow: 0.1px 0.1px 1px 0.1px red;
+            background:#FF1414;
+            opacity: 0.5;
+          }
+
+      .input {
+						color: #ffffff;
+						padding-left: 1rem;
+						-webkit-transition: box-shadow 0.3s;
+						transition: box-shadow 0.3s;
+					}
+          
+					.input:focus {
+						outline-offset: 1px;
+						outline: none;
+						box-shadow: 1px 0.3px 2px 0.1px #111e6c;
+					}
         `}
       </style>
     </>
