@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { verify } from '../../src/actions/auth.action';
+import { verify } from '../../src/Redux/actions/auth.action';
 import { useRouter } from 'next/router'
 
 
