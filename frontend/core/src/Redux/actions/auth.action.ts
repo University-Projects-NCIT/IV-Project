@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BACKEND_URL } from '../constraints'
+import { BACKEND_URL } from '../../constraints'
 
 import {
     LOGIN_SUCCESS,

@@ -31,8 +31,8 @@ const ProductListCard: React.FC = () => {
 
 	return (
 		<>
-			<div className="flex flex-row pb-4 text-white justify-end mb-2 ">
-				<div className="text-lg">Upcomming Launch </div>
+			<div className="flex flex-row md:pb-2 text-white justify-end mb-2 ">
+				<div className="text-lg">Upcoming Launch </div>
 			</div>
 			<div className="rounded-lg mb-8 overflow-hidden bg-color5">
 				{

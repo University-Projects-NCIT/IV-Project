@@ -3,7 +3,7 @@ import '../styles/font.css'
 import '../styles/apply.css'
 
 import { Provider } from 'react-redux'
-import store from '../src/store'
+import store from '../src/Redux/store'
 import Layout from '../src/layout/Layout'
 import {QueryClient, QueryClientProvider} from 'react-query'
 
