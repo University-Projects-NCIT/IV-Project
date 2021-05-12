@@ -103,7 +103,7 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 			<React.Fragment>
 			<div className="w-full pb-4 bg-item_list_bg text-gray-100 flex flex-col hover:opacity-70 cursor-pointer">
 				<div className="flex">
-					<div className="w-20 h-20 mt-2 ml-4 mr-4 rounded-md overflow-hidden bg-red-5000 ">
+					<div className="w-20 h-20 mt-2 ml-4 mr-4 rounded-md overflow-hidden bg-red-5000 flex-shrink-0">
 						<img src={image || "./images/snapchat.png"} className="w-full h-full cover image object-cover" alt="product image logo" />
 					</div>
 					<div className="">
@@ -119,7 +119,7 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 							})}
 						</div>
 					</div>
-					<div onClick={upvoteHandler} className={upvotedButton ?"w-16 h-16 mt-4 opacity-60 bg-color7 ml-auto hover:opacity-70 mr-4 rounded-lg flex flex-col items-center justify-center z-50" : "z-50 mt-4 w-16 h-16 bg-color7 ml-auto hover:opacity-70 mr-4 rounded-lg flex flex-col items-center justify-center"}>
+					<div onClick={upvoteHandler} className={upvotedButton ?"w-14 h-14 mt-4 opacity-60 bg-color7 ml-auto hover:opacity-70 mr-4 rounded-lg flex flex-col items-center justify-center z-50 flex-shrink-0" : "z-50 mt-4 w-14 h-14 bg-color7 ml-auto hover:opacity-70 mr-4 rounded-lg flex flex-col items-center justify-center flex-shrink-0"}>
 						<div>
 							<BsFillTriangleFill className="color-black" />
 						</div>

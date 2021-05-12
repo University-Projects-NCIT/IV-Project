@@ -1,12 +1,12 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { CardUpcommingListInterface } from "../interfaces/Interfaces";
 import { msToDayTime } from './utils'
 import { useQueryClient} from 'react-query'
+import { BsFillStopwatchFill } from "react-icons/bs";
+import { MdWatchLater } from "react-icons/md";
 
 const UpcomingItemList: React.FC<CardUpcommingListInterface> = ({itemData}) => {
 
-	const date = Date.parse(itemData.launch_at)
-	const today = Date.parse(String(new Date()))
 	const queryClient = useQueryClient()
 
 	// const [diff, setDiff] = React.useState(0)
@@ -14,11 +14,9 @@ const UpcomingItemList: React.FC<CardUpcommingListInterface> = ({itemData}) => {
 	// const [image, setImage] = React.useState("")
 
 	let image = ""
-	let diff=0
 
-	diff = date - today
 
-	if (diff < 0)
+	if (Date.parse(itemData.launch_at)-Date.parse(String(new Date())) < 0)
 	{
 		queryClient.invalidateQueries("porducts")
 		queryClient.invalidateQueries("upcommingProduct")
@@ -30,17 +28,17 @@ const UpcomingItemList: React.FC<CardUpcommingListInterface> = ({itemData}) => {
 	}
 
 	//TODO fix memory leack here 
-	// setTimeout(() => {
-	// 	setLaunching(countRef.current)
-	// },1000)
-
-
-	window.setInterval(() => {
-		diff -= 1000;
-		setLaunching(msToDayTime(diff))
-
+	
+React.useEffect(() => {
+	
+	const diff =Date.parse(itemData.launch_at)-Date.parse(String(new Date()))
+	const timer = setTimeout(() => {
+		setLaunching(msToDayTime(Date.parse(itemData.launch_at)-Date.parse(String(new Date()))))
 	}, 1000)
 	
+	return () => clearTimeout(timer)
+})
+
 
 
 	return (
@@ -50,8 +48,8 @@ const UpcomingItemList: React.FC<CardUpcommingListInterface> = ({itemData}) => {
 					<div className="text-gray-50 space-y-5 ">
 						<div>
 							<h3 className="text-sm ">{itemData.title}</h3>
-						<p className="text-xs text-gray-400 ">{itemData.tagline}</p>
-							</div>
+							<div>	<p className="text-xs text-gray-400 mr-2">{itemData.tagline}</p></div>
+						</div>
 						<button
 							className="outline-none border-none focus:outline-none 
 							hover:opacity-70 bg-color6 text-xs
@@ -61,16 +59,15 @@ const UpcomingItemList: React.FC<CardUpcommingListInterface> = ({itemData}) => {
 						</button>
 					</div>
 
-					<div className="h-16 w-16 bg-gray-400 rounded-md">
+					<div className="h-16 w-16 bg-gray-400 rounded-md flex-shrink-0">
 						<img
 							src={image || "./images/snapchat.png"}
-							// src="./images/snapchat.png"
 							alt="icon image "
 							className="rounded-md h-full w-full object-cover"
 						/>
 					</div>
 				</div>
-				<div className="text-color6 flex justify-end text-xs">{launchingAt || "Remaing Time ..."}</div>
+				<div className="text-color6 flex justify-end text-xs"><div><MdWatchLater className="mr-1 inline"/><p className="inline align-bottom">{launchingAt || "Remaing Time ..."}</p></div></div>
 			</div>
 			{/* <style jsx>
 				{`

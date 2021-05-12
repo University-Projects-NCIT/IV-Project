@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
-import { signup } from '../../actions/auth.action'
+import { signup } from '../../Redux/actions/auth.action'
 import { v4 as uuidv4 } from 'uuid'
 import { useRouter } from 'next/router'
 import { AiFillEdit } from 'react-icons/ai'

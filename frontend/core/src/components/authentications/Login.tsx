@@ -1,6 +1,6 @@
 import React, { useState, useEffect , useContext, useRef} from 'react';
 import { connect } from 'react-redux';
-import { login } from '../../actions/auth.action';
+import { login } from '../../Redux/actions/auth.action';
 import { useRouter } from 'next/router'
 import {ToggleContext} from '../../Contexts/ToggleContext'
 
