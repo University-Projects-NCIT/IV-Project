@@ -27,7 +27,6 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
     re_password: ''
   }
   
-  const router = useRouter();
   const inputRef = useRef([]);
 
   const [imageFile ,setImageFile] = useState(null)
@@ -46,6 +45,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
     if (e.target.name == "profile_image")
     {
       setImageFile(URL.createObjectURL(e.target.files[0]));
+      console.log(e.target.files[0]);
       handleUploadImage(e.target.files[0]);
       return
     }
@@ -86,22 +86,10 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
     const regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     if (password == re_password && password.search(regularExpression) != -1)
     {
-      signup(id, profile_image, email, first_name, last_name, password, re_password);
-       //check submit sign up response error or not .
-      if (error == null)
-      {
-        setIsAccountCreated({ created: true, message: "Activate your account via email" })
-        setFormData(initialValues);
-        setImageFile(null);
-      } else {
-        setIsAccountCreated({created: false, message: "Signup Fail ! Tips: Keep password strong inlcuding number, symbol and altleast 8 character. May be wrong email address !"})
+      signupAccount(id, profile_image, email, first_name, last_name, password, re_password)
+    }else {
+        alert("Password must be atleat 8 character including Number ,one capital and sepcial symbol ..");
       }
-      }
-    else {
-      alert("Password must be atleat 8 character including Number ,one capital and sepcial symbol ..");
-    }
-
-   
   }
 
   const onBlur = (e) => {
@@ -112,7 +100,22 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
     } else {
       e.target.classList.remove("red-border")
     }
-  }
+    }
+    
+
+    const signupAccount = async (id, profile_image, email, first_name, last_name, password, re_password) => {
+        await signup(id, profile_image, email, first_name, last_name, password, re_password)
+       //check submit sign up response error or not .
+        if (error == null)
+        {
+          setIsAccountCreated({ created: true, message: "Activate your account via email" })
+          setFormData(initialValues);
+          setImageFile("");
+        } else {
+          setIsAccountCreated({created: false, message: "Signup Fail ! Tips: Keep password strong inlcuding number, symbol and altleast 8 character. May be wrong email address !"})
+        }
+      }
+    
 
 
   const handleUploadImage = (file) => {
@@ -142,7 +145,6 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
     );
     
   }
-
 
 
   const login = () => {
