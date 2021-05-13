@@ -36,17 +36,15 @@ const ProductDescription: React.FC<ProductInterface> = (props) => {
 								return <ImageCarousel image={image} />;
 						  })
 						: null} */}
+					<ImageCarousel />
 				</div>
 
-			{/* product description */}
-			<div className="mt-5">
-				<p className="text-sm text-gray-300">
-					Hi I’ Yucel from my very first product Landing Page Checklist. tools
-					in 16 categories to help you to build your best landing pages. Landing
-					Page Checklist is a curation website that provides over 100+ Please
-					let me know if you have any questions.
-				</p>
-			</div>
+				{/* product description */}
+				<div className="mt-5">
+					<p className="text-sm text-gray-300">
+						{props.description}
+					</p>
+				</div>
 			</div>
 
 			{/* right side container */}
@@ -56,7 +54,6 @@ const ProductDescription: React.FC<ProductInterface> = (props) => {
 					<ProductHunter {...fetchUser.data} />
 				)}
 			</div>
-		
 		</div>
 	);
 };
