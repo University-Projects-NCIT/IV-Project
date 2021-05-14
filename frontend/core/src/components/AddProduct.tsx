@@ -67,7 +67,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!isAuthenticated)
+    if (!isAuthenticated || user == null)
     {
      return alert("login First To Post ") 
     }
@@ -108,7 +108,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
 
     const utcDateTime = new Date(formData.launch_at).toISOString()
 
-    productMutate.mutate({ ...formData,launch_at: utcDateTime, productID: productId, author: user.id })
+    productMutate.mutate({ ...formData,launch_at: utcDateTime, productID: productId, author: user.pk })
     
   }
 

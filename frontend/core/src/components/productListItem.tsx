@@ -41,7 +41,7 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 	let fetchProductUpvote;
 	if (user != null)
 	{
-		fetchProductUpvote = useQuery(["product_upvote", user.id, itemData.productID], getProductUpvote)
+		fetchProductUpvote = useQuery(["product_upvote", user.pk, itemData.productID], getProductUpvote)
 	}
 
 	let image = ""
@@ -74,7 +74,7 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 		} else if (fetchProductUpvote.data.length == 0)
 		{
 				mutateUpvote.mutate({ productId: itemData.productID, field: { upvote: itemData.upvote + 1 }})
-				mutateProductUpvote.mutate({userID:user.id, productID: itemData.productID})
+				mutateProductUpvote.mutate({userID:user.pk, productID: itemData.productID})
 		}
 		}
 	

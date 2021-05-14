@@ -13,30 +13,43 @@ const LoginForm: React.FC = () => {
 	const [loginState, setLoginState] = useState(true);
 
 	const context = useContext(ToggleContext);
+	const authRef = React.useRef(null)
 	const toggle: any = context;
+
+	// const backClick = () => {
+	// 	toggle();
+	// 	// authRef.current.classList.add("trans_animate")
+	// } // REnder hook error 
 	
   return(
 		<>
-					<div
-						className="w-full h-full bg-black opacity-75 z-20 fixed"
-						onClick={toggle}
-					></div>
-			<div className="w-full auth-container max-w-md m-auto bg-drak_blue_background z-30 centered-fixed fixed p-4">
+			<div
+				className="w-full h-full bg-black opacity-75 z-20 fixed"
+				onClick={toggle}
+			></div>
+			<div ref={authRef} className=" w-1/3 pb-4 auth-container max-w-sm m-auto bg-drak_blue_background z-30 centered-fixed fixed pl-4 pr-4">
 				<div className="sm:invisible" onClick={()=> toggle()}><ImCross className="text-gray-50 h-6 w-6"/></div>
 						{(loginState) ? <Login setLoginState={setLoginState} /> : <Signup setLoginState={setLoginState} /> }
-					</div>
+			</div>
 
 			<style jsx>{`
 					
 					.auth-container {
-						height : 100vh;
+						height: 100vh;
 						margin-top: 0px;
+						transition:transform 2s;
+					}
+
+					.trans_animate{
+					transform: scale(1);	
 					}
 					
 						@media only screen and (min-width: 455px) {
 						 .auth-container {
 							height : auto;
-							margin-top: 5rem;
+							border-radius: 15px;
+							margin-top: 4rem;
+							
 					}
 					
 						}

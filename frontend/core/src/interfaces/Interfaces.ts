@@ -17,8 +17,8 @@ export interface UserInterface {
 	email: string;
 	first_name: string;
 	last_name: string;
-	id: string;
-	profile_image: string;
+	pk: number;
+	username: string;
 }
 
 export interface ProductIconInteface {

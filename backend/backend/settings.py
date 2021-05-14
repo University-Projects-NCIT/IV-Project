@@ -27,7 +27,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+        ## Social authentication 
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'dj_rest_auth.registration',
+
     'rest_framework',
+    'rest_framework.authtoken', # Auth token allows 
+    'dj_rest_auth',
     'api',
     'auth_system',
     'core',
@@ -39,6 +50,9 @@ INSTALLED_APPS = [
     # 'social_django', # Social authenticate eg. Google ,facebook oauth
     # 'rest_framework_simplejwt.token_blacklist', # helps jwt auth system
 ]
+
+SITE_ID = 1
+REST_USE_JWT = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -162,6 +176,7 @@ REST_FRAMEWORK = {
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 # JWT authentications
@@ -215,4 +230,4 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # for custom user
-AUTH_USER_MODEL = 'auth_system.UserAccount'
+# AUTH_USER_MODEL = 'auth_system.UserAccount'

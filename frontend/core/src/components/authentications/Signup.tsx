@@ -170,7 +170,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={email}
               required
               placeholder="Email"
-              className="block w-full h-10 bg-item_list_bg mb-4 input border-none pl-2 rounded-sm"
+              className="block w-full h-8 bg-item_list_bg mb-2 input border-none pl-2 rounded-sm"
               name="email"
               ref={(ref) => (inputRef.current[0] = ref)}
               onChange={onChange} />
@@ -181,7 +181,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={first_name}
               required
               placeholder="First Name "
-              className="block capitalize w-full h-10 bg-item_list_bg mb-4 input border-none pl-2 rounded-sm"
+              className="block capitalize w-full h-8 bg-item_list_bg mb-2 input border-none pl-2 rounded-sm"
               name="first_name"
               ref={(ref) => (inputRef.current[1] = ref)}
               onChange={onChange} />
@@ -192,7 +192,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={last_name}
               required
               placeholder="Last Name "
-              className="block capitalize w-full h-10 bg-item_list_bg mb-4 input border-none pl-2 rounded-sm"
+              className="block capitalize w-full h-8 bg-item_list_bg mb-2 input border-none pl-2 rounded-sm"
               name="last_name"
               ref={(ref) => (inputRef.current[2] = ref)}
               onChange={onChange} />
@@ -203,7 +203,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={password}
               required
               placeholder="Password"
-              className="block w-full h-10 bg-item_list_bg mb-4 input border-none pl-2 rounded-sm"
+              className="block w-full h-8 bg-item_list_bg mb-2 input border-none pl-2 rounded-sm"
               name="password"
               ref={(ref) => (inputRef.current[3] = ref)}
               onChange={onChange} />
@@ -214,17 +214,17 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={re_password}
               required
               placeholder="Confirm Password"
-              className="block w-full h-10 bg-item_list_bg mb-4 input border-none pl-2 rounded-sm"
+              className="block w-full h-8 bg-item_list_bg mb-2 input border-none pl-2 rounded-sm"
               name="re_password"
               ref={(ref) => (inputRef.current[4] = ref)}
               onChange={onChange} />
             
               {isAccountCreated.message != '' && <h2 className="text-gray-600"> {isAccountCreated.message} </h2>} 
-            <button type="submit" className="w-full h-12 bg-color5 text-white uppercase focus:outline-none hover:opacity-70 mt-4" onClick={onSubmit}>Signup</button>
+            <button type="submit" className="w-full h-8 text-sm rounded-full bg-color5 text-white uppercase focus:outline-none hover:opacity-70 mt-4" onClick={onSubmit}>Signup</button>
             
           </form>
-          <h2 className="mt-2 mb-2 text-gray-300">Already have an account ?</h2>
-          <button className="w-full h-12 bg-color5 text-white uppercase focus:outline-none hover:opacity-70" onClick={login}>Login</button>
+          <h2 className="mt-2 mb-2 text-gray-300 text-sm">Already have an account ?</h2>
+          <button className="w-full h-8 text-sm rounded-full bg-color5 text-white uppercase focus:outline-none hover:opacity-70" onClick={login}>Login</button>
         </div>
 
       </div>
