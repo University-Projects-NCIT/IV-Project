@@ -14,7 +14,7 @@ const ProductHunter: React.FC<UserInterface> = (props) => {
 						<div
 							className="img w-14 h-14 rounded-full"
 							style={{
-								backgroundImage: `url(${props.profile_image}) `,
+								backgroundImage: `url() `,
 								backgroundRepeat: "no-repeat",
 								backgroundPosition: "center center",
 								backgroundSize: "cover",
