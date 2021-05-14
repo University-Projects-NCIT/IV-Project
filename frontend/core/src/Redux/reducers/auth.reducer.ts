@@ -17,6 +17,10 @@ import {
     GOOGLE_AUTH_FAIL,
     LOGOUT
 } from '../actions/types';
+import { useMutation } from 'react-query'
+import { addProfileImage } from '../../productapi'
+
+
 
 
 const initialState = {
@@ -27,9 +31,17 @@ const initialState = {
   user: null
 }
 
-export default function AuthReducer(state = initialState, action)
+ const AuthReducer = (state = initialState, action) => 
 {
-  const { type, payload } = action 
+   const { type, payload } = action
+   
+//   const mutation = useMutation(addProfileImage, {
+//         onSuccess: () => console.log("success login"),
+//         onError: (err) => console.log("fail to upload image " , err)
+//  })
+         // mutation.mutate({userId: payload.user.pk, imageUrl: payload.imageUrl})
+
+
   switch (type)
   {
     case AUTHENTICATED_SUCCESS:
@@ -43,6 +55,18 @@ export default function AuthReducer(state = initialState, action)
       localStorage.setItem('access', payload.access)
       localStorage.setItem('refresh', payload.refresh)
       
+      return {
+        ...state,
+        isAuthenticated: true,
+        access: payload.access,
+        refresh: payload.refresh,
+        error: null
+      }
+    
+    case GOOGLE_AUTH_SUCCESS:
+      localStorage.setItem('access', payload.access_token)
+      localStorage.setItem('refresh', payload.refresh_token)
+
       return {
         ...state,
         isAuthenticated: true,
@@ -79,6 +103,7 @@ export default function AuthReducer(state = initialState, action)
     
     case LOGIN_FAIL:
     case SIGNUP_FAIL:
+    case GOOGLE_AUTH_FAIL:
     case LOGOUT:
       localStorage.removeItem('access');
       localStorage.removeItem('refresh');
@@ -107,3 +132,5 @@ export default function AuthReducer(state = initialState, action)
       return state;
   }
 }
+
+export default AuthReducer

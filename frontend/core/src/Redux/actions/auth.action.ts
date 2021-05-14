@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { BACKEND_URL } from '../../constraints'
+import { useMutation } from 'react-query'
+import { addProfileImage } from '../../productapi'
 
 import {
     LOGIN_SUCCESS,
@@ -59,60 +61,60 @@ export const load_user = () => async dispatch => {
         }; 
 
         try {
-            const res = await axios.get(`${BACKEND_URL}/auth/users/me/`, config);
-    
+            const res = await axios.get(`${BACKEND_URL}/dj-rest-auth/user/`, config);
+           
             dispatch({
                 type: USER_LOADED_SUCCESS,
                 payload: res.data
-            });
+            });   
+
         } catch (err) {
+            console.log("user load fail " , err)
             dispatch({
                 type: USER_LOADED_FAIL
             });
         }
     } else {
+        console.log("Access token fail ")
         dispatch({
             type: USER_LOADED_FAIL
         });
     }
 };
 
-export const googleAuthenticate = (state, code) => async dispatch => {
 
-    const access = (typeof window !== "undefined") ? localStorage.getItem('access') : '';
 
-    if (state && code && !access) {
-        const config = {
+    
+export const googleAuthenticate = (access_token,imageUrl, returnId) => async dispatch =>{
+   
+        
+const config = {
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             }
-        };
+    };
+    
+    const body = JSON.stringify({access_token});
 
-        const details = {
-            'state': state,
-            'code': code
-        };
-
-        const formBody = Object.keys(details).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(details[key])).join('&');
-
-        console.log("url link "  + `${BACKEND_URL}/auth/o/google-oauth2/?${formBody}`)
         try {
-            const res = await axios.post(`${BACKEND_URL}/auth/o/google-oauth2/?${formBody}`, config);
+            const res = await axios.post(`${BACKEND_URL}/dj-rest-auth/google/`,body, config);
 
-            console.log("login success from google " + res.data)
+
             dispatch({
                 type: GOOGLE_AUTH_SUCCESS,
                 payload: res.data
             });
-
+            
             dispatch(load_user());
+            returnId(res.data.user.pk, imageUrl)
         } catch (err) {
             console.log("error in google login " + err);
+
             dispatch({
                 type: GOOGLE_AUTH_FAIL
             });
         }
-    }
 };
 
 
@@ -131,7 +133,7 @@ export const checkAuthenticated = () => async dispatch => {
         const body = JSON.stringify({ token: access});
 
         try {
-            const res = await axios.post(`${BACKEND_URL}/auth/jwt/verify/`, body, config)
+            const res = await axios.post(`${BACKEND_URL}/dj-rest-auth/token/verify/`, body, config)
 
             if (res.data.code !== 'token_not_valid') {
                 dispatch({

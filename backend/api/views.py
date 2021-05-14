@@ -7,7 +7,6 @@ from django.views.generic import TemplateView
 from datetime import date
 from datetime import datetime
 from django.db.models import Q
-from django.utils import timezone
 
 ## Importing serializers 
 from .serializers import (

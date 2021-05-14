@@ -162,6 +162,33 @@ export const getProductUpvote = async ({ queryKey }) => {
 		},
 	}).then((res) => res.json());
 };
+export const getProfileImage = async ({ queryKey }) => {
+	const access =
+		typeof window !== "undefined" ? localStorage.getItem("access") : "";
+	if (access == "") {
+		return console.log("Unauthorized request ");
+	}
+
+	const userId = queryKey[1];
+
+	if (userId == null || typeof userId == "undefined")
+	{
+		return;
+	}
+
+	let url = `${API_URL}/profile_images/?userid=${userId}`;
+	const AUTH_HEADER = {
+		Authorization: `JWT ${access}`,
+	};
+
+	return await fetch(url, {
+		headers: {
+			...AUTH_HEADER,
+			"Content-Type": "application/json",
+			Accept: "application/json",
+		},
+	}).then((res) => res.json());
+};
 
 export const addProduct = async (field) => {
 	const access =
@@ -224,6 +251,30 @@ export const addProductImages = async (field) => {
 	const AUTH_HEADER = {
 		Authorization: `JWT ${access}`,
 	};
+
+	return await fetch(url, {
+		method: "POST",
+		headers: {
+			...AUTH_HEADER,
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(field),
+	});
+};
+
+export const addProfileImage = async (field) => {
+	const access =
+			typeof window != "undefined" ? localStorage.getItem("access") : "";
+		if (access == "") {
+			return console.log("Unauthorized request ");
+	}
+	
+	const AUTH_HEADER = {
+		Authorization: `JWT ${access}`,
+	};
+
+	console.log(field);
+	let url = `${API_URL}/profile_images/`;
 
 	return await fetch(url, {
 		method: "POST",

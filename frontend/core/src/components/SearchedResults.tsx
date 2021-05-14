@@ -33,15 +33,13 @@ const SearchedResults: React.FC<PropsInterface> = (props) => {
 
   const LoadingPage = () => {
 		return (
-			<React.Fragment>
+			<React.Fragment key={uuidv4()}>
 				<div className="w-full h-28 mt-2 mb-2 rounded-md flex-row bg-item_list_bg justify-items-center items-center animate-pulse">
 				</div>
 			</React.Fragment>
 		)
   }
-  
-  console.log(data)
-  
+    
   return (
     <>
       <div className="flex flex-row text-white justify-end -mb-4">

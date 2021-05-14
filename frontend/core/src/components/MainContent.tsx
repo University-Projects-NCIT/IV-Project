@@ -14,6 +14,8 @@ import { connect } from "react-redux";
 import DisplayProductList from "./DisplayProductList";
 import SearchedResults from "./SearchedResults";
 import DisplayProfile from "./DisplayProfile";
+import { useQuery } from "react-query";
+import { getProfileImage } from "../productapi";
 
 const MainContent: React.FC = React.memo(
 	({ user, isAuthenticated }: any): JSX.Element => {
@@ -28,11 +30,27 @@ const MainContent: React.FC = React.memo(
 		const [searchKey, setSeachKey] = useState("");
 		const [isDisplayProductList, setIsDisplayProductList] = useState(true);
 		const [isDisplayProfile, setIsDisplayProfile] = useState(false);
-		const [isDisplaySearchedResults, setIsDisplaySeachedResults] = useState(
-			false
-		);
+		const [isDisplaySearchedResults, setIsDisplaySeachedResults] = useState(false);
 
 		const router = useRouter();
+		let userid;
+
+		if (user != null && typeof user.pk != "undefined")
+		{
+			userid = user.pk
+		}
+
+		// let profileImageQuery;
+		
+		// if (user != null && typeof userid != "undefined")
+		// {
+		const profileImageQuery = useQuery(["getProfileImage", userid ], getProfileImage, {
+				onError: (err) => console.log(err),
+				refetchOnWindowFocus: false,
+				
+			});
+		// }
+	
 
 		const search = (key) => {
 			setSeachKey(key);
@@ -67,11 +85,10 @@ const MainContent: React.FC = React.memo(
 							onClick={user == null ? () => toggle() : () => displayProfile()}
 						>
 							<img
-								src={
-									user != null
-										? user.profile_image
-										: "images/michaeljackson.jpg"
-								}
+								src={user != null && typeof profileImageQuery.data != "undefined" ? 
+									profileImageQuery.data[0].imageUrl :
+									"images/cryptopunk8550.png"
+							}
 								className="w-16 h-16 rounded-full"
 							/>
 						</div>
@@ -151,7 +168,7 @@ const MainContent: React.FC = React.memo(
 								#11d2fc 304.76deg,
 								#f1239f 360deg
 							);
-							filter: blur(5px);
+							filter: blur(4px);
 							-webkit-animation: spin 4s linear infinite;
 							-moz-animation: spin 4s linear infinite;
 							animation: spin 4s linear infinite;
