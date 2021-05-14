@@ -82,7 +82,9 @@ const Login: React.FC<PropsInterface> = React.memo(({ access, error, isAuthentic
   }
 
 
-  const responseGoogle =  (response) => {
+  const responseGoogle = (response) => {
+    
+    console.log("resposne", response)
     
     if (typeof response.accessToken != "undefined")
     {
@@ -100,6 +102,7 @@ const Login: React.FC<PropsInterface> = React.memo(({ access, error, isAuthentic
         <GoogleLogin
           clientId="868430702423-gk55l9271hl75gotk2hh3t89u2etnmhj.apps.googleusercontent.com"
           buttonText="Login with Google Account"
+          disabled={false}
           className="w-full"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
@@ -136,7 +139,7 @@ const Login: React.FC<PropsInterface> = React.memo(({ access, error, isAuthentic
             className="block w-full h-8 bg-item_list_bg mb-4 input border-none pl-2 rounded-sm"
             onChange={onChange}></input>
           
-          {error != null && <h3 className="text-red-700"> Something went wrong !</h3> }
+          {/* {error != null && <h3 className="text-red-700"> Something went wrong !</h3> } */}
           <button type="button" className="w-full h-8 bg-color5 text-white text-sm rounded-full uppercase mt-4 focus:outline-none hover:opacity-70" onClick={onSubmit}>Login</button>
           <h2 className="text-gray-200 mt-2 mb-2">No account yet ?</h2>
           <button type="button" className="w-full h-12 bg-color5 text-sm rounded-t-md text-white uppercase focus:outline-none hover:opacity-70" onClick={signup}>Signup</button>

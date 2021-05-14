@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { BACKEND_URL } from '../../constraints'
-import { useMutation } from 'react-query'
-import { addProfileImage } from '../../productapi'
+
 
 import {
     LOGIN_SUCCESS,

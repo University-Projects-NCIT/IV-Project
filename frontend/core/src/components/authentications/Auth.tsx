@@ -27,8 +27,8 @@ const LoginForm: React.FC = () => {
 				className="w-full h-full bg-black opacity-75 z-20 fixed"
 				onClick={toggle}
 			></div>
-			<div ref={authRef} className=" w-1/3 pb-4 auth-container max-w-sm m-auto bg-drak_blue_background z-30 centered-fixed fixed pl-4 pr-4">
-				<div className="sm:invisible" onClick={()=> toggle()}><ImCross className="text-gray-50 h-6 w-6"/></div>
+			<div ref={authRef} className=" w-full pb-4 auth-container max-w-sm m-auto bg-drak_blue_background z-30 centered-fixed fixed pl-4 pr-4">
+				<div className="sm:invisible" onClick={()=> toggle()}><ImCross className="text-gray-50 h-3 w-3 mt-4"/></div>
 						{(loginState) ? <Login setLoginState={setLoginState} /> : <Signup setLoginState={setLoginState} /> }
 			</div>
 
