@@ -92,7 +92,7 @@ const displayProductList: React.FC = () => {
 								Newest
 							</button>
 			</div>
-						{isLoading || isFetching ? <div className="mt-8">{[1, 2, 3, 4].map(i => LoadingPage())}</div> : typeof data == "undefined" ? <div className="animate-spin w-full h-full"></div> :
+						{isLoading ? <div className="mt-8">{[1, 2, 3, 4].map(i => LoadingPage())}</div> : typeof data == "undefined" ? <div className="animate-spin w-full h-full"></div> :
 							typeof launchedData != "undefined"	? launchedData.map(cardData => {
                 return <ProductListCard data={cardData} displayDate={true} key= {uuidv4()}/>
 							}) : null
