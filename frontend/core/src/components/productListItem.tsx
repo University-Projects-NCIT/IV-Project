@@ -101,25 +101,25 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 	const ItemList = (image, title, tagline, categories,upvote) => {
 		return (
 			<React.Fragment>
-			<div className="w-full pb-4 bg-item_list_bg text-gray-100 flex flex-col hover:opacity-70 cursor-pointer">
-				<div className="flex">
-					<div className="w-20 h-20 mt-2 ml-4 mr-4 rounded-md overflow-hidden bg-red-5000 flex-shrink-0">
+			<div className="w-full p-2 bg-item_list_bg text-gray-100 hover:opacity-70 cursor-pointer">
+				<div className="flex flex-row items-center">
+					<div className="h-full w-20 flex-shrink-0 mr-4 rounded-md overflow-hidden bg-red-5000">
 						<img src={image || "./images/snapchat.png"} className="w-full h-full cover image object-cover" alt="product image logo" />
 					</div>
-					<div className="">
-						<h4 className="mt-1">{title}</h4>
-						<p className="text-sm mt-1 text-gray-400">{tagline}</p>
-						<div className="flex flex-start mt-2">
+					<div className="min-h-0 min-w-0 flex-1 flex flex-col gap-y-1">
+						<h4 className="text-sm xs:text-base">{title}</h4>
+						<span className="text-xs xs:text-sm text-gray-400">{tagline}</span>
+						<div className="min-h-0 min-w-0 flex flex-end justify-items-end">
 							{categories.map((item) => {
 								return (
-									<div className="category m-1 uppercase" key={uuidv4()}>
+									<p className="category m-1 uppercase" key={uuidv4()}>
 										{item.name}
-									</div>
+									</p>
 								);
 							})}
 						</div>
 					</div>
-					<div onClick={upvoteHandler} className={upvotedButton ?"w-14 h-14 mt-4 opacity-60 bg-color7 ml-auto hover:opacity-70 mr-4 rounded-lg flex flex-col items-center justify-center z-50 flex-shrink-0" : "z-50 mt-4 w-14 h-14 bg-color7 ml-auto hover:opacity-70 mr-4 rounded-lg flex flex-col items-center justify-center flex-shrink-0"}>
+					<div onClick={upvoteHandler} className="z-50 justify-items-end ml-2 h-14 w-14 md:w-16 md:h-16 bg-color7 hover:opacity-70 rounded-lg flex flex-col items-center justify-center flex-shrink-0">
 						<div>
 							<BsFillTriangleFill className="color-black" />
 						</div>
@@ -144,8 +144,15 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 
 					.category {
 						color: #f39912;
-						font-size: 0.5em;
+						font-size: 0.2em;
 					}
+
+					@media only screen and (min-width: 768px) {
+								.category{
+										font-size: 0.5em;
+								}			
+					}
+
 				`}
 			</style>
 			</React.Fragment>
