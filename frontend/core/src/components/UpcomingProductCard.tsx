@@ -36,7 +36,7 @@ const ProductListCard: React.FC = () => {
 			</div>
 			<div className="rounded-lg mb-8 overflow-hidden bg-color5">
 				{
-					isLoading || isFetching ?  LoadingPage():	
+					isLoading ?  LoadingPage():	
 					data != undefined && data.length != 0 ?
 					data.map(productData => {
 					return <UpcomingItemList itemData={productData} key={uuidv4()}/>
