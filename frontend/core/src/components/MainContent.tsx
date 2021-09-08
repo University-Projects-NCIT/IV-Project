@@ -106,8 +106,7 @@ const MainContent: React.FC = React.memo(
 									<div className="option-btn w-6 h-6 rounded-full absolute"></div>
 									<div
 										onClick={() => router.push("/post/")}
-										className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary"
-									>
+										className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary">
 										<MdAdd />
 									</div>
 								</div>
