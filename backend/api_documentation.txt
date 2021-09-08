@@ -19,7 +19,8 @@ pip install -r requirements.txt
 -> astartup02@gmail.com
 -> startupa@2020
 ## super@super.com
-## Super321@123
+## superuser -username
+## Super321@123 - password
 
 query product upvote:
     

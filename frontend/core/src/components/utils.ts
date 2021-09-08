@@ -1,5 +1,5 @@
 import { useMutation } from 'react-query'
-import { addProfileImage } from '../productapi'
+import { addProfileImage } from '../apis/productapi'
 
 
 // export const groupByDate = (data) => {

@@ -4,7 +4,7 @@ import { login ,googleAuthenticate} from '../../Redux/actions/auth.action';
 import { useRouter } from 'next/router'
 import { GoogleLogin} from 'react-google-login'
 import { useMutation } from 'react-query';
-import { addProfileImage } from '../../productapi';
+import { addProfileImage } from '../../apis/productapi';
 
 interface PropsInterface{
   access: string;

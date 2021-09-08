@@ -1,4 +1,4 @@
-import { BACKEND_URL, LIMIT } from "./constraints";
+import { BACKEND_URL, LIMIT } from "../constraints";
 import axios from 'axios'
 
 const API_URL = BACKEND_URL;
@@ -50,6 +50,18 @@ export const fetchSearchProducts = async ({ queryKey }) => {
 	const searchKey = queryKey[2];
 	const order = queryKey[1];
 	let url = `${API_URL}/products/?search=${searchKey}&m_order=${order}`;
+
+	return await fetch(url, {
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+		},
+	}).then((res) => res.json());
+};
+
+export const fetchProductsByAuthor = async ({ queryKey }) => {
+	const authorId = queryKey[1];
+	let url = `${API_URL}/products/?author=${authorId}`;
 
 	return await fetch(url, {
 		headers: {

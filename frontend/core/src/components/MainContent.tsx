@@ -15,7 +15,7 @@ import DisplayProductList from "./DisplayProductList";
 import SearchedResults from "./SearchedResults";
 import DisplayProfile from "./DisplayProfile";
 import { useQuery } from "react-query";
-import { getProfileImage } from "../productapi";
+import { getProfileImage } from "../apis/productapi";
 
 const MainContent: React.FC = React.memo(
 	({ user, isAuthenticated }: any): JSX.Element => {
@@ -31,7 +31,6 @@ const MainContent: React.FC = React.memo(
 		const [isDisplayProductList, setIsDisplayProductList] = useState(true);
 		const [isDisplayProfile, setIsDisplayProfile] = useState(false);
 		const [isDisplaySearchedResults, setIsDisplaySeachedResults] = useState(false);
-
 		const router = useRouter();
 		let userid;
 
@@ -40,7 +39,6 @@ const MainContent: React.FC = React.memo(
 			userid = user.pk
 		}
 
-		// let profileImageQuery;
 		
 		// if (user != null && typeof userid != "undefined")
 		// {

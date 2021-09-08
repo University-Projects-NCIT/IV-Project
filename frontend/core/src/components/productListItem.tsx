@@ -3,7 +3,7 @@ import { CardDataInterface, CardItemDataInterface } from "../interfaces/Interfac
 import { BsFillTriangleFill } from "react-icons/bs";
 import {v4 as uuidv4 } from 'uuid'
 import {  useMutation , useQueryClient, useQuery} from "react-query";
-import { updateUpvote, addProductUpvote, getProductUpvote, deleteProductUpvote } from '../productapi'
+import { updateUpvote, addProductUpvote, getProductUpvote, deleteProductUpvote } from '../apis/productapi'
 import { connect } from 'react-redux'
 
 

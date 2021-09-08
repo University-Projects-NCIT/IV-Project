@@ -1,6 +1,6 @@
 import React from "react";
 import { useInfiniteQuery } from "react-query";
-import { fecthProducts } from "../productapi";
+import { fecthProducts } from "../apis/productapi";
 import { NEWEST, POPULAR } from "../constraints";
 import { groupByDate } from "./utils";
 import { useOnScreen } from "../hooks/useOnScreen";

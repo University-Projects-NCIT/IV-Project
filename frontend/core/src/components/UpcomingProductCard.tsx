@@ -3,7 +3,7 @@ import UpcomingItemList from "./UpcomingItemList";
 import { v4 as uuidv4 } from 'uuid'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { fecthUpcommingProducts} from '../productapi'
+import { fecthUpcommingProducts} from '../apis/productapi'
 
 const ProductListCard: React.FC = () => {
 	/**

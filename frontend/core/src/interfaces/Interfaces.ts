@@ -58,3 +58,12 @@ export interface CardUpcommingInterface {
 export interface CardUpcommingListInterface {
 	itemData: ProductInterface;
 }
+
+export interface SlipInterface{
+	id: Number,
+	advice: String
+}
+
+export interface AdviceApiInterface{
+	data : SlipInterface
+}
