@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { ProductInterface } from "../../interfaces/Interfaces";
-import { fetchUserByID } from "../../productapi";
+import { fetchUserByID } from "../../apis/productapi";
 import DetailPageButtons from "./DetailPageButtons";
 import ImageCarousel from "./ImageCarousel";
 import ProductHunter from "./ProductHunter";

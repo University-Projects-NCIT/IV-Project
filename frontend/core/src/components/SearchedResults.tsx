@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { fetchSearchProducts } from '../productapi'
+import { fetchSearchProducts } from '../apis/productapi'
 import { NEWEST, POPULAR } from '../constraints'
 import { v4 as uuidv4 } from 'uuid'
 import ProductListCard from './ProductListCard'

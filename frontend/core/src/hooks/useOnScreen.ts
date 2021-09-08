@@ -5,13 +5,9 @@ export const useOnScreen = (options, ref) => {
   // State and setter for storing whether element is visible
 	const [isIntersecting, setIntersecting] = useState(false);
 
-  // console.log("usescreen called ")
-  console.log(ref)
-
   const callbackFunction = (entries) => {
     const [entry] = entries
     setIntersecting(entry.isIntersecting)
-    console.log("entry called " , entry.isIntersecting)
   }
 
   useEffect(() => {

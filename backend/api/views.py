@@ -210,4 +210,3 @@ class CategoryViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(product = productId)
 
         return queryset
-    
