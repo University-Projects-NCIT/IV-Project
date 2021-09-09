@@ -80,7 +80,9 @@ const MainContent: React.FC = React.memo(
 			scroll.scrollToTop();
 		};
 
-		window.addEventListener("scroll", toggleVisible);
+		if (typeof window !== "undefined") {
+			window.addEventListener("scroll", toggleVisible);
+		}
 
 		return (
 			<>
@@ -90,7 +92,7 @@ const MainContent: React.FC = React.memo(
 					</ToggleContext.Provider>
 				) : null}
 
-				<div className='h-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10 arrow-container relative'>
+				<div className='h-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10  relative'>
 					<div className='w-16 h-16 rounded-full m-auto relative -mt-8 mb-4'>
 						<div className='profile-image-back w-16 h-16 rounded-full absolute'></div>
 						<div
@@ -110,13 +112,13 @@ const MainContent: React.FC = React.memo(
 					<IconContext.Provider value={{ color: "#ffffff", size: "1.5rem" }}>
 						<div>
 							<div className='flex flex-row w-32 m-auto justify-center'>
-								<div className='w-6 h-6 -mt-3 realtive cursor-pointer'>
+								<div className='w-6 h-6 -mt-3 relative cursor-pointer'>
 									<div className='option-btn w-6 h-6 rounded-full absolute'></div>
 									<div className='icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary'>
 										<FiMoreHorizontal />
 									</div>
 								</div>
-								<div className='w-6 h-6 m-2 realtive cursor-pointer'>
+								<div className='w-6 h-6 m-2 relative cursor-pointer'>
 									<div className='option-btn w-6 h-6 rounded-full absolute'></div>
 									<div
 										onClick={() => router.push("/post/")}
@@ -128,7 +130,7 @@ const MainContent: React.FC = React.memo(
 								<IconContext.Provider
 									value={{ color: "#F39912", size: "1.3rem" }}
 								>
-									<div className='w-6 h-6 -mt-3 realtive cursor-pointer'>
+									<div className='w-6 h-6 -mt-3 relative cursor-pointer'>
 										<div className='option-btn w-6 h-6 rounded-full absolute'></div>
 										<div className='icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary'>
 											<IoMdNotifications className='m-auto' />
@@ -176,15 +178,6 @@ const MainContent: React.FC = React.memo(
 						.newscard {
 							display: none;
 						}
-
-						// .arrow-top {
-						// 	position: fixed;
-						// 	right: 30px;
-						// 	bottom: 30px;
-						// 	font-size: 3rem;
-						// 	cursor: pointer;
-						// 	// color: rgba(40, 58, 69);
-						// }
 
 						.profile-image-back {
 							background: conic-gradient(
