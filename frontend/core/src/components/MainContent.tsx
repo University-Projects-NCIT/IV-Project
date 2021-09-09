@@ -90,7 +90,7 @@ const MainContent: React.FC = React.memo(
 					</ToggleContext.Provider>
 				) : null}
 
-				<div className='h-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10 arrow-container'>
+				<div className='h-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10 arrow-container relative'>
 					<div className='w-16 h-16 rounded-full m-auto relative -mt-8 mb-4'>
 						<div className='profile-image-back w-16 h-16 rounded-full absolute'></div>
 						<div
@@ -162,8 +162,11 @@ const MainContent: React.FC = React.memo(
 					</div>
 					{/* arrow up */}
 					{arrowVisible ? (
-						<div className='arrow-top' onClick={scrollToTop}>
-							<FiArrowUpCircle />
+						<div
+							className='fixed text-5xl right-8 cursor-pointer bottom-8 z-50  '
+							onClick={scrollToTop}
+						>
+							<FiArrowUpCircle className='text-white ' />
 						</div>
 					) : null}
 				</div>
@@ -174,14 +177,14 @@ const MainContent: React.FC = React.memo(
 							display: none;
 						}
 
-						.arrow-top {
-							position: fixed;
-							right: 26px;
-							bottom: 25px;
-							font-size: 2.6rem;
-							cursor: pointer;
-							color: rgba(40, 58, 69);
-						}
+						// .arrow-top {
+						// 	position: fixed;
+						// 	right: 30px;
+						// 	bottom: 30px;
+						// 	font-size: 3rem;
+						// 	cursor: pointer;
+						// 	// color: rgba(40, 58, 69);
+						// }
 
 						.profile-image-back {
 							background: conic-gradient(
