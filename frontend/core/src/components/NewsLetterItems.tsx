@@ -19,7 +19,7 @@ const NewsLetterItems: React.FC<AdviceApiInterface> = ({ data } : any) => {
 
 	return (
 		<div className="bg-color5 text-white text-center pl-4 pr-4 pt-8 pb-10 min-h-full">
-			<div className="text-yellow-400 text-lg font-serif">{data.slip.advice}</div>
+			<div className="text-yellow-400 text-xl font-serif">{data.slip.advice}</div>
 			{/* <div className="mt-2">{data.date}</div> */}
 		</div>
 	);
