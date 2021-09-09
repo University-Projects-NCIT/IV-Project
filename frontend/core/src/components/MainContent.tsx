@@ -75,7 +75,7 @@ const MainContent: React.FC = React.memo(
 					</ToggleContext.Provider>
 				) : null}
 
-				<div className="h-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10">
+				<div className="h-auto m-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10">
 					<div className="w-16 h-16 rounded-full m-auto relative -mt-8 mb-4">
 						<div className="profile-image-back w-16 h-16 rounded-full absolute"></div>
 						<div
