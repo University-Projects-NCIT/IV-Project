@@ -107,7 +107,7 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 						<img src={image || "./images/snapchat.png"} className="w-full h-full cover image object-cover" alt="product image logo" />
 					</div>
 					<div className="min-h-0 min-w-0 flex-1 flex flex-col gap-y-1">
-						<h4 className="text-sm xs:text-base">{title}</h4>
+						<h4 className="text-sm xs:text-base capitalize">{title}</h4>
 						<span className="text-xs xs:text-sm text-white opacity-70">{tagline}</span>
 							<div className="min-h-0 min-w-0 flex flex-end justify-items-end">
 								<p className="tags mr-2">Tags :</p>

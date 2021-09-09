@@ -29,7 +29,7 @@ const NewsLetterCard: React.FC = () => {
 	return (
 		<>
 			<div className="flex flex-row pb-2 mt-2 text-white justify-end">
-				<div className="text-lg"> Your News Letter </div>
+				<div className="text-base"> Your News Letter </div>
 			</div>
 			<div className="rounded-lg mb-4 overflow-hidden w-full h-auto bg-color5 opacity-70 text-white pt-4 pl-4 pr-4 ">
 				{
