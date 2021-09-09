@@ -14,6 +14,8 @@ import { connect } from "react-redux";
 import DisplayProductList from "./DisplayProductList";
 import SearchedResults from "./SearchedResults";
 import DisplayProfile from "./DisplayProfile";
+import { useQuery } from "react-query";
+import { getProfileImage } from "../apis/productapi";
 
 const MainContent: React.FC = React.memo(
 	({ user, isAuthenticated }: any): JSX.Element => {
@@ -28,11 +30,25 @@ const MainContent: React.FC = React.memo(
 		const [searchKey, setSeachKey] = useState("");
 		const [isDisplayProductList, setIsDisplayProductList] = useState(true);
 		const [isDisplayProfile, setIsDisplayProfile] = useState(false);
-		const [isDisplaySearchedResults, setIsDisplaySeachedResults] = useState(
-			false
-		);
-
+		const [isDisplaySearchedResults, setIsDisplaySeachedResults] = useState(false);
 		const router = useRouter();
+		let userid;
+
+		if (user != null && typeof user.pk != "undefined")
+		{
+			userid = user.pk
+		}
+
+		
+		// if (user != null && typeof userid != "undefined")
+		// {
+		const profileImageQuery = useQuery(["getProfileImage", userid ], getProfileImage, {
+				onError: (err) => console.log(err),
+				refetchOnWindowFocus: false,
+				
+			});
+		// }
+	
 
 		const search = (key) => {
 			setSeachKey(key);
@@ -67,11 +83,10 @@ const MainContent: React.FC = React.memo(
 							onClick={user == null ? () => toggle() : () => displayProfile()}
 						>
 							<img
-								src={
-									user != null
-										? user.profile_image
-										: "images/michaeljackson.jpg"
-								}
+								src={user != null && typeof profileImageQuery.data != "undefined" ? 
+									profileImageQuery.data[0].imageUrl :
+									"images/cryptopunk8550.png"
+							}
 								className="w-16 h-16 rounded-full"
 							/>
 						</div>
@@ -89,8 +104,7 @@ const MainContent: React.FC = React.memo(
 									<div className="option-btn w-6 h-6 rounded-full absolute"></div>
 									<div
 										onClick={() => router.push("/post/")}
-										className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary"
-									>
+										className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary">
 										<MdAdd />
 									</div>
 								</div>
@@ -105,7 +119,7 @@ const MainContent: React.FC = React.memo(
 									</div>
 								</IconContext.Provider>
 							</div>
-							<div className="ml-16 md:-mt-8 mr-16">
+							<div className="ml-4 mr-4 mt-2 md:ml-4 md:-mt-8 md:mr-16">
 								<Search search={search} />
 							</div>
 						</div>
@@ -125,7 +139,7 @@ const MainContent: React.FC = React.memo(
 							<div>
 								<UpcomingProductCard />
 							</div>
-							<div>
+							<div className="newscard mb-8 md:">
 								<NewsLetterCard />
 							</div>
 						</div>
@@ -134,6 +148,11 @@ const MainContent: React.FC = React.memo(
 
 				<style jsx>
 					{`
+
+						.newscard{
+							display : none;
+						}
+
 						.profile-image-back {
 							background: conic-gradient(
 								from 180deg at 50% 50%,
@@ -146,7 +165,7 @@ const MainContent: React.FC = React.memo(
 								#11d2fc 304.76deg,
 								#f1239f 360deg
 							);
-							filter: blur(5px);
+							filter: blur(4px);
 							-webkit-animation: spin 4s linear infinite;
 							-moz-animation: spin 4s linear infinite;
 							animation: spin 4s linear infinite;
@@ -179,6 +198,10 @@ const MainContent: React.FC = React.memo(
 							}
 							.right-container {
 								width: 35%;
+								display: block;
+							}
+
+							.newscard{
 								display: block;
 							}
 						}

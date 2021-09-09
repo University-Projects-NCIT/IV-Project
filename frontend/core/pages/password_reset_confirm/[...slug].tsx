@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { reset_password_confirm } from '../../src/actions/auth.action';
+import { reset_password_confirm } from '../../src/Redux/actions/auth.action';
 import { useRouter } from 'next/router'
 
 

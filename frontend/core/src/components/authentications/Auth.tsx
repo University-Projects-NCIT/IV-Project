@@ -1,32 +1,60 @@
 import React, { useState, useContext } from 'react'
 import Login from './Login'
 import Signup from './Signup'
-import {ToggleContext} from '../../Contexts/ToggleContext'
+import { ToggleContext } from '../../Contexts/ToggleContext'
+import {ImCross} from 'react-icons/im'
 
 
 
 
 
-const LoginForm: React.FC = (props: any): JSX.Element => {
+const LoginForm: React.FC = () => {
 
 	const [loginState, setLoginState] = useState(true);
-	const [signupState, setSignupState] = useState(false);
-	const [forgetPassState, setForgetPassState] = useState(false);
-
 
 	const context = useContext(ToggleContext);
+	const authRef = React.useRef(null)
 	const toggle: any = context;
+
+	// const backClick = () => {
+	// 	toggle();
+	// 	// authRef.current.classList.add("trans_animate")
+	// } // REnder hook error 
+	
   return(
 		<>
-					<div
-						className="w-full h-full bg-black opacity-75 z-20 fixed"
-						onClick={toggle}
-					></div>
-					<div className="w-full h-full xs:w-11/12 lg:bg-red-500 md:w-1/2 xs:h-4/5 m-auto bg-drak_blue_background z-30 centered-fixed fixed xs:mt-16 p-4">
+			<div
+				className="w-full h-full bg-black opacity-75 z-20 fixed"
+				onClick={toggle}
+			></div>
+			<div ref={authRef} className=" w-full pb-4 auth-container max-w-sm m-auto bg-drak_blue_background z-30 centered-fixed fixed pl-4 pr-4">
+				<div className="sm:invisible" onClick={()=> toggle()}><ImCross className="text-gray-50 h-3 w-3 mt-4"/></div>
 						{(loginState) ? <Login setLoginState={setLoginState} /> : <Signup setLoginState={setLoginState} /> }
-						{/* { signupState && <Signup setLoginState={setLoginState} />} */}
-						{/* {forgetPassState && <ForgetPassword forgetPassState={forgetPassState}/>}				 */}
-					</div>
+			</div>
+
+			<style jsx>{`
+					
+					.auth-container {
+						height: 100vh;
+						margin-top: 0px;
+						transition:transform 2s;
+					}
+
+					.trans_animate{
+					transform: scale(1);	
+					}
+					
+						@media only screen and (min-width: 455px) {
+						 .auth-container {
+							height : auto;
+							border-radius: 15px;
+							margin-top: 4rem;
+							
+					}
+					
+						}
+
+					`}</style>
 		</>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
-import { signup } from '../../actions/auth.action'
+import { signup } from '../../Redux/actions/auth.action'
 import { v4 as uuidv4 } from 'uuid'
 import { useRouter } from 'next/router'
 import { AiFillEdit } from 'react-icons/ai'
@@ -27,7 +27,6 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
     re_password: ''
   }
   
-  const router = useRouter();
   const inputRef = useRef([]);
 
   const [imageFile ,setImageFile] = useState(null)
@@ -46,6 +45,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
     if (e.target.name == "profile_image")
     {
       setImageFile(URL.createObjectURL(e.target.files[0]));
+      console.log(e.target.files[0]);
       handleUploadImage(e.target.files[0]);
       return
     }
@@ -86,22 +86,10 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
     const regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     if (password == re_password && password.search(regularExpression) != -1)
     {
-      signup(id, profile_image, email, first_name, last_name, password, re_password);
-       //check submit sign up response error or not .
-      if (error == null)
-      {
-        setIsAccountCreated({ created: true, message: "Activate your account via email" })
-        setFormData(initialValues);
-        setImageFile(null);
-      } else {
-        setIsAccountCreated({created: false, message: "Signup Fail ! Tips: Keep password strong inlcuding number, symbol and altleast 8 character. May be wrong email address !"})
+      signupAccount(id, profile_image, email, first_name, last_name, password, re_password)
+    }else {
+        alert("Password must be atleat 8 character including Number ,one capital and sepcial symbol ..");
       }
-      }
-    else {
-      alert("Password must be atleat 8 character including Number ,one capital and sepcial symbol ..");
-    }
-
-   
   }
 
   const onBlur = (e) => {
@@ -112,7 +100,22 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
     } else {
       e.target.classList.remove("red-border")
     }
-  }
+    }
+    
+
+    const signupAccount = async (id, profile_image, email, first_name, last_name, password, re_password) => {
+        await signup(id, profile_image, email, first_name, last_name, password, re_password)
+       //check submit sign up response error or not .
+        if (error == null)
+        {
+          setIsAccountCreated({ created: true, message: "Activate your account via email" })
+          setFormData(initialValues);
+          setImageFile("");
+        } else {
+          setIsAccountCreated({created: false, message: "Signup Fail ! Tips: Keep password strong inlcuding number, symbol and altleast 8 character. May be wrong email address !"})
+        }
+      }
+    
 
 
   const handleUploadImage = (file) => {
@@ -144,22 +147,18 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
   }
 
 
-
   const login = () => {
     setLoginState(true)
   }
 
-  const forgetPassword = () => {
-    router.push('/api/forgetpassword')
-  }
 
   return (
     <>
     <div className="w-full h-auto flex flex-col">
-        <div className="relative w-32 h-32 m-auto">
-          <img src={imageFile || "/images/default_profileimg.jpg"} className="w-32 h-32 rounded-full m-auto absolute object-cover"></img>
-            <div className="w-32 h-32 absolute rounded-full flex flex-row justify-center items-center">Edit<AiFillEdit className="inline"/></div>
-            <div className="w-32 h-32 absolute rounded-full" onClick={ ()=> inputRef.current[5].click()}></div>
+        <div className="relative w-24 h-24 m-auto mb-8">
+          <img src={imageFile || "/images/default_profileimg.jpg"} className="w-24 h-24 rounded-full m-auto absolute object-cover"></img>
+            <div className="w-24 h-24 absolute rounded-full flex flex-row justify-center items-center">Edit<AiFillEdit className="inline"/></div>
+            <div className="w-24 h-24 absolute rounded-full" onClick={ ()=> inputRef.current[5].click()}></div>
             <input type="file" name="profile_image" className="hidden absolute" ref={ref => inputRef.current[5] = ref} onChange={onChange}></input>
         </div>
 
@@ -171,7 +170,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={email}
               required
               placeholder="Email"
-              className="block"
+              className="block w-full h-8 bg-item_list_bg mb-2 input border-none pl-2 rounded-sm"
               name="email"
               ref={(ref) => (inputRef.current[0] = ref)}
               onChange={onChange} />
@@ -182,7 +181,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={first_name}
               required
               placeholder="First Name "
-              className="block capitalize"
+              className="block capitalize w-full h-8 bg-item_list_bg mb-2 input border-none pl-2 rounded-sm"
               name="first_name"
               ref={(ref) => (inputRef.current[1] = ref)}
               onChange={onChange} />
@@ -193,7 +192,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={last_name}
               required
               placeholder="Last Name "
-              className="block capitalize"
+              className="block capitalize w-full h-8 bg-item_list_bg mb-2 input border-none pl-2 rounded-sm"
               name="last_name"
               ref={(ref) => (inputRef.current[2] = ref)}
               onChange={onChange} />
@@ -204,7 +203,7 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={password}
               required
               placeholder="Password"
-              className="block"
+              className="block w-full h-8 bg-item_list_bg mb-2 input border-none pl-2 rounded-sm"
               name="password"
               ref={(ref) => (inputRef.current[3] = ref)}
               onChange={onChange} />
@@ -215,18 +214,17 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
               value={re_password}
               required
               placeholder="Confirm Password"
-              className="block"
+              className="block w-full h-8 bg-item_list_bg mb-2 input border-none pl-2 rounded-sm"
               name="re_password"
               ref={(ref) => (inputRef.current[4] = ref)}
               onChange={onChange} />
             
-              {isAccountCreated.message != '' && <h2 > {isAccountCreated.message} </h2>} 
-            <button type="submit" className="w-full h-12 bg-color5 text-white" onClick={onSubmit}>Signup</button>
+              {isAccountCreated.message != '' && <h2 className="text-gray-600"> {isAccountCreated.message} </h2>} 
+            <button type="submit" className="w-full h-8 text-sm rounded-full bg-color5 text-white uppercase focus:outline-none hover:opacity-70 mt-4" onClick={onSubmit}>Signup</button>
             
           </form>
-          <h2>Already have an account ?</h2>
-          <button className="w-full h-12 bg-color5 text-white" onClick={login}>Login</button>
-          <button className="w-full h-12 bg-color5 text-white" onClick={forgetPassword}>Forget Password ?</button>  
+          <h2 className="mt-2 mb-2 text-gray-300 text-sm">Already have an account ?</h2>
+          <button className="w-full h-8 text-sm rounded-full bg-color5 text-white uppercase focus:outline-none hover:opacity-70" onClick={login}>Login</button>
         </div>
 
       </div>
@@ -234,8 +232,25 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
       <style jsx>
         {`
         .red-border{
-          background: red;
-        }
+            outline-offset: 0px;
+						outline: none;
+						box-shadow: 0.1px 0.1px 1px 0.1px red;
+            background:#FF1414;
+            opacity: 0.5;
+          }
+
+      .input {
+						color: #ffffff;
+						padding-left: 1rem;
+						-webkit-transition: box-shadow 0.3s;
+						transition: box-shadow 0.3s;
+					}
+          
+					.input:focus {
+						outline-offset: 1px;
+						outline: none;
+						box-shadow: 1px 0.3px 2px 0.1px #111e6c;
+					}
         `}
       </style>
     </>

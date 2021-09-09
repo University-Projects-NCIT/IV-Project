@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import ProductComment from "../src/components/product_details/ProductComment";
 import ProductDescription from "../src/components/product_details/ProductDescription";
-import { fetchProductByID, fetchUserByID } from "../src/productapi";
+import { fetchProductByID, fetchUserByID } from "../src/apis/productapi";
 import { useRouter } from "next/router";
 
 const Details: React.FC = () => {

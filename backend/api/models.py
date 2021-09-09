@@ -32,7 +32,8 @@ class Product(models.Model):
 
     product_link = models.URLField(
         verbose_name = ("Product Url"),
-        help_text=("The product website or link")
+        help_text=("The product website or link"),
+        max_length=500
         )
 
     tagline = models.CharField(
@@ -44,7 +45,7 @@ class Product(models.Model):
     description = models.TextField(
         verbose_name = ("long product description"),
         help_text = ("Describe in long of your product"),
-        max_length = 800,
+        max_length = 1000,
         blank = False,
     )
 
@@ -83,9 +84,11 @@ class ProductIcon(models.Model):
     User Profile images who are signed in
     website also product profile icon or logo is stored here.
     """
-    image = models.URLField(
+
+    image = models.CharField(
         verbose_name  = ("Product profile image "),
-        help_text = ("Product profile images ,logo, icons  ")
+        help_text = ("Product profile images ,logo, icons  "),
+        max_length=500
         ) 
         
     product = models.ForeignKey(Product,related_name="product_icon", verbose_name=("product ID"), on_delete=models.CASCADE)
@@ -101,9 +104,11 @@ class ProductImage(models.Model):
     """
     product = models.ForeignKey(Product,related_name="product_images", verbose_name=("product Id"), on_delete=models.CASCADE)
     created_at = models.DateTimeField(verbose_name=("Created At"), editable = False , auto_now_add=True)
-    image = models.URLField(
+
+    image = models.CharField(
         verbose_name  = ("Product image "),
-        help_text = ("Product screenshot images ")
+        help_text = ("Product screenshot images "),
+        max_length=500
         ) 
 
 
@@ -116,7 +121,7 @@ class ProductComment(models.Model):
     comment = models.TextField(
         verbose_name = ("Comments text"),
         help_text =("Comment made to prouct "),
-        max_length= 400,
+        max_length= 500,
     )
     created_at = models.DateTimeField(verbose_name=("Created at"), auto_now_add=True, editable = False)
 
@@ -132,5 +137,5 @@ class Category(models.Model):
 
 
 
-"https://firebasestorage.googleapis.com/v0/b/product-show-website.appspot.com/o/icon_image%2F115702939_702419260604216_2829197106263425711_n.jpg?alt=media&token=fbd7cbd9-f3ae-4743-9a2b-0d6f4c2bc722"
-"https://firebasestorage.googleapis.com/v0/b/product-show-website.appspot.com/o/icon_image%2F115702939_702419260604216_2829197106263425711_n.jpg?alt=media&token=fbd7cbd9-f3ae-4743-9a2b-0d6f4c2bc722"
+# "https://firebasestorage.googleapis.com/v0/b/product-show-website.appspot.com/o/icon_image%2F115702939_702419260604216_2829197106263425711_n.jpg?alt=media&token=fbd7cbd9-f3ae-4743-9a2b-0d6f4c2bc722"
+# "https://firebasestorage.googleapis.com/v0/b/product-show-website.appspot.com/o/icon_image%2F115702939_702419260604216_2829197106263425711_n.jpg?alt=media&token=fbd7cbd9-f3ae-4743-9a2b-0d6f4c2bc722"

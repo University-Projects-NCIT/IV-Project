@@ -3,12 +3,13 @@ import { MdAddCircleOutline } from 'react-icons/md'
 import { storage } from '../firebase'
 import { v4 as uuidv4 } from 'uuid'
 import { connect } from 'react-redux'
-import { addProduct, addCategories, addIcon, addProductImages } from '../productapi'
-import { useMutation, useQueryClient } from 'react-query'
+import { addProduct, addCategories, addIcon, addProductImages } from '../apis/productapi'
+import { useMutation } from 'react-query'
 import { IoCheckmarkDoneCircleOutline } from 'react-icons/io5'
 import {IoChevronBackCircleSharp} from 'react-icons/io5'
 import { IconContext } from 'react-icons/lib'
 import { useRouter } from 'next/router'
+import { BsFillTriangleFill } from 'react-icons/bs'
 
 
 const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
@@ -66,7 +67,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!isAuthenticated)
+    if (!isAuthenticated || user == null)
     {
      return alert("login First To Post ") 
     }
@@ -107,7 +108,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
 
     const utcDateTime = new Date(formData.launch_at).toISOString()
 
-    productMutate.mutate({ ...formData,launch_at: utcDateTime, productID: productId, author: user.id })
+    productMutate.mutate({ ...formData,launch_at: utcDateTime, productID: productId, author: user.pk })
     
   }
 
@@ -151,9 +152,11 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
     {
       alert(" File size can not be more than 3 MB . Please compress you image and upload again !");
       return;
-    }
+     }
+     
     const image_name = file.name;
-    const uploadTask = storage.ref(`${name}/${image_name}`).put(file);
+    const timestamp = String(Math.round(new Date().getTime()/1000))
+    const uploadTask = storage.ref(`${name}/${timestamp+image_name}`).put(file);
     uploadTask.on(
       "state_changed",
       snapshot => {},
@@ -161,18 +164,18 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
         console.log(error);
       },
       () => {
-        storage
+          storage
           .ref(name)
-          .child(image_name)
+          .child(timestamp + image_name)
           .getDownloadURL()
           .then(url => {
 
             console.log("image url " + url )
             if (name == "icon_image")
             {
-              setIconUrl(url.toString())
+              setIconUrl(url)
             } else {
-              setImageUrl([...imagesUrl, url.toString()])
+              setImageUrl([...imagesUrl, url])
             }
           });
       }
@@ -183,9 +186,6 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
   const insertedSuccess = () => {
     return (
       <React.Fragment>
-        <div></div>
-        <div>
-          
           <div className="">
             <IconContext.Provider value={{color: "#283A45"}}>
               <IoChevronBackCircleSharp onClick={()=> router.push("/")} className=" w-12 h-12 opacity-90 hover:opacity-70 cursor-pointer"/>
@@ -196,19 +196,74 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
               <IconContext.Provider value={{color: "#083C82"}}>
                 <IoCheckmarkDoneCircleOutline className="m-auto w-12 h-12" /> 
                </IconContext.Provider> 
-                </h1>
+            </h1>
 
           </div>
-          <img src="./images/undraw_done.svg" className="w-3/4"></img>
-        </div>
+          <img src="./images/undraw_done.svg" className="w-3/4 lg:w-1/3 lg:h-3/4 m-auto"></img>
       </React.Fragment>
      )
-   }
+  }
+  
+  const ItemList = (image ="", title="", tagline="", categories="") => {
+		return (
+			<React.Fragment>
+			<div className="w-full pb-2 bg-item_list_bg text-gray-100 flex flex-col hover:opacity-70 cursor-pointer">
+				<div className="flex pt-2">
+					<div className="w-20 h-20 mt-2 ml-4 mr-4 rounded-md overflow-hidden bg-red-5000 ">
+						<img src={image || "./images/default_image.png"} className="w-full h-full cover image object-cover" alt="product image logo" />
+					</div>
+					<div className="">
+						<h4 className="mt-1">{title || " Title "}</h4>
+						<p className="text-xs mt-1 text-gray-300">{tagline || " This is the tagline "}</p>
+						<div className="flex flex-start mt-2">
+							{categories ? categories.split(",").map((item) => {
+								return (
+									<div className="category m-1 uppercase" key={uuidv4()}>
+										{item}
+									</div>
+								);
+							}) : <div className="category m-1 uppercase">Android</div> }
+						</div>
+					</div>
+					<div className="z-50 w-16 h-16 bg-color7 ml-auto hover:opacity-70 mr-4 rounded-lg flex flex-col items-center justify-center">
+						<div>
+							<BsFillTriangleFill className="color-black" />
+						</div>
+						<div>0</div>
+					</div>
+				</div>
+				</div>
+				
+				<div className="line opacity-50"></div>
+					<style jsx>
+				{`
+
+					.image{
+  						object-fit: cover;
+							}
+
+					.line {
+						width: 100%;
+						height: 1px;
+						background: linear-gradient(to right, #2f80ed, #98459b, #f1239f);
+					}
+
+					.category {
+						color: #f39912;
+						font-size: 0.5em;
+					}
+				`}
+			</style>
+			</React.Fragment>
+		)
+	}
 
   return (
-    <div>
+    <>
       { inserted ? insertedSuccess() :
-      <>
+      
+      <div className="w-full flex flex-col-reverse lg:flex-row overflow-hidden">
+        <div className="w-full lg:w-2/3 2xl:w-1/2 m-auto lg:ml-0">
         <form onSubmit={onSubmit}>
           <label className="block capitalize mb-2" htmlFor="title">Title of your App<span className="text-red-600"> *</span></label>
           <input
@@ -251,7 +306,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
             onChange={onChange}
             value={formData.launch_at}
             ref={(ref) => inputRef.current[3] = ref}
-            className="w-1/2 h-12 text-xl mb-8 bg-item_list_bg border-none input rounded-sm"
+            className="w-full h-12 text-xl mb-8 bg-item_list_bg border-none input rounded-sm sm:w-1/2"
             required>
           </input>
         
@@ -301,6 +356,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
             onChange={onChange}
             value={formData.product_link}
             ref={(ref) => inputRef.current[4] = ref}
+            maxLength={200}
             className="w-full h-10 mb-8 hover:opacity-70 bg-item_list_bg border-none input rounded-sm" placeholder="eg. https://myapp.com"
             required></input>
         
@@ -320,16 +376,23 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
             onClick={onSubmit}
             className="border-none outline-none hover:opacity-70 focus:outline-none bg-item_list_bg w-full h-10 mt-8 mb-8">POST</button>
         </form>
-        </>
+          </div>
+          <div className="w-full lg:w-1/2 pb-8 pt-4 lg:pl-4 lg:pt-8">
+            {ItemList(icon, formData.title,formData.tagline,categories )}
+          </div>
+      </div>
+
       }
         
       <style jsx>{`
+
         .input {
 						color: #ffffff;
 						padding-left: 1rem;
 						-webkit-transition: box-shadow 0.3s;
 						transition: box-shadow 0.3s;
 					}
+
 					.input:focus {
 						outline-offset: 0px;
 						outline: none;
@@ -346,7 +409,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
 						box-shadow: 1px 0.3px 4px 0.1px red;
           }
       `}</style>
-    </div>
+    </>
   )
 }
 

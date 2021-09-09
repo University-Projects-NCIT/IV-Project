@@ -3,14 +3,14 @@ import UpcomingItemList from "./UpcomingItemList";
 import { v4 as uuidv4 } from 'uuid'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { fecthUpcommingProducts} from '../productapi'
+import { fecthUpcommingProducts} from '../apis/productapi'
 
 const ProductListCard: React.FC = () => {
 	/**
 	 * @returns Upcomming Product list as card
 	 */
 
-	const UpcommingProductFetch = useQuery("upcommingProduct", fecthUpcommingProducts)
+	const {data, error , isLoading, isFetching, isError} = useQuery("upcommingProduct", fecthUpcommingProducts)
 
 	const displayEmptyMsg = () => {
 		return <React.Fragment>
@@ -20,29 +20,27 @@ const ProductListCard: React.FC = () => {
 		</React.Fragment>
 	}
 
-	const displayLoadingMsg = () => {
-		return <React.Fragment>
-			<div>
-				<div className="h-52 w-52 m-auto bg-color5 animate-pulse"></div>
-			</div>
-		</React.Fragment>
-	}
+	 const LoadingPage = () => {
+		return (
+			<React.Fragment>
+				<div className="w-full h-52 rounded-md flex-row bg-item_list_bg justify-items-center items-center animate-pulse">
+				</div>
+			</React.Fragment>
+		)
+  }
 
 	return (
 		<>
-			<div className="flex flex-row pb-4 text-white justify-end mb-2">
-				<div className="text-lg">Upcomming Launch </div>
+			<div className="flex flex-row md:pb-2 text-white justify-end pb-2 ">
+				<div className="text-lg">Upcoming Launch </div>
 			</div>
 			<div className="rounded-lg mb-8 overflow-hidden bg-color5">
-
 				{
-					UpcommingProductFetch.data != undefined && UpcommingProductFetch.data.length != 0 ?
-					UpcommingProductFetch.data.map(productData => {
+					isLoading ?  LoadingPage():	
+					data != undefined && data.length != 0 ?
+					data.map(productData => {
 					return <UpcomingItemList itemData={productData} key={uuidv4()}/>
-				}) :
-						displayEmptyMsg()
-							? UpcommingProductFetch.isLoading || UpcommingProductFetch.isLoading :
-						displayLoadingMsg()	
+				}) : displayEmptyMsg()
 				}
 
 			</div>

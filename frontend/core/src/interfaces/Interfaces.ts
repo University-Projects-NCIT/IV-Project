@@ -17,8 +17,8 @@ export interface UserInterface {
 	email: string;
 	first_name: string;
 	last_name: string;
-	id: string;
-	profile_image: string;
+	pk: number;
+	username: string;
 }
 
 export interface ProductIconInteface {
@@ -57,4 +57,13 @@ export interface CardUpcommingInterface {
 
 export interface CardUpcommingListInterface {
 	itemData: ProductInterface;
+}
+
+export interface SlipInterface{
+	id: Number,
+	advice: String
+}
+
+export interface AdviceApiInterface{
+	data : SlipInterface
 }

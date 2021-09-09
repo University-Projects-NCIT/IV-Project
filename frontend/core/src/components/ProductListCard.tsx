@@ -37,7 +37,7 @@ const ProductListCard: React.FC<PropsInterface> = (props) => {
 	return (
 		<>
 			<div className="flex flex-row pb-4 text-white justify-between">
-				<div className="text-lg">{ props.displayDate ? convertDate(new Date(props.data[0].created_at)) : ""}</div>
+				<div className="text-md">{ props.displayDate ? convertDate(new Date(props.data[0].created_at)) : ""}</div>
 				
 			</div>
 			<div className="rounded mb-10 overflow-hidden w-full h-auto">

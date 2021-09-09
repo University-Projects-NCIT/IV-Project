@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { fetchSearchProducts } from '../productapi'
+import { fetchSearchProducts } from '../apis/productapi'
 import { NEWEST, POPULAR } from '../constraints'
 import { v4 as uuidv4 } from 'uuid'
 import ProductListCard from './ProductListCard'
@@ -33,15 +33,13 @@ const SearchedResults: React.FC<PropsInterface> = (props) => {
 
   const LoadingPage = () => {
 		return (
-			<React.Fragment>
-				<div className="w-full h-64 flex-row justify-items-center items-center animate-pulse">
+			<React.Fragment key={uuidv4()}>
+				<div className="w-full h-28 mt-2 mb-2 rounded-md flex-row bg-item_list_bg justify-items-center items-center animate-pulse">
 				</div>
 			</React.Fragment>
 		)
   }
-  
-  console.log(data)
-  
+    
   return (
     <>
       <div className="flex flex-row text-white justify-end -mb-4">
@@ -55,10 +53,12 @@ const SearchedResults: React.FC<PropsInterface> = (props) => {
         </div>
       <h1 className="text-gray-300">Results</h1>
       {
-							isLoading ? LoadingPage() : typeof data == "undefined" ? <div className="animate-spin w-full h-full"></div> :
-              typeof data != "undefined" && data.length != 0 ? <ProductListCard data={data} displayDate={false} /> :
-              resultNotFound()
-			}
+        isLoading || isFetching ? [1,2,3,4].map( i => LoadingPage()):
+          typeof data == "undefined" ? <div className="animate-spin w-full h-full"></div> :
+          typeof data != "undefined" && data.length != 0 ? <ProductListCard data={data} displayDate={false} /> :
+          resultNotFound()
+      }
+      
       
       <style jsx>{`
       	.btn {
