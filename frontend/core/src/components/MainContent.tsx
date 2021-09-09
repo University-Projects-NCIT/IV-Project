@@ -1,5 +1,6 @@
-import React, { useState} from "react";
-import { FiMoreHorizontal } from "react-icons/fi";
+import React, { useState } from "react";
+import { animateScroll as scroll } from "react-scroll";
+import { FiMoreHorizontal, FiArrowUpCircle } from "react-icons/fi";
 import { MdAdd } from "react-icons/md";
 import { IoMdNotifications } from "react-icons/io";
 import { IconContext } from "react-icons/lib";
@@ -30,25 +31,27 @@ const MainContent: React.FC = React.memo(
 		const [searchKey, setSeachKey] = useState("");
 		const [isDisplayProductList, setIsDisplayProductList] = useState(true);
 		const [isDisplayProfile, setIsDisplayProfile] = useState(false);
-		const [isDisplaySearchedResults, setIsDisplaySeachedResults] = useState(false);
+		const [isDisplaySearchedResults, setIsDisplaySeachedResults] =
+			useState(false);
+		const [arrowVisible, setArrowVisible] = useState(false);
 		const router = useRouter();
 		let userid;
 
-		if (user != null && typeof user.pk != "undefined")
-		{
-			userid = user.pk
+		if (user != null && typeof user.pk != "undefined") {
+			userid = user.pk;
 		}
 
-		
 		// if (user != null && typeof userid != "undefined")
 		// {
-		const profileImageQuery = useQuery(["getProfileImage", userid ], getProfileImage, {
+		const profileImageQuery = useQuery(
+			["getProfileImage", userid],
+			getProfileImage,
+			{
 				onError: (err) => console.log(err),
 				refetchOnWindowFocus: false,
-				
-			});
+			}
+		);
 		// }
-	
 
 		const search = (key) => {
 			setSeachKey(key);
@@ -67,6 +70,20 @@ const MainContent: React.FC = React.memo(
 			setIsDisplaySeachedResults(false);
 		};
 
+		const toggleVisible = () => {
+			const scrolled = document.documentElement.scrollTop;
+			console.log("scroll", scrolled);
+			scrolled > 300 ? setArrowVisible(true) : setArrowVisible(false);
+		};
+
+		const scrollToTop = () => {
+			scroll.scrollToTop();
+		};
+
+		if (typeof window !== "undefined") {
+			window.addEventListener("scroll", toggleVisible);
+		}
+
 		return (
 			<>
 				{loginForm && !isAuthenticated ? (
@@ -75,58 +92,59 @@ const MainContent: React.FC = React.memo(
 					</ToggleContext.Provider>
 				) : null}
 
-				<div className="h-auto m-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10">
-					<div className="w-16 h-16 rounded-full m-auto relative -mt-8 mb-4">
-						<div className="profile-image-back w-16 h-16 rounded-full absolute"></div>
+				<div className='h-auto w-full rounded-t-lg -mt-4 bg-drak_blue_background z-10  relative'>
+					<div className='w-16 h-16 rounded-full m-auto relative -mt-8 mb-4'>
+						<div className='profile-image-back w-16 h-16 rounded-full absolute'></div>
 						<div
-							className="absolute cursor-pointer"
+							className='absolute cursor-pointer'
 							onClick={user == null ? () => toggle() : () => displayProfile()}
 						>
 							<img
-								src={user != null && typeof profileImageQuery.data != "undefined" ? 
-									profileImageQuery.data[0].imageUrl :
-									"images/cryptopunk8550.png"
-							}
-								className="w-16 h-16 rounded-full"
+								src={
+									user != null && typeof profileImageQuery.data != "undefined"
+										? profileImageQuery.data[0].imageUrl
+										: "images/cryptopunk8550.png"
+								}
+								className='w-16 h-16 rounded-full'
 							/>
 						</div>
 					</div>
 					<IconContext.Provider value={{ color: "#ffffff", size: "1.5rem" }}>
 						<div>
-							<div className="flex flex-row w-32 m-auto justify-center">
-								<div className="w-6 h-6 -mt-3 realtive cursor-pointer">
-									<div className="option-btn w-6 h-6 rounded-full absolute"></div>
-									<div className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary">
+							<div className='flex flex-row w-32 m-auto justify-center'>
+								<div className='w-6 h-6 -mt-3 relative cursor-pointer'>
+									<div className='option-btn w-6 h-6 rounded-full absolute'></div>
+									<div className='icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary'>
 										<FiMoreHorizontal />
 									</div>
 								</div>
-								<div className="w-6 h-6 m-2 realtive cursor-pointer">
-									<div className="option-btn w-6 h-6 rounded-full absolute"></div>
+								<div className='w-6 h-6 m-2 relative cursor-pointer'>
+									<div className='option-btn w-6 h-6 rounded-full absolute'></div>
 									<div
 										onClick={() => router.push("/post/")}
-										className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary">
+										className='icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary'
+									>
 										<MdAdd />
 									</div>
 								</div>
 								<IconContext.Provider
 									value={{ color: "#F39912"}}
 								>
-									<div className="w-6 h-6 -mt-3 realtive cursor-pointer">
-										<div className="option-btn w-6 h-6 rounded-full absolute"></div>
-										<div className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary">
-											<IoMdNotifications className="m-auto text-2xl" />
+									<div className='w-6 h-6 -mt-3 relative cursor-pointer'>
+										<div className='option-btn w-6 h-6 rounded-full absolute'></div>
+										<div className='icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary'>
+											<IoMdNotifications className='m-auto' />
 										</div>
 									</div>
 								</IconContext.Provider>
 							</div>
-							<div className="ml-4 mr-4 mt-2 md:ml-4 md:-mt-8 md:mr-16">
+							<div className='ml-4 mr-4 mt-2 md:ml-4 md:-mt-8 md:mr-16'>
 								<Search search={search} />
 							</div>
 						</div>
 					</IconContext.Provider>
-
-					<div className="w-full flex md:flex-row flex-col-reverse mt-8">
-						<div className="left-container h-auto flex flex-col md:pl-32 pr-4 pl-4">
+					<div className='w-full flex md:flex-row flex-col-reverse mt-8'>
+						<div className='left-container h-auto flex flex-col md:pl-32 pr-4 pl-4'>
 							{isDisplayProfile ? (
 								<DisplayProfile />
 							) : isDisplaySearchedResults ? (
@@ -135,22 +153,30 @@ const MainContent: React.FC = React.memo(
 								<DisplayProductList />
 							)}
 						</div>
-						<div className="right-container h-auto pt-1 mr-4 ml-4 lg:mr-40">
+						<div className='right-container h-auto pt-1 mr-4 ml-4 lg:mr-40'>
 							<div>
 								<UpcomingProductCard />
 							</div>
-							<div className="newscard mb-8 md:">
+							<div className='newscard mb-8 md:'>
 								<NewsLetterCard />
 							</div>
 						</div>
 					</div>
+					{/* arrow up */}
+					{arrowVisible ? (
+						<div
+							className='fixed text-5xl right-8 cursor-pointer bottom-8 z-50  '
+							onClick={scrollToTop}
+						>
+							<FiArrowUpCircle className='text-white ' />
+						</div>
+					) : null}
 				</div>
 
 				<style jsx>
 					{`
-
-						.newscard{
-							display : none;
+						.newscard {
+							display: none;
 						}
 
 						.profile-image-back {
@@ -201,7 +227,7 @@ const MainContent: React.FC = React.memo(
 								display: block;
 							}
 
-							.newscard{
+							.newscard {
 								display: block;
 							}
 						}
