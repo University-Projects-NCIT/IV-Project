@@ -1,6 +1,6 @@
-import '../styles/globals.css'
 import '../styles/font.css'
 import '../styles/apply.css'
+import '../styles/globals.css'
 
 import { Provider } from 'react-redux'
 import store from '../src/Redux/store'
