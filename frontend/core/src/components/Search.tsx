@@ -26,7 +26,7 @@ const Search: React.FC<propsInterface> = (props) => {
 						type="text"
 						className="input w-full md:w-2/5 bg-item_list_bg rounded-md border-none"
 					></input>
-				<VscSearch className="-ml-7 mt-1" onClick={onSubmit}/>
+				<VscSearch  color="#ffffff" size={25} className="-ml-7 mt-1 cursor-pointer" onClick={onSubmit}/>
 				</form>
 			</div>
 
