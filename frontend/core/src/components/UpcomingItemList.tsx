@@ -2,7 +2,6 @@ import React from "react";
 import { CardUpcommingListInterface } from "../interfaces/Interfaces";
 import { msToDayTime } from './utils'
 import { useQueryClient} from 'react-query'
-import { BsFillStopwatchFill } from "react-icons/bs";
 import { MdWatchLater } from "react-icons/md";
 
 const UpcomingItemList: React.FC<CardUpcommingListInterface> = ({itemData}) => {
@@ -47,8 +46,8 @@ React.useEffect(() => {
 				<div className="flex justify-between">
 					<div className="text-gray-50 space-y-5 ">
 						<div>
-							<h3 className="text-sm ">{itemData.title}</h3>
-							<div>	<p className="text-xs text-gray-400 mr-2">{itemData.tagline}</p></div>
+							<h3 className="text-sm capitalize">{itemData.title}</h3>
+							<div>	<p className="text-xs text-white opacity-70 mr-2">{itemData.tagline}</p></div>
 						</div>
 						<button
 							className="outline-none border-none focus:outline-none 
@@ -59,7 +58,7 @@ React.useEffect(() => {
 						</button>
 					</div>
 
-					<div className="h-16 w-16 bg-gray-400 rounded-md flex-shrink-0">
+					<div className="h-16 w-16 bg-white rounded-md flex-shrink-0">
 						<img
 							src={image || "./images/snapchat.png"}
 							alt="icon image "
@@ -67,7 +66,7 @@ React.useEffect(() => {
 						/>
 					</div>
 				</div>
-				<div className="text-color6 flex justify-end text-xs"><div><MdWatchLater className="mr-1 inline"/><p className="inline align-bottom">{launchingAt || "Remaing Time ..."}</p></div></div>
+				<div className="text-color6 flex justify-end text-xs"><div><MdWatchLater className="mr-1 text-base align-middle inline"/><p className="inline align-bottom">{launchingAt || "Remaing Time ..."}</p></div></div>
 			</div>
 			{/* <style jsx>
 				{`

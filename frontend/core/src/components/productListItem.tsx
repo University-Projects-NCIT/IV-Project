@@ -107,12 +107,13 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 						<img src={image || "./images/snapchat.png"} className="w-full h-full cover image object-cover" alt="product image logo" />
 					</div>
 					<div className="min-h-0 min-w-0 flex-1 flex flex-col gap-y-1">
-						<h4 className="text-sm xs:text-base">{title}</h4>
-						<span className="text-xs xs:text-sm text-gray-400">{tagline}</span>
-						<div className="min-h-0 min-w-0 flex flex-end justify-items-end">
+						<h4 className="text-sm xs:text-base capitalize">{title}</h4>
+						<span className="text-xs xs:text-sm text-white opacity-70">{tagline}</span>
+							<div className="min-h-0 min-w-0 flex flex-end justify-items-end">
+								<p className="tags mr-2">Tags :</p>
 							{categories.map((item) => {
 								return (
-									<p className="category m-1 uppercase" key={uuidv4()}>
+									<p className="category mr-2 capitalize" key={uuidv4()}>
 										{item.name}
 									</p>
 								);
@@ -144,12 +145,17 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 
 					.category {
 						color: #f39912;
-						font-size: 0.2em;
+						font-size: .5em;
+
+					}
+
+					.tags{
+						font-size: .5em;
 					}
 
 					@media only screen and (min-width: 768px) {
 								.category{
-										font-size: 0.5em;
+										font-size: 0.6em;
 								}			
 					}
 

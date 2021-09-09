@@ -23,6 +23,7 @@ const ProductComment: React.FC = () => {
 
 	const [comments, setComments] = useState(value);
 
+	
 	return (
 		<>
 			<div className="bg-item_list_bg rounded-sm p-6 w-3/5">
