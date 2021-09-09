@@ -270,6 +270,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
             required
             type="text"
             name="title"
+            maxLength={25}
             onChange={onChange}
             value={formData.title}
             ref={(ref) => inputRef.current[0] = ref}
@@ -281,20 +282,24 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
           <input
             type="text"
             name="tagline"
+            maxLength={100}
+            minLength={50}
             onChange={onChange}
+            placeholder="brief description from 50 char upto 100 char "
             value={formData.tagline}
             ref={(ref) => inputRef.current[1] = ref}
             className="w-full h-9 mb-4 hover:opacity-70 bg-item_list_bg text-lg border-none input rounded-sm"
             required>
           </input>
         
-          <label className="block capitalize mb-2" htmlFor="title">Description of your App<span className="text-red-600"> *</span></label>
+          <label className="block capitalize mb-2" htmlFor="title">Description of your product <span className="text-red-600"> *</span></label>
           <textarea
-            name="description"
+            name="description" 
             onChange={onChange}
+            minLength={200}
             value={formData.description}
             ref={(ref) => inputRef.current[2] = ref}
-            placeholder="Describe about you app ."
+            placeholder="Describe about your product in details"
             className="w-full pt-2 hover:opacity-70 textarea mb-4 bg-item_list_bg border-none input rounded-sm"
             required>
           </textarea>
