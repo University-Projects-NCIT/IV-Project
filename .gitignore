@@ -1,6 +1,0 @@
-/env
-/package-lock.json
-
-#if gitignore is not working 
-#git rm -rf --cached .
-#git add .
