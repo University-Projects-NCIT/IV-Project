@@ -109,12 +109,12 @@ const MainContent: React.FC = React.memo(
 									</div>
 								</div>
 								<IconContext.Provider
-									value={{ color: "#F39912", size: "1.3rem" }}
+									value={{ color: "#F39912"}}
 								>
 									<div className="w-6 h-6 -mt-3 realtive cursor-pointer">
 										<div className="option-btn w-6 h-6 rounded-full absolute"></div>
 										<div className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary">
-											<IoMdNotifications className="m-auto" />
+											<IoMdNotifications className="m-auto text-2xl" />
 										</div>
 									</div>
 								</IconContext.Provider>
