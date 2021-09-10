@@ -110,14 +110,16 @@ const MainContent: React.FC = React.memo(
 					
 					<div className={moreDivShow ? "visible absolute z-40 p-4 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-10 md:mr-4" :
 						"hidden absolute z-40 p-4 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-10 md:mr-4"}>
-						<div className="h-full w-full bg-item_list_bg rounded-md ">
-							<ShowMore/>
+						<div className="h-auto w-full bg-item_list_bg border-2 border-gray-600 rounded-md">
+							<ToggleContext.Provider value={toggle}>
+								<ShowMore />
+							</ToggleContext.Provider>
 						</div>
 					</div>
 
 					<div className={notificationShow ? "visible absolute right-0 z-50 p-6 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-8 md:mr-4" :
 						"hidden absolute right-0 z-50 p-6 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-8 md:mr-4"}>
-						<div className="h-52 w-full bg-item_list_bg rounded-md ">
+						<div className="h-52 w-full bg-item_list_bg border-2 border-gray-600 rounded-md">
 							<h1 className="text-white text-lg opacity-80 p-4">Your Daily Notifications </h1>
 							<p className="text-white opacity-50 text-center align-middle mt-8">No New Notifications yet !</p>
 						</div>
