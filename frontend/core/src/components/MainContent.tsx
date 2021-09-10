@@ -16,8 +16,7 @@ import SearchedResults from "./SearchedResults";
 import DisplayProfile from "./DisplayProfile";
 import { useQuery } from "react-query";
 import { getProfileImage } from "../apis/productapi";
-import ShowMore from './ShowMore'
-
+import ShowMore from "./ShowMore";
 
 const MainContent: React.FC = React.memo(
 	({ user, isAuthenticated }: any): JSX.Element => {
@@ -35,8 +34,8 @@ const MainContent: React.FC = React.memo(
 		const [isDisplaySearchedResults, setIsDisplaySeachedResults] =
 			useState(false);
 		const [arrowVisible, setArrowVisible] = useState(false);
-		const [moreDivShow, setMoreDivShow] = useState(false)
-		const [notificationShow, setNotificationShow] = useState(false)
+		const [moreDivShow, setMoreDivShow] = useState(false);
+		const [notificationShow, setNotificationShow] = useState(false);
 
 		const router = useRouter();
 		let userid;
@@ -76,6 +75,7 @@ const MainContent: React.FC = React.memo(
 
 		const toggleVisible = () => {
 			const scrolled = document.documentElement.scrollTop;
+			console.log("scroll", scrolled);
 			scrolled > 300 ? setArrowVisible(true) : setArrowVisible(false);
 		};
 
@@ -88,15 +88,15 @@ const MainContent: React.FC = React.memo(
 		}
 
 		const moreBtnClick = () => {
-			setMoreDivShow(!moreDivShow)
-			setNotificationShow(false)
-		}
+			setMoreDivShow(!moreDivShow);
+			setNotificationShow(false);
+		};
 
 		const notificationBtnCLick = () => {
-			setMoreDivShow(false)
-			setNotificationShow(!notificationShow)
-		}
- 
+			setMoreDivShow(false);
+			setNotificationShow(!notificationShow);
+		};
+
 		return (
 			<>
 				{loginForm && !isAuthenticated ? (
@@ -105,23 +105,35 @@ const MainContent: React.FC = React.memo(
 					</ToggleContext.Provider>
 				) : null}
 
-
-				<div className="h-auto w-full min-h-screen rounded-t-lg -mt-4 bg-drak_blue_background z-10  relative">
-					
-					<div className={moreDivShow ? "visible absolute z-40 p-4 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-10 md:mr-4" :
-						"hidden absolute z-40 p-4 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-10 md:mr-4"}>
-						<div className="h-auto w-full bg-item_list_bg border-2 border-gray-600 rounded-md">
+				<div className='h-auto w-full min-h-screen rounded-t-lg -mt-4 bg-drak_blue_background z-10  relative'>
+					<div
+						className={
+							moreDivShow
+								? "visible absolute z-40 p-4 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-10 md:mr-4"
+								: "hidden absolute z-40 p-4 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-10 md:mr-4"
+						}
+					>
+						<div className='h-auto w-full bg-item_list_bg border-2 border-gray-600 rounded-md'>
 							<ToggleContext.Provider value={toggle}>
 								<ShowMore />
 							</ToggleContext.Provider>
 						</div>
 					</div>
 
-					<div className={notificationShow ? "visible absolute right-0 z-50 p-6 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-8 md:mr-4" :
-						"hidden absolute right-0 z-50 p-6 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-8 md:mr-4"}>
-						<div className="h-52 w-full bg-item_list_bg border-2 border-gray-600 rounded-md">
-							<h1 className="text-white text-lg opacity-80 p-4">Your Daily Notifications </h1>
-							<p className="text-white opacity-50 text-center align-middle mt-8">No New Notifications yet !</p>
+					<div
+						className={
+							notificationShow
+								? "visible absolute right-0 z-50 p-6 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-8 md:mr-4"
+								: "hidden absolute right-0 z-50 p-6 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-8 md:mr-4"
+						}
+					>
+						<div className='h-52 w-full bg-item_list_bg border-2 border-gray-600 rounded-md'>
+							<h1 className='text-white text-lg opacity-80 p-4'>
+								Your Daily Notifications{" "}
+							</h1>
+							<p className='text-white opacity-50 text-center align-middle mt-8'>
+								No New Notifications yet !
+							</p>
 						</div>
 						{/* <div className="bottom-0 flex flex-row ">
 							<div className="h-12 w-1/2  "></div>
@@ -131,10 +143,8 @@ const MainContent: React.FC = React.memo(
 						</div> */}
 					</div>
 
-					
-					<div className="w-16 h-16 rounded-full m-auto relative -mt-8 mb-4">
-						<div className="profile-image-back w-16 h-16 rounded-full absolute"></div>
-
+					<div className='w-16 h-16 rounded-full m-auto relative -mt-8 mb-4'>
+						<div className='profile-image-back w-16 h-16 rounded-full absolute'></div>
 						<div
 							className='absolute cursor-pointer'
 							onClick={user == null ? () => toggle() : () => displayProfile()}
@@ -149,39 +159,31 @@ const MainContent: React.FC = React.memo(
 							/>
 						</div>
 					</div>
-
-						<div>
-						<div className="flex flex-row w-32 m-auto justify-center">
-							
-							<div onClick={moreBtnClick} className="w-6 h-6 -mt-3 relative cursor-pointer">
-									<div className="option-btn w-6 h-6 rounded-full absolute"></div>
-									<div className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary">
-										<FiMoreHorizontal size={25} color="#ffffff"/>
-									</div>
-							</div>
-							
-								<div className="w-6 h-6 m-2 relative cursor-pointer">
-									<div className="option-btn w-6 h-6 rounded-full absolute"></div>
-									<div
-										onClick={() => router.push("/post/")}
-										className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary"
-									>
-										<MdAdd size={25} color="#ffffff"/>
-									</div>
-								</div>
-								<div onClick={notificationBtnCLick} className="w-6 h-6 -mt-3 relative cursor-pointer">
-									<div className="option-btn w-6 h-6 rounded-full absolute"></div>
-									<div className="icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary">
-										<IoMdNotifications
-											className="m-auto"
-											size={23}
-											color="#F39912"
-										/>
-									</div>
-
+					<div>
+						<div className='flex flex-row w-32 m-auto justify-center'>
+							<div
+								onClick={moreBtnClick}
+								className='w-6 h-6 -mt-3 relative cursor-pointer'
+							>
+								<div className='option-btn w-6 h-6 rounded-full absolute'></div>
+								<div className='icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary'>
+									<FiMoreHorizontal size={25} color='#ffffff' />
 								</div>
 							</div>
-							<div className='w-6 h-6 -mt-3 relative cursor-pointer'>
+
+							<div className='w-6 h-6 m-2 relative cursor-pointer'>
+								<div className='option-btn w-6 h-6 rounded-full absolute'></div>
+								<div
+									onClick={() => router.push("/post/")}
+									className='icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary'
+								>
+									<MdAdd size={25} color='#ffffff' />
+								</div>
+							</div>
+							<div
+								onClick={notificationBtnCLick}
+								className='w-6 h-6 -mt-3 relative cursor-pointer'
+							>
 								<div className='option-btn w-6 h-6 rounded-full absolute'></div>
 								<div className='icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary'>
 									<IoMdNotifications
@@ -231,7 +233,6 @@ const MainContent: React.FC = React.memo(
 						.newscard {
 							display: none;
 						}
-
 						.profile-image-back {
 							background: conic-gradient(
 								from 180deg at 50% 50%,
@@ -263,14 +264,12 @@ const MainContent: React.FC = React.memo(
 							);
 							filter: blur(2px);
 						}
-
 						.left-container {
 							width: 100%;
 						}
 						.right-container {
 							display: block;
 						}
-
 						@media only screen and (min-width: 768px) {
 							.left-container {
 								width: 65%;
@@ -279,7 +278,6 @@ const MainContent: React.FC = React.memo(
 								width: 35%;
 								display: block;
 							}
-
 							.newscard {
 								display: block;
 							}
