@@ -5,7 +5,7 @@ const MainComponent: React.FC = () => {
 
 
 	return (
-		<>
+		<div>
 			<div className="w-full h-auto bg-white-500 flex flex-col">
 				
 				<div className="w-full h-32 sm:h-60">
@@ -44,7 +44,7 @@ const MainComponent: React.FC = () => {
 					}
 				`}
 			</style>
-		</>
+		</div>
 	);
 };
 

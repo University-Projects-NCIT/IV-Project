@@ -120,7 +120,7 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 							})}
 						</div>
 					</div>
-					<div onClick={upvoteHandler} className="z-50 justify-items-end ml-2 h-14 w-14 md:w-16 md:h-16 bg-color7 hover:opacity-70 rounded-lg flex flex-col items-center justify-center flex-shrink-0">
+					<div onClick={upvoteHandler} className="z-30 justify-items-end ml-2 h-14 w-14 md:w-16 md:h-16 bg-color7 hover:opacity-70 rounded-lg flex flex-col items-center justify-center flex-shrink-0">
 						<div>
 							<BsFillTriangleFill className="color-black" />
 						</div>
