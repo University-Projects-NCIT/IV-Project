@@ -1,3 +1,3 @@
 import React from 'react'
 
-const GoogleResponseContext = React.createContext(null)
+export const ProductIdContext = React.createContext({});

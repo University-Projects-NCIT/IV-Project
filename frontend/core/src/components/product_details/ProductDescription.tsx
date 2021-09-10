@@ -41,6 +41,7 @@ const ProductDescription: React.FC<ProductInterface> = ({
 			{/* right side container */}
 			<div className='space-y-7 lg:w-1/4'>
 				<DetailPageButtons />
+				
 				{typeof fetchUser.data != "undefined" && (
 					<ProductHunter {...fetchUser.data} />
 				)}

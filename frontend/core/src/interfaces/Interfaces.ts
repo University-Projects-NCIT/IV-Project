@@ -10,7 +10,7 @@ export interface ProductInterface {
 	upvote?: BigInt;
 	product_icon: [] | ProductIconInterface[];
 	product_images: [] | ProductImagesInterface[];
-	product_comment: [] | ProductCommentInteface[];
+	product_comment: [] | ProductCommentInterface[];
 }
 
 export interface ProductImagesProps {
@@ -45,11 +45,16 @@ export interface ProductImagesInterface {
 	created_at: string;
 }
 
-export interface ProductCommentInteface {
-	id: BigInt;
+export interface ProductCommentInterface {
+	id: Number;
 	product: string;
 	comment: string;
+	author: string;
 	created_at: string;
+}
+
+export interface ProductCommentData {
+	data: ProductCommentInterface[];
 }
 
 export interface CardDataInterface {
