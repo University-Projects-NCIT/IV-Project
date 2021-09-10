@@ -14,30 +14,31 @@ const Details: React.FC = () => {
 		fetchProductByID
 	);
 
+	console.log("fetch product by id", data);
 	return (
 		// container for the details
-		<div className="bg-drak_blue_background h-auto min-h-screen p-8 flex">
+		<div className='bg-drak_blue_background h-auto min-h-screen p-8 flex'>
 			{data ? (
 				<div>
-					<div className="text-gray-100 flex space-x-5 items-center">
+					<div className='text-gray-100 flex space-x-5 items-center'>
 						<div>
-							{data.product_icon != "undefined" &&
-							data.product_icon.length != 0 ? (
+							{data.product_icon !== "undefined" &&
+							data.product_icon.length !== 0 ? (
 								<img
 									src={data.product_icon[0]["image"] || "./images/snapchat.png"}
-									alt="icon"
-									className="w-20 h-20 object-cover"
+									alt='icon'
+									className='w-20 h-20 object-cover'
 								/>
 							) : null}
 						</div>
 
-						<div className="space-y-1">
-							<h1 className="">{data.title}</h1>
-							<p className="text-sm text-gray-300">{data.tagline}</p>
-							<div className="flex space-x-3 text-xs ">
-								{typeof data.categories != "undefined"
+						<div className='space-y-1'>
+							<h1 className=''>{data.title}</h1>
+							<p className='text-sm text-gray-300'>{data.tagline}</p>
+							<div className='flex space-x-3 text-xs '>
+								{typeof data.categories !== "undefined"
 									? data.categories.map(({ name }) => (
-											<div className="cursor-pointer border-gray-300 border px-2 py-1">
+											<div className='cursor-pointer border-gray-300 border px-2 py-1'>
 												{name}
 											</div>
 									  ))
@@ -49,8 +50,8 @@ const Details: React.FC = () => {
 					<ProductDescription {...data} />
 
 					{/* Comment component */}
-					<div className="mt-8 text-white ">
-						<h3 className="uppercase text-xs py-5">Comment</h3>
+					<div className='mt-8 text-white '>
+						<h3 className='uppercase text-xs py-5'>Comment</h3>
 						<ProductComment />
 					</div>
 				</div>
