@@ -2,6 +2,8 @@ import { GoogleLogin } from 'react-google-login'
 import { connect } from 'react-redux'
 import { useMutation } from 'react-query'
 import { addProfileImage } from '../../apis/productapi';
+import { login ,googleAuthenticate} from '../../Redux/actions/auth.action';
+
 
 const GooglesignIn: React.FC = ({googleAuthenticate} : any) => {
 
@@ -11,7 +13,7 @@ const GooglesignIn: React.FC = ({googleAuthenticate} : any) => {
   }
 
 
-   const mutation = useMutation(addProfileImage, {
+  const mutation = useMutation(addProfileImage, {
     onSuccess: () => console.log("Added successfully "),
     onError: (err) => console.log(err)
   })
@@ -53,4 +55,4 @@ const mapStateToProps = state=> ({
   access: state.auth.access
 })
 
-export default connect(mapStateToProps)(GooglesignIn)
+export default connect(mapStateToProps,{login, googleAuthenticate})(GooglesignIn)
