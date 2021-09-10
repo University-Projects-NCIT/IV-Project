@@ -1,5 +1,5 @@
 export interface ProductInterface {
-	author: string;
+	author: number;
 	categories: [] | string[];
 	created_at: string;
 	description: string;
@@ -8,20 +8,29 @@ export interface ProductInterface {
 	tagline: string;
 	title: string;
 	upvote?: BigInt;
-	product_icon: [] | ProductIconInteface[];
-	product_images: [] | ProductImagesInteface[];
+	product_icon: [] | ProductIconInterface[];
+	product_images: [] | ProductImagesInterface[];
 	product_comment: [] | ProductCommentInteface[];
 }
 
+export interface ProductImagesProps {
+	product_images: ProductImagesInterface[];
+}
 export interface UserInterface {
 	email: string;
 	first_name: string;
 	last_name: string;
-	pk: number;
-	username: string;
+	id: number;
+	ProfileImage: ProfileInterface[];
 }
 
-export interface ProductIconInteface {
+export interface ProfileInterface {
+	userId: number;
+	created_at: string;
+	imageUrl: string;
+}
+
+export interface ProductIconInterface {
 	id: BigInt;
 	product: string;
 	image: string;
@@ -29,7 +38,7 @@ export interface ProductIconInteface {
 	updated_at: string;
 }
 
-export interface ProductImagesInteface {
+export interface ProductImagesInterface {
 	id: number;
 	product: string;
 	image: string;
@@ -59,11 +68,11 @@ export interface CardUpcommingListInterface {
 	itemData: ProductInterface;
 }
 
-export interface SlipInterface{
-	id: Number,
-	advice: String
+export interface SlipInterface {
+	id: Number;
+	advice: String;
 }
 
-export interface AdviceApiInterface{
-	data : SlipInterface
+export interface AdviceApiInterface {
+	data: SlipInterface;
 }

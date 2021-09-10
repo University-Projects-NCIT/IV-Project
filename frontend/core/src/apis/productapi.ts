@@ -1,12 +1,11 @@
 import { BACKEND_URL, LIMIT } from "../constraints";
-import axios from 'axios'
 
 const API_URL = BACKEND_URL;
 
 // fetch selected product details
 export const fetchProductByID = async ({ queryKey }) => {
 	const id = queryKey[1];
-	
+
 	let url = `${API_URL}/products/${id}`;
 
 	return await fetch(url, {
@@ -20,6 +19,7 @@ export const fetchProductByID = async ({ queryKey }) => {
 export const fetchUserByID = async ({ queryKey }) => {
 	const id = queryKey[1];
 	console.log("parameter passed from usequery", queryKey);
+
 	let url = `${API_URL}/users/${id}`;
 
 	return await fetch(url, {
@@ -183,8 +183,7 @@ export const getProfileImage = async ({ queryKey }) => {
 
 	const userId = queryKey[1];
 
-	if (userId == null || typeof userId == "undefined")
-	{
+	if (userId == null || typeof userId == "undefined") {
 		return;
 	}
 
@@ -227,7 +226,8 @@ export const addProduct = async (field) => {
 };
 
 export const addIcon = async (field) => {
-	const access = typeof window != "undefined" ? localStorage.getItem("access") : "";
+	const access =
+		typeof window != "undefined" ? localStorage.getItem("access") : "";
 	if (access == "") {
 		return alert("Unauthorized request ");
 	}
@@ -246,8 +246,6 @@ export const addIcon = async (field) => {
 		},
 		body: JSON.stringify(field),
 	});
-
-
 };
 
 export const addProductImages = async (field) => {
@@ -276,11 +274,11 @@ export const addProductImages = async (field) => {
 
 export const addProfileImage = async (field) => {
 	const access =
-			typeof window != "undefined" ? localStorage.getItem("access") : "";
-		if (access == "") {
-			return console.log("Unauthorized request ");
+		typeof window != "undefined" ? localStorage.getItem("access") : "";
+	if (access == "") {
+		return console.log("Unauthorized request ");
 	}
-	
+
 	const AUTH_HEADER = {
 		Authorization: `JWT ${access}`,
 	};

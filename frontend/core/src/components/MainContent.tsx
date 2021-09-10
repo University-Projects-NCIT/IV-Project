@@ -76,7 +76,6 @@ const MainContent: React.FC = React.memo(
 
 		const toggleVisible = () => {
 			const scrolled = document.documentElement.scrollTop;
-			console.log("scroll", scrolled);
 			scrolled > 300 ? setArrowVisible(true) : setArrowVisible(false);
 		};
 
@@ -106,6 +105,7 @@ const MainContent: React.FC = React.memo(
 					</ToggleContext.Provider>
 				) : null}
 
+
 				<div className="h-auto w-full min-h-screen rounded-t-lg -mt-4 bg-drak_blue_background z-10  relative">
 					
 					<div className={moreDivShow ? "visible absolute z-40 p-4 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-10 md:mr-4" :
@@ -134,8 +134,9 @@ const MainContent: React.FC = React.memo(
 					
 					<div className="w-16 h-16 rounded-full m-auto relative -mt-8 mb-4">
 						<div className="profile-image-back w-16 h-16 rounded-full absolute"></div>
+
 						<div
-							className="absolute cursor-pointer"
+							className='absolute cursor-pointer'
 							onClick={user == null ? () => toggle() : () => displayProfile()}
 						>
 							<img
@@ -144,10 +145,11 @@ const MainContent: React.FC = React.memo(
 										? profileImageQuery.data[0].imageUrl
 										: "images/cryptopunk8550.png"
 								}
-								className="w-16 h-16 rounded-full"
+								className='w-16 h-16 rounded-full'
 							/>
 						</div>
 					</div>
+
 						<div>
 						<div className="flex flex-row w-32 m-auto justify-center">
 							
@@ -176,14 +178,26 @@ const MainContent: React.FC = React.memo(
 											color="#F39912"
 										/>
 									</div>
+
 								</div>
 							</div>
-							<div className="ml-4 mr-4 mt-2 md:ml-4 md:-mt-8 md:mr-16">
-								<Search search={search} />
+							<div className='w-6 h-6 -mt-3 relative cursor-pointer'>
+								<div className='option-btn w-6 h-6 rounded-full absolute'></div>
+								<div className='icon-btn rounded-full w-6 h-6 absolute bg-blue_secondary'>
+									<IoMdNotifications
+										className='m-auto'
+										size={23}
+										color='#F39912'
+									/>
+								</div>
 							</div>
 						</div>
-					<div className="w-full flex md:flex-row flex-col-reverse mt-8">
-						<div className="left-container h-auto flex flex-col md:pl-32 pr-4 pl-4">
+						<div className='ml-4 mr-4 mt-2 md:ml-4 md:-mt-8 md:mr-16'>
+							<Search search={search} />
+						</div>
+					</div>
+					<div className='w-full flex md:flex-row flex-col-reverse mt-8'>
+						<div className='left-container h-auto flex flex-col md:pl-32 pr-4 pl-4'>
 							{isDisplayProfile ? (
 								<DisplayProfile />
 							) : isDisplaySearchedResults ? (
@@ -192,11 +206,11 @@ const MainContent: React.FC = React.memo(
 								<DisplayProductList />
 							)}
 						</div>
-						<div className="right-container h-auto pt-1 mr-4 ml-4 lg:mr-40">
+						<div className='right-container h-auto pt-1 mr-4 ml-4 lg:mr-40'>
 							<div>
 								<UpcomingProductCard />
 							</div>
-							<div className="newscard mb-8 md:">
+							<div className='newscard mb-8 md:'>
 								<NewsLetterCard />
 							</div>
 						</div>
@@ -204,10 +218,10 @@ const MainContent: React.FC = React.memo(
 					{/* arrow up */}
 					{arrowVisible ? (
 						<div
-							className="fixed text-5xl right-8 cursor-pointer bottom-8 z-50  "
+							className='fixed text-5xl right-8 cursor-pointer bottom-8 z-50  '
 							onClick={scrollToTop}
 						>
-							<FiArrowUpCircle className="text-white " />
+							<FiArrowUpCircle className='text-white ' />
 						</div>
 					) : null}
 				</div>
