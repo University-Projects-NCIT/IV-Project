@@ -24,27 +24,22 @@ const ProductDescription: React.FC<ProductInterface> = ({
 	}
 
 	return (
-		<div className='mt-8 flex md:flex-row items-start flex-col '>
+		<div className='mt-8 flex space-y-4 lg:space-y-0 lg:items-start lg:justify-between flex-col lg:flex-row'>
 			{/* product description container */}
-			<div className='bg-item_list_bg rounded-sm p-6 md:w-8/12 w-full'>
+			<div className='bg-item_list_bg rounded-sm p-6 lg:w-2/3'>
 				{/* screenshots of product */}
 				<div>
-					{/* {typeof product_images != "undefined"
-						? product_images.map(({ image }) => {
-								return <ImageCarousel image={image} />;
-						  })
-						: null} */}
 					<ImageCarousel product_images={product_images} />
 				</div>
 
 				{/* product description */}
 				<div className='mt-5'>
-					<p className='text-sm text-gray-300'>{description}</p>
+					<p className='text-sm lg:text-base text-gray-300'>{description}</p>
 				</div>
 			</div>
 
 			{/* right side container */}
-			<div className=' w-auto ml-10 space-y-7'>
+			<div className='space-y-7 lg:w-1/4'>
 				<DetailPageButtons />
 				
 				{typeof fetchUser.data != "undefined" && (
