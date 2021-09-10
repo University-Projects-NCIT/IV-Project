@@ -67,9 +67,21 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!isAuthenticated || user == null)
+    // if (!isAuthenticated || user == null)
+    // {
+    //  return alert("login First To Post ") 
+    // }
+
+    if (formData.tagline.length < 40 || formData.tagline.length > 100)
     {
-     return alert("login First To Post ") 
+      alert("tagline must be 40 to 100 char")
+      return
+    }
+
+    if (formData.description.length < 200)
+    {
+      alert("Description must atleast 200 char")
+      return
     }
 
     for (let i in inputRef.current) {
@@ -90,6 +102,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
       {
         inputRef.current[i].classList.add("red-border")
         inputRef.current[i].focus()
+
         return
       } else {
         inputRef.current[i].classList.remove("red-border")

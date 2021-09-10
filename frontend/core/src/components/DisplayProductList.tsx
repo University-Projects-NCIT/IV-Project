@@ -73,7 +73,7 @@ const displayProductList: React.FC = () => {
 
 	return (
 		<>
-			<div className="flex flex-row text-white justify-end -mb-4">
+			<div className="flex flex-row text-white align-middle justify-end -mb-4">
 				<button
 					className="pl-2 pr-2 pt-1 btn bg-color4 opacity-60 hover:opacity-70"
 					onClick={() => setProductOrderBy(POPULAR)}
@@ -125,7 +125,7 @@ const displayProductList: React.FC = () => {
 
 				.line {
 					width: 3px;
-					height: 100%;
+					height: auto;
 					background: linear-gradient(#2f80ed, #ec1616);
 				}
 			`}</style>
