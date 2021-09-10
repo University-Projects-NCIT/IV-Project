@@ -2,8 +2,9 @@ import React, { useState, useEffect , useContext, useRef} from 'react';
 import { connect } from 'react-redux';
 import { login ,googleAuthenticate} from '../../Redux/actions/auth.action';
 import { useRouter } from 'next/router'
-import GoogleSignIn from './GoogleSignin'
-
+import { GoogleLogin} from 'react-google-login'
+import { useMutation } from 'react-query';
+import { addProfileImage } from '../../apis/productapi';
 
 interface PropsInterface{
   access: string;
@@ -26,7 +27,10 @@ const Login: React.FC<PropsInterface> = React.memo(({ access, error, isAuthentic
   const { email, password } = fromData;
   const inputRef = useRef([])
 
- 
+  const mutation = useMutation(addProfileImage, {
+    onSuccess: () => console.log("Added successfully "),
+    onError: (err) => console.log(err)
+  })
 
   
 
@@ -73,16 +77,38 @@ const Login: React.FC<PropsInterface> = React.memo(({ access, error, isAuthentic
 
    
 
-  
+  const getId = (id, imageUrl) => {
+    mutation.mutate({userId: id, imageUrl})
+  }
 
 
+  const responseGoogle = (response) => {
+    
+    console.log("resposne", response)
+    
+    if (typeof response.accessToken != "undefined")
+    {
+      console.log("resposne ", response.profileObj.imageUrl)
+      const imageUrl = response.profileObj.imageUrl
+      googleAuthenticate(response.accessToken, imageUrl, getId)
+    }
+
+  }
 
   return (
     <>
       <div className="w-full h-auto">
         <div><img src="/images/cryptopunk8550.png" className="w-24 h-24 mb-8 rounded-full m-auto"></img></div>
-        
-        <GoogleSignIn/>
+        <GoogleLogin
+          clientId="868430702423-gk55l9271hl75gotk2hh3t89u2etnmhj.apps.googleusercontent.com"
+          buttonText="Login with Google Account"
+          disabled={false}
+          className="w-full"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
+        />
+
 
         <div className="flex flex-col-row items-center mt-4 mb-4">
           <div className="line w-1/2 bg-gray-300"></div>
@@ -129,11 +155,9 @@ const Login: React.FC<PropsInterface> = React.memo(({ access, error, isAuthentic
 						outline: none;
 						box-shadow: 0.1px 0.1px 1px 0.1px red;
           }
-
           .line {
             height: 1px;
           }
-
       .input {
 						color: #ffffff;
 						padding-left: 1rem;
