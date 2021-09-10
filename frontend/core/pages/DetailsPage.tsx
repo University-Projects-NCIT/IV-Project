@@ -17,9 +17,9 @@ const Details: React.FC = () => {
 	console.log("fetch product by id", data);
 	return (
 		// container for the details
-		<div className='bg-drak_blue_background h-auto min-h-screen p-8 flex'>
+		<div className='bg-drak_blue_background p-8'>
 			{data ? (
-				<div>
+				<div className='w-full'>
 					<div className='text-gray-100 flex space-x-5 items-center'>
 						<div>
 							{data.product_icon !== "undefined" &&
@@ -27,13 +27,13 @@ const Details: React.FC = () => {
 								<img
 									src={data.product_icon[0]["image"] || "./images/snapchat.png"}
 									alt='icon'
-									className='w-20 h-20 object-cover'
+									className='w-20 h-14 lg:h-20 object-cover'
 								/>
 							) : null}
 						</div>
 
 						<div className='space-y-1'>
-							<h1 className=''>{data.title}</h1>
+							<h1 className='text-base'>{data.title}</h1>
 							<p className='text-sm text-gray-300'>{data.tagline}</p>
 							<div className='flex space-x-3 text-xs '>
 								{typeof data.categories !== "undefined"
