@@ -155,11 +155,9 @@ const Login: React.FC<PropsInterface> = React.memo(({ access, error, isAuthentic
 						outline: none;
 						box-shadow: 0.1px 0.1px 1px 0.1px red;
           }
-
           .line {
             height: 1px;
           }
-
       .input {
 						color: #ffffff;
 						padding-left: 1rem;

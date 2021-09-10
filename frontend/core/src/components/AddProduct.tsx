@@ -67,9 +67,21 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!isAuthenticated || user == null)
+    // if (!isAuthenticated || user == null)
+    // {
+    //  return alert("login First To Post ") 
+    // }
+
+    if (formData.tagline.length < 40 || formData.tagline.length > 100)
     {
-     return alert("login First To Post ") 
+      alert("tagline must be 40 to 100 char")
+      return
+    }
+
+    if (formData.description.length < 200)
+    {
+      alert("Description must atleast 200 char")
+      return
     }
 
     for (let i in inputRef.current) {
@@ -90,6 +102,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
       {
         inputRef.current[i].classList.add("red-border")
         inputRef.current[i].focus()
+
         return
       } else {
         inputRef.current[i].classList.remove("red-border")
@@ -270,6 +283,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
             required
             type="text"
             name="title"
+            maxLength={25}
             onChange={onChange}
             value={formData.title}
             ref={(ref) => inputRef.current[0] = ref}
@@ -281,20 +295,24 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
           <input
             type="text"
             name="tagline"
+            maxLength={100}
+            minLength={50}
             onChange={onChange}
+            placeholder="brief description from 50 char upto 100 char "
             value={formData.tagline}
             ref={(ref) => inputRef.current[1] = ref}
             className="w-full h-9 mb-4 hover:opacity-70 bg-item_list_bg text-lg border-none input rounded-sm"
             required>
           </input>
         
-          <label className="block capitalize mb-2" htmlFor="title">Description of your App<span className="text-red-600"> *</span></label>
+          <label className="block capitalize mb-2" htmlFor="title">Description of your product <span className="text-red-600"> *</span></label>
           <textarea
-            name="description"
+            name="description" 
             onChange={onChange}
+            minLength={200}
             value={formData.description}
             ref={(ref) => inputRef.current[2] = ref}
-            placeholder="Describe about you app ."
+            placeholder="Describe about your product in details"
             className="w-full pt-2 hover:opacity-70 textarea mb-4 bg-item_list_bg border-none input rounded-sm"
             required>
           </textarea>

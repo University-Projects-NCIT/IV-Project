@@ -13,8 +13,8 @@ const LoginForm: React.FC = () => {
 	const [loginState, setLoginState] = useState(true);
 
 	const context = useContext(ToggleContext);
-	const authRef = React.useRef(null)
 	const toggle: any = context;
+	const authRef = React.useRef(null)
 
 	// const backClick = () => {
 	// 	toggle();

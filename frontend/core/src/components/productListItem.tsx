@@ -110,7 +110,7 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 						<h4 className="text-sm xs:text-base capitalize">{title}</h4>
 						<span className="text-xs xs:text-sm text-white opacity-70">{tagline}</span>
 							<div className="min-h-0 min-w-0 flex flex-end justify-items-end">
-								<p className="tags mr-2">Tags :</p>
+								{/* <p className="tags mr-2">Tags :</p> */}
 							{categories.map((item) => {
 								return (
 									<p className="category mr-2 capitalize" key={uuidv4()}>
@@ -120,7 +120,7 @@ const ProductListItem: React.FC<CardItemDataInterface> = ({itemData, isAuthentic
 							})}
 						</div>
 					</div>
-					<div onClick={upvoteHandler} className="z-50 justify-items-end ml-2 h-14 w-14 md:w-16 md:h-16 bg-color7 hover:opacity-70 rounded-lg flex flex-col items-center justify-center flex-shrink-0">
+					<div onClick={upvoteHandler} className="z-30 justify-items-end ml-2 h-14 w-14 md:w-16 md:h-16 bg-color7 hover:opacity-70 rounded-lg flex flex-col items-center justify-center flex-shrink-0">
 						<div>
 							<BsFillTriangleFill className="color-black" />
 						</div>

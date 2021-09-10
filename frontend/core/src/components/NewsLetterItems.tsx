@@ -18,9 +18,17 @@ const NewsLetterItems: React.FC<AdviceApiInterface> = ({ data } : any) => {
 	// const [data, setData] = useState<NewsInterface>(initialValues);
 
 	return (
-		<div className="bg-color5 text-white text-center pl-4 pr-4 pt-8 pb-10 min-h-full">
-			<div className="text-yellow-400 text-lg font-serif">{data.slip.advice}</div>
+		<div className=" text-white text-center pl-4 pr-4 pt-8 pb-10 min-h-full">
+			<div className="quote text-xl">{data.slip.advice}</div>
 			{/* <div className="mt-2">{data.date}</div> */}
+
+			<style jsx>
+				{`
+				.quote{
+					color: orange;	
+				}
+				`}
+			</style>
 		</div>
 	);
 };
