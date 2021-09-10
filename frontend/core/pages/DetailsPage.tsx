@@ -4,6 +4,7 @@ import ProductComment from "../src/components/product_details/ProductComment";
 import ProductDescription from "../src/components/product_details/ProductDescription";
 import { fetchProductByID, fetchUserByID } from "../src/apis/productapi";
 import { useRouter } from "next/router";
+import { ProductIdContext } from "../src/Contexts/Context";
 
 const Details: React.FC = () => {
 	const router = useRouter();
@@ -15,6 +16,7 @@ const Details: React.FC = () => {
 	);
 
 	console.log("fetch product by id", data);
+
 	return (
 		// container for the details
 		<div className='bg-drak_blue_background h-auto min-h-screen p-8 flex'>
@@ -22,7 +24,8 @@ const Details: React.FC = () => {
 				<div>
 					<div className='text-gray-100 flex space-x-5 items-center'>
 						<div>
-							{data.product_icon !== "undefined" &&
+							{
+							data.product_icon !== "undefined" &&
 							data.product_icon.length !== 0 ? (
 								<img
 									src={data.product_icon[0]["image"] || "./images/snapchat.png"}
@@ -52,7 +55,7 @@ const Details: React.FC = () => {
 					{/* Comment component */}
 					<div className='mt-8 text-white '>
 						<h3 className='uppercase text-xs py-5'>Comment</h3>
-						<ProductComment />
+							<ProductComment key={data.productID} id={String(id)}/>
 					</div>
 				</div>
 			) : null}

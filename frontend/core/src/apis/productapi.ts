@@ -30,6 +30,18 @@ export const fetchUserByID = async ({ queryKey }) => {
 	}).then((res) => res.json());
 };
 
+export const fetchCommentByProductId = async ({ queryKey }) => {
+	const productId = queryKey[1];
+	let url = `${API_URL}/comments/?productID=${productId}`;
+
+	return await fetch(url, {
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+		},
+	}).then((res) => res.json());
+};
+
 export const fecthProducts = async ({ queryKey, pageParam = 0 }) => {
 	const order = queryKey[1];
 	let url = `${API_URL}/products/?m_order=${order}&limit=${LIMIT}`;
@@ -255,7 +267,6 @@ export const addProductImages = async (field) => {
 		return alert("Unauthorized request ");
 	}
 
-	console.log(field);
 	let url = `${API_URL}/product_images/`;
 
 	const AUTH_HEADER = {
@@ -283,7 +294,6 @@ export const addProfileImage = async (field) => {
 		Authorization: `JWT ${access}`,
 	};
 
-	console.log(field);
 	let url = `${API_URL}/profile_images/`;
 
 	return await fetch(url, {
@@ -317,3 +327,26 @@ export const addCategories = async (field) => {
 		body: JSON.stringify(field),
 	});
 };
+
+export const addComment = async (field) => {
+	const access =
+		typeof window !== "undefined" ? localStorage.getItem("access") : "";
+	if (access == "") {
+		return alert("Unauthorized request ");
+	}
+
+	let url = `${API_URL}/comments/`;
+	const AUTH_HEADER = {
+		Authorization: `JWT ${access}`,
+	};
+
+	return await fetch(url, {
+		method: "POST",
+		headers: {
+			...AUTH_HEADER,
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(field),
+	});
+};
+

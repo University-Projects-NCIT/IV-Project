@@ -1,44 +1,92 @@
 import React, { useState } from "react";
+import { ProductCommentData, UserInterface } from '../../interfaces/Interfaces'
+import { ProductIdContext } from '../../Contexts/Context'
+import { useMutation, useQueryClient } from 'react-query'
+import { addComment, fetchCommentByProductId } from '../../apis/productapi'
+import { connect } from 'react-redux'
+import { useQuery } from "react-query";
+import Comment from './Comment'
 
-const ProductComment: React.FC = () => {
-	const cols = 10;
-	const rows = 8;
+interface postComment {
+		product: string;
+		comment: string;
+		author: Number;
+}
+	
 
-	const value = [
-		{
-			userName: "Grishmin",
-			comment:
-				"Great stuff! I'll make sure to share with clients who struggle and get lost in the process. Super helpful.",
-			avatar: "./images/michaeljackson.jpg",
-			id: 1,
-		},
-		{
-			userName: "Grish",
-			comment:
-				"It's insane! I like it and build my landing pages with this cool Checklist. ",
-			avatar: "./images/michaeljackson.jpg",
-			id: 2,
-		},
-	];
+interface PropsInterface {
+	id: String
+	user: UserInterface;
+	isAuthenticated: Boolean;
+}
 
-	const [comments, setComments] = useState(value);
+const ProductComment: React.FC<PropsInterface> = ({ id, user, isAuthenticated } :any) => {
+
+
 
 	
+	const queryClient = useQueryClient()
+
+
+	const mutateComment = useMutation(addComment, {
+		onSuccess: () => {
+			queryClient.invalidateQueries("fetchComment")
+
+		},
+		onError : (error) => console.log(error, "comment add error ")
+	})
+
+	const { data, error, isLoading } = useQuery(["fetchComment", id], fetchCommentByProductId)
+	
+
+	const commentData: postComment= {
+		comment: "",
+		author: user.pk,
+		product: id,
+	}
+
+	const [formData, setFormData] = useState(commentData)
+
+
+	const onChangeTextArea = (event) =>
+	{
+		setFormData({...formData ,[event.target.name]: event.target.value})
+	}
+
+
+
+	const onSubmitComment = () => {
+		console.log(formData, "from data ")
+
+		if (formData.comment == "") {
+			alert("empty comment ")
+			return
+		} else {
+			mutateComment.mutate(formData)
+			setFormData({...formData, comment: ""})
+		}
+
+	}
+
+
 	return (
 		<>
-			<div className="bg-item_list_bg rounded-sm p-6 w-3/5">
+			<div className="bg-item_list_bg rounded-sm p-4 w-full md:w-8/12">
 				{/* textarea */}
 				<div>
 					<textarea
-						cols={cols}
-						rows={rows}
+						cols={10}
+						rows={8}
+						onChange={onChangeTextArea}
+						value={formData.comment}
+						name= "comment"
 						className="bg-drak_blue_background w-full rounded-md p-2 
 					 text-sm border border-gray-600 focus:ring-2  focus:ring-blue-600 
 					 focus:outline-none focus:border-transparent"
 						placeholder="Leave a comment"
 					></textarea>
 					<div className="flex justify-end mt-2">
-						<button
+						<button onClick={onSubmitComment}
 							className="bg-buttonGreen px-5 py-2 text-sm rounded-md 
 						focus:outline-none focus:border-transparent"
 						>
@@ -49,24 +97,13 @@ const ProductComment: React.FC = () => {
 
 				{/* comments */}
 				<div>
-					{comments.map((comment) => {
-						return (
-							<div key={comment.id} className="flex mb-3 space-x-3">
-								<div className="w-10">
-									<img
-										src={comment.avatar}
-										alt="avatar"
-										className="rounded-full"
-									/>
-								</div>
-
-								<div className="space-y-3 text-sm">
-									<h4 className="font-semibold">{comment.userName}</h4>
-									<p>{comment.comment}</p>
-								</div>
-							</div>
-						);
-					})}
+					{
+						Array.isArray(data) ? (
+							data.map((comment) => {
+								return (<Comment data = {comment} key={comment.id}/>)
+							})
+						) : null
+					}
 				</div>
 			</div>
 
@@ -81,4 +118,9 @@ const ProductComment: React.FC = () => {
 	);
 };
 
-export default ProductComment;
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  isAuthenticated: state.auth.isAuthenticated
+})
+
+export default connect(mapStateToProps, {})(ProductComment);

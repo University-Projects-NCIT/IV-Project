@@ -24,9 +24,9 @@ const ProductDescription: React.FC<ProductInterface> = ({
 	}
 
 	return (
-		<div className='mt-8 flex items-start'>
+		<div className='mt-8 flex md:flex-row items-start flex-col '>
 			{/* product description container */}
-			<div className='bg-item_list_bg rounded-sm p-6'>
+			<div className='bg-item_list_bg rounded-sm p-6 md:w-8/12 w-full'>
 				{/* screenshots of product */}
 				<div>
 					{/* {typeof product_images != "undefined"
@@ -46,6 +46,7 @@ const ProductDescription: React.FC<ProductInterface> = ({
 			{/* right side container */}
 			<div className=' w-auto ml-10 space-y-7'>
 				<DetailPageButtons />
+				
 				{typeof fetchUser.data != "undefined" && (
 					<ProductHunter {...fetchUser.data} />
 				)}
