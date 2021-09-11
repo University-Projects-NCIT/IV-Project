@@ -40,7 +40,7 @@ const ProductComment: React.FC<PropsInterface> = ({ id, user, isAuthenticated } 
 
 	const commentData: postComment= {
 		comment: "",
-		author: user.pk,
+		author: 0,
 		product: id,
 	}
 
@@ -55,16 +55,21 @@ const ProductComment: React.FC<PropsInterface> = ({ id, user, isAuthenticated } 
 
 
 	const onSubmitComment = () => {
-		console.log(formData, "from data ")
 
-		if (formData.comment == "") {
-			alert("empty comment ")
-			return
+		if (user != null) {
+			// setFormData({...formData ,author: user.pk})
+			
+			if (formData.comment == "") {
+				return
+			} else {
+				console.log(formData, "from data")
+
+				mutateComment.mutate({...formData, author: user.pk})
+				setFormData({...formData, comment: ""})
+			}
 		} else {
-			mutateComment.mutate(formData)
-			setFormData({...formData, comment: ""})
+			alert("Login first to comment ")
 		}
-
 	}
 
 
