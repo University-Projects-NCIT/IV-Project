@@ -15,11 +15,6 @@ const LoginForm: React.FC = () => {
 	const context = useContext(ToggleContext);
 	const toggle: any = context;
 	const authRef = React.useRef(null)
-
-	// const backClick = () => {
-	// 	toggle();
-	// 	// authRef.current.classList.add("trans_animate")
-	// } // REnder hook error 
 	
   return(
 		<>
@@ -51,8 +46,7 @@ const LoginForm: React.FC = () => {
 							margin-top: 4rem;
 							
 					}
-					
-						}
+					}
 
 					`}</style>
 		</>

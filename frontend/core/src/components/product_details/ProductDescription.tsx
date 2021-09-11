@@ -26,7 +26,7 @@ const ProductDescription: React.FC<ProductInterface> = ({
 	return (
 		<div className='mt-8 flex space-y-4 lg:space-y-0 lg:items-start lg:justify-between flex-col lg:flex-row'>
 			{/* product description container */}
-			<div className='bg-item_list_bg rounded-sm p-6 lg:w-2/3'>
+			<div className='bg-item_list_bg rounded-sm mb-8 md:mb-0 p-2 sm:p-4 lg:w-2/3'>
 				{/* screenshots of product */}
 				<div>
 					<ImageCarousel product_images={product_images} />
@@ -39,7 +39,7 @@ const ProductDescription: React.FC<ProductInterface> = ({
 			</div>
 
 			{/* right side container */}
-			<div className='space-y-7 lg:w-1/4'>
+			<div className='mt-20 sm:mt-0 space-y-4 sm:space-y-7 lg:w-1/4'>
 				<DetailPageButtons />
 				
 				{typeof fetchUser.data != "undefined" && (

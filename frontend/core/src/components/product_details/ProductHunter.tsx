@@ -16,7 +16,7 @@ const ProductHunter: React.FC<UserInterface> = ({
 				<div>
 					<div className='flex py-3 space-x-3'>
 						<div
-							className='img w-14 h-14 rounded-full'
+							className='img w-10 h-10 rounded-full'
 							style={{
 								backgroundImage: `url(${ProfileImage[0].imageUrl}) `,
 								backgroundRepeat: "no-repeat",
@@ -25,8 +25,8 @@ const ProductHunter: React.FC<UserInterface> = ({
 							}}
 						></div>
 
-						<div className=''>
-							<h1 className='text-sm font-semibold hover:text-gray-300 cursor-pointer'>
+						<div className='flex items-center'>
+							<h1 className='text-sm align-middle font-semibold hover:text-gray-300 cursor-pointer'>
 								{first_name + " " + last_name}
 							</h1>
 						</div>
