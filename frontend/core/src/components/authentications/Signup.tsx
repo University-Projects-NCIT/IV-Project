@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
 import { signup } from '../../Redux/actions/auth.action'
 import { v4 as uuidv4 } from 'uuid'
-import { useRouter } from 'next/router'
 import { AiFillEdit } from 'react-icons/ai'
 import { storage } from '../../firebase'
 
@@ -45,7 +44,6 @@ const Signup: React.FC<PropsInterface> = ({ error, isAuthenticated, signup, setL
     if (e.target.name == "profile_image")
     {
       setImageFile(URL.createObjectURL(e.target.files[0]));
-      console.log(e.target.files[0]);
       handleUploadImage(e.target.files[0]);
       return
     }

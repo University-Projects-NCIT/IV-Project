@@ -84,11 +84,9 @@ const Login: React.FC<PropsInterface> = React.memo(({ access, error, isAuthentic
 
   const responseGoogle = (response) => {
     
-    console.log("resposne", response)
     
     if (typeof response.accessToken != "undefined")
     {
-      console.log("resposne ", response.profileObj.imageUrl)
       const imageUrl = response.profileObj.imageUrl
       googleAuthenticate(response.accessToken, imageUrl, getId)
     }

@@ -19,11 +19,11 @@ const ImageCarousel: React.FC<ProductImagesProps> = ({
 		const index = (current + 1) % data.length;
 		setCurrent(index);
 		setImgUrl(data[index].image);
+
 	};
 
 	const previousImage = () => {
 		const index = current == 0 ? data.length - 1 : (current - 1) % data.length;
-		console.log("prev " + index);
 		setCurrent(index);
 		setImgUrl(data[index].image);
 	};
@@ -42,32 +42,31 @@ const ImageCarousel: React.FC<ProductImagesProps> = ({
 	return (
 		<>
 			{/* product images */}
-			<div className=' flex justify-between items-center '>
-				<div
-					className='text-lg lg:text-2xl text-white z-10 cursor-pointer'
+			<div className=' flex flex-row items-center overflow-hidden'>
+					<div className='flex-none sm:w-32 z-10 cursor-pointer'
 					onClick={previousImage}
-				>
-					<FaArrowAltCircleLeft />
-				</div>
-				<div className='px-5 lg:px-40 overflow-hidden flex items-center h-80 w-full'>
-					<img src={imgUrl} className='active' />
+					>
+						<FaArrowAltCircleLeft size={40} color="white"/>
+					</div>
+				<div className='flex-grow rounded-md m-4 sm:m-8 h-80'>
+					<img src={imgUrl} className='active rounded-md h-full w-full object-cover text-center' />
 				</div>
 
-				<div
-					className='text-lg lg:text-2xl text-white z-10 cursor-pointer'
+					<div
+					className='flex-none sm:p-0 sm:w-32 z-10 cursor-pointer flex justify-end justify-items-end'
 					onClick={nextImage}
-				>
-					<FaArrowAltCircleRight />
+					>
+					<div><FaArrowAltCircleRight  size={40} color="white" className=""/></div>
 				</div>
 			</div>
 
-			<div className=' h-14 mt-6 overflow-hidden w-full flex flex-row items-center space-x-2'>
+			<div className=' h-14 mt-6 overflow-hidden w-full flex flex-row items-center'>
 				{data.map((img, i) => {
 					return (
 						<div key={i}>
 							<img
 								src={img.image}
-								className='w-28 '
+								className='w-28 cursor-pointer'
 								onClick={() => setImgUrl(img.image)}
 							></img>
 						</div>

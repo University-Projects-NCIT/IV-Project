@@ -4,7 +4,6 @@ import ProductComment from "../src/components/product_details/ProductComment";
 import ProductDescription from "../src/components/product_details/ProductDescription";
 import { fetchProductByID, fetchUserByID } from "../src/apis/productapi";
 import { useRouter } from "next/router";
-import { ProductIdContext } from "../src/Contexts/Context";
 
 const Details: React.FC = () => {
 	const router = useRouter();
@@ -15,22 +14,21 @@ const Details: React.FC = () => {
 		fetchProductByID
 	);
 
-	console.log("fetch product by id", data);
 
 	return (
 		// container for the details
-		<div className='bg-drak_blue_background p-8'>
+		<div className='bg-drak_blue_background p-4 sm:p-8'>
 			{data ? (
 				<div className='w-full'>
 					<div className='text-gray-100 flex space-x-5 items-center'>
-						<div>
+						<div className="flex-shrink-0">
 							{
 							data.product_icon !== "undefined" &&
 							data.product_icon.length !== 0 ? (
 								<img
 									src={data.product_icon[0]["image"] || "./images/snapchat.png"}
 									alt='icon'
-									className='w-20 h-14 lg:h-20 object-cover'
+									className='w-20 h-20 object-cover items-center'
 								/>
 							) : null}
 						</div>

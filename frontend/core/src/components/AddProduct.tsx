@@ -278,6 +278,8 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
       <div className="w-full flex flex-col-reverse lg:flex-row overflow-hidden">
         <div className="w-full lg:w-2/3 2xl:w-1/2 m-auto lg:ml-0">
         <form onSubmit={onSubmit}>
+            <label className="block capitalize mb-2" ><span className="text-red-600 text-lg mb-4"> All the input fields are strictly required</span></label>
+              
           <label className="block capitalize mb-2" htmlFor="title">Title of your App<span className="text-red-600"> *</span></label>
           <input
             required
@@ -305,7 +307,7 @@ const AddProduct: React.FC = ({ user, isAuthenticated }: any) => {
             required>
           </input>
         
-          <label className="block capitalize mb-2" htmlFor="title">Description of your product <span className="text-red-600"> *</span></label>
+          <label className="block capitalize mb-2" htmlFor="description">Description of your product <span className="text-red-600"> *</span></label>
           <textarea
             name="description" 
             onChange={onChange}

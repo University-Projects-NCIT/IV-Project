@@ -22,7 +22,7 @@ const Comment: React.FC<propsInterface> = ({ data }) => {
         {
           userData.data != null ?
           <div className="flex flex-row items-center mb-6 mt-2">
-            <div className="mr-4 self-start mt-1 bg-red-500 w-8">
+            <div className="mr-4 self-start mt-1 w-8">
               {
                   userData.data.ProfileImage != null && typeof userData.data.ProfileImage != 'undefined' ?
                     ( 

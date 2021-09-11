@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { ProductCommentData, UserInterface } from '../../interfaces/Interfaces'
-import { ProductIdContext } from '../../Contexts/Context'
+import { UserInterface } from '../../interfaces/Interfaces'
 import { useMutation, useQueryClient } from 'react-query'
 import { addComment, fetchCommentByProductId } from '../../apis/productapi'
 import { connect } from 'react-redux'
