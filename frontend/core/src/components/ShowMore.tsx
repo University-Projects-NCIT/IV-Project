@@ -26,7 +26,7 @@ const ShowMore: React.FC = () => {
       
       <div className="flex justify-around content-center p-8">
         <div className="cursor-pointer">
-          <img src= "./images/bug-01.png" className=" h-24 md:h-32 w-24 md:w-32 m-auto"></img>
+          <img src= "./images/Bug-01.png" className=" h-24 md:h-32 w-24 md:w-32 m-auto"></img>
           <p className="text-white text-lg md:text-2xl mt-2 text-center font-bold">Report Bug</p>
         </div>
 
