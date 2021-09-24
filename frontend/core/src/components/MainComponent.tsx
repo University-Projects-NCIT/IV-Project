@@ -23,7 +23,7 @@ const MainComponent: React.FC = () => {
 			<style jsx>
 				{`
 					.header {
-						background-image: url("./images/banner7.png");
+						background-image: url("./images/banner7.webp");
 						background-size: cover;
 						background-repeat: no-repeat;
 						background-position:center;

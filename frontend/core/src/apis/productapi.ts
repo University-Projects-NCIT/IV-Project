@@ -118,6 +118,7 @@ export const updateUpvote = async (props) => {
 	});
 };
 
+
 export const addProductUpvote = async (field) => {
 	const access =
 		typeof window !== "undefined" ? localStorage.getItem("access") : "";
@@ -140,6 +141,8 @@ export const addProductUpvote = async (field) => {
 		body: JSON.stringify(field),
 	});
 };
+
+
 export const deleteProductUpvote = async (id) => {
 	const access =
 		typeof window !== "undefined" ? localStorage.getItem("access") : "";
@@ -161,6 +164,7 @@ export const deleteProductUpvote = async (id) => {
 		},
 	});
 };
+
 
 export const getProductUpvote = async ({ queryKey }) => {
 	const access =
