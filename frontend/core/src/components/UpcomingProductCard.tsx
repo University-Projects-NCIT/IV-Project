@@ -34,7 +34,8 @@ const ProductListCard: React.FC = () => {
 			<div className="flex flex-row md:pb-2 text-white justify-end pb-2 ">
 				<div className="text-base">Upcoming Launch </div>
 			</div>
-			<div className="rounded-lg mb-8 overflow-hidden bg-color5">
+
+			<div className="upcomingcard rounded-lg mb-8 overflow-hidden bg-color5">
 				{
 					isLoading ?  LoadingPage():	
 					data != undefined && data.length != 0 ?
@@ -44,6 +45,15 @@ const ProductListCard: React.FC = () => {
 				}
 
 			</div>
+
+			<style jsx >
+				{`
+					upcomingcard
+					{
+						background : linear-gradient(to top right, #3366ff, #083C82);
+					}
+				`}
+			</style>
 		</>
 	);
 };

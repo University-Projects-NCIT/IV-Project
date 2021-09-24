@@ -31,13 +31,19 @@ const NewsLetterCard: React.FC = () => {
 			<div className="flex flex-row pb-2 mt-2 text-white justify-end">
 				<div className="text-base"> Your News Letter </div>
 			</div>
-			<div className="rounded-lg mb-4 overflow-hidden w-full h-auto bg-color5 opacity-70 text-white pt-4 pl-4 pr-4 ">
+			<div className="newscard rounded-lg mb-4 overflow-hidden bg-color5 w-full h-auto opacity-70 text-white pt-4 pl-4 pr-4 ">
 				{
 					data == null ? displayEmptyMsg() :
 						isLoading ? (<div className="w-full h-full bg-color5 animate-pulse"></div>):
 						<NewsLetterItems data={data}/>
 				}
 			</div>
+
+			<style jsx>{`
+				// .newscard{
+				// 	// background : linear-gradient(to top right, #3366ff,#6666ff);
+				// }
+			`}</style>
 		</>
 	);
 };

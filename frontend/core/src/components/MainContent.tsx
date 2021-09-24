@@ -17,6 +17,7 @@ import DisplayProfile from "./DisplayProfile";
 import { useQuery } from "react-query";
 import { getProfileImage } from "../apis/productapi";
 import ShowMore from "./ShowMore";
+import Image from 'next/image'
 
 const MainContent: React.FC = React.memo(
 	({ user, isAuthenticated }: any): JSX.Element => {
@@ -113,7 +114,7 @@ const MainContent: React.FC = React.memo(
 								: "hidden absolute z-40 p-4 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-10 md:mr-4"
 						}
 					>
-						<div className='h-auto w-full bg-item_list_bg border-2 border-gray-600 rounded-md'>
+						<div className='h-auto w-full bg-item_list_bg border-2 border-gray-600 shadow-xl  rounded-md'>
 							<ToggleContext.Provider value={toggle}>
 								<ShowMore />
 							</ToggleContext.Provider>
@@ -127,12 +128,13 @@ const MainContent: React.FC = React.memo(
 								: "hidden absolute right-0 z-50 p-6 md:p-0 h-52 w-full mt-20 md:w-5/12 md:m-4 md:mt-8 md:mr-4"
 						}
 					>
-						<div className='h-52 w-full bg-item_list_bg border-2 border-gray-600 rounded-md'>
-							<h1 className='text-white text-lg opacity-80 p-4'>
-								Your Daily Notifications{" "}
+						<div className='h-80 w-full bg-item_list_bg border-2 border-gray-600 shadow-xl rounded-md'>
+							<h1 className='text-white text-lg opacity-80 pt-2 pl-4 pb-2'>
+								Notifications
 							</h1>
+							<div className="w-full line bg-white opacity-75"></div>
 							<p className='text-white opacity-50 text-center align-middle mt-8'>
-								No New Notifications yet !
+								Your notifications will be here !
 							</p>
 						</div>
 						{/* <div className="bottom-0 flex flex-row ">
@@ -153,9 +155,10 @@ const MainContent: React.FC = React.memo(
 								src={
 									user != null && typeof profileImageQuery.data != "undefined"
 										? profileImageQuery.data[0].imageUrl
-										: "images/cryptopunk8550.png"
+										: "/images/cryptopunk8550.png"
 								}
 								className='w-16 h-16 rounded-full'
+
 							/>
 						</div>
 					</div>
@@ -230,6 +233,11 @@ const MainContent: React.FC = React.memo(
 
 				<style jsx>
 					{`
+
+					.line{
+						height: .03rem;	
+					}
+
 						.newscard {
 							display: none;
 						}
